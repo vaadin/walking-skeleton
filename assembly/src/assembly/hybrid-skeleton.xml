@@ -1,0 +1,32 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
+    <id>hybrid</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <outputDirectory>src/main/java</outputDirectory>
+            <directory>${basedir}/target/generated-sources/hybrid</directory>
+        </fileSet>
+        <fileSet>
+            <outputDirectory/>
+            <directory>${basedir}/../walking-skeleton</directory>
+            <includes>
+                <include>.mvn/**</include>
+                <include>src/**</include>
+                <include>.gitignore</include>
+                <include>.prettierrc.json</include>
+                <include>eclipse-formatter.xml</include>
+                <include>LICENSE.md</include>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+                <include>pom.xml</include>
+            </includes>
+            <excludes>
+                <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
+            </excludes>
+        </fileSet>
+    </fileSets>
+</assembly>
