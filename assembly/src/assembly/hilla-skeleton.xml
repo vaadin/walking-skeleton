@@ -1,14 +1,14 @@
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
-    <id>react</id>
+    <id>hilla</id>
     <formats>
         <format>zip</format>
     </formats>
     <fileSets>
         <fileSet>
             <outputDirectory>src/main/java</outputDirectory>
-            <directory>${basedir}/target/generated-sources/react</directory>
+            <directory>${basedir}/target/generated-sources/hilla</directory>
             <excludes>
                 <exclude>com/example/application/base/ui/**</exclude>
                 <exclude>com/example/application/todo/ui/**</exclude>
@@ -31,7 +31,7 @@
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
                 <exclude>src/main/frontend/generated/**</exclude>
-                <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/react instead -->
+                <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/hilla instead -->
             </excludes>
         </fileSet>
     </fileSets>

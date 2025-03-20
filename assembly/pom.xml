@@ -28,7 +28,7 @@
                     <descriptors>
                         <descriptor>src/assembly/empty-skeleton.xml</descriptor>
                         <descriptor>src/assembly/flow-skeleton.xml</descriptor>
-                        <descriptor>src/assembly/react-skeleton.xml</descriptor>
+                        <descriptor>src/assembly/hilla-skeleton.xml</descriptor>
                         <descriptor>src/assembly/hybrid-skeleton.xml</descriptor>
                     </descriptors>
                     <attach>false</attach>
