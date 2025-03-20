@@ -9,6 +9,9 @@
         <fileSet>
             <outputDirectory>src/main/java</outputDirectory>
             <directory>${basedir}/target/generated-sources/hybrid</directory>
+            <includes>
+                <include>com/example/application/todo/ui/view/TodoView.java</include>
+            </includes>
         </fileSet>
         <fileSet>
             <outputDirectory/>
@@ -26,6 +29,7 @@
             </includes>
             <excludes>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
+                <exclude>com/example/application/todo/ui/view/TodoView.java</exclude>
             </excludes>
         </fileSet>
     </fileSets>

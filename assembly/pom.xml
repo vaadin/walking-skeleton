@@ -73,6 +73,20 @@
                             <target>${basedir}/target/generated-sources/flow</target>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>preprocess-hybrid</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>preprocess</goal>
+                        </goals>
+                        <configuration>
+                            <vars>
+                                <ui.framework>react</ui.framework>
+                                <ui.hybrid>true</ui.hybrid>
+                            </vars>
+                            <target>${basedir}/target/generated-sources/hybrid</target>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <sources>

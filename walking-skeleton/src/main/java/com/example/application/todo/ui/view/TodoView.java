@@ -23,7 +23,11 @@ import java.util.Optional;
 
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
 
+//#ifdef ui.hybrid
+@Route("task-list-flow")
+//#else
 @Route("")
+//#endif
 @PageTitle("Task List")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
 public class TodoView extends Main {
