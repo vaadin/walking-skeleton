@@ -2,26 +2,19 @@ name: Refresh Branches
 
 env:
   GH_TOKEN: ${{ github.token }}
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Template branch'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - v24.7
-          - v24.8
+  push:
+    branches:
+      - v24.7
+      - v24.8
 
 jobs:
   build_assembly:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.branch }}
       - name: Set up Maven
         uses: stCarolas/setup-maven@v5
         with:
@@ -52,7 +45,7 @@ jobs:
       - run: |
           VIEWS=$(echo "${{ matrix.assembly }}" | awk '{print substr($0, 18, length($0)-21)}')
           echo "VIEWS=$VIEWS" >> $GITHUB_ENV
-          echo "BRANCH=${{inputs.branch}}-$VIEWS" >> $GITHUB_ENV
+          echo "BRANCH=${{ env.BRANCH_NAME }}-$VIEWS" >> $GITHUB_ENV
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.BRANCH }}
