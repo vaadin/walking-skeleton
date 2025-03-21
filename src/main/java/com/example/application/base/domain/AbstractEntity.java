@@ -1,6 +1,6 @@
 package com.example.application.base.domain;
 
-//#if ui.framework == "react"
+//#if ui.framework == "hilla"
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //#endif
 import jakarta.persistence.MappedSuperclass;
@@ -10,7 +10,7 @@ import org.springframework.data.util.ProxyUtils;
 @MappedSuperclass
 public abstract class AbstractEntity<ID> {
 
-    //#if ui.framework == "react"
+    //#if ui.framework == "hilla"
     @JsonIgnore
     //#endif
     public abstract @Nullable ID getId();
