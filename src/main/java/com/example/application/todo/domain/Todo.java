@@ -1,7 +1,7 @@
 package com.example.application.todo.domain;
 
 import com.example.application.base.domain.AbstractEntity;
-//#if ui.framework == "react"
+//#if ui.framework == "hilla"
 import com.fasterxml.jackson.annotation.JsonProperty;
 //#endif
 import jakarta.persistence.*;
@@ -20,7 +20,7 @@ public class Todo extends AbstractEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_id")
-    //#if ui.framework == "react"
+    //#if ui.framework == "hilla"
     @JsonProperty
     //#endif
     private Long id;

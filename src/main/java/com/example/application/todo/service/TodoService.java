@@ -2,7 +2,7 @@ package com.example.application.todo.service;
 
 import com.example.application.todo.domain.Todo;
 import com.example.application.todo.domain.TodoRepository;
-//#if ui.framework == "react"
+//#if ui.framework == "hilla"
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 //#endif
@@ -21,7 +21,7 @@ import java.util.List;
 //#if ui.framework == "flow"
 @Service
 //#endif
-//#if ui.framework == "react"
+//#if ui.framework == "hilla"
 @BrowserCallable
 @AnonymousAllowed
 //#endif
