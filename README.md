@@ -33,16 +33,16 @@ then be the starting point for _all_ tutorials and meat-on-the-bones-guides (i.e
 
 ## Missing Features
 
-- Integration test for the React view 
-- Updating the page title in the React layout
+- Integration test for the Hilla view 
+- Updating the page title in the Hilla layout
 - TestBench test (because it requires a commercial license)
 
 ## Open Questions
 
-- There is no router layout in React. Having two layouts in the same application makes things complicated. Still, if you
-  intend to write your UI in React, the generated skeleton should contain one in React.
-  - Should it be possible to customize the generated skeleton to use either a Flow or a React layout?
-  - If so, should there still be a Flow view with a React layout, and a React view with a Flow layout?
+- There is no router layout in Hilla. Having two layouts in the same application makes things complicated. Still, if you
+  intend to write your UI in Hilla, the generated skeleton should contain one in Hilla.
+  - Should it be possible to customize the generated skeleton to use either a Flow or a Hilla layout?
+  - If so, should there still be a Flow view with a Hilla layout, and a Hilla view with a Flow layout?
 - Can we get rid of the code formatter Maven plugin?
 - Can we get rid of the Maven wrapper?
 - What should the generated `.gitignore` file look like?
@@ -52,17 +52,17 @@ then be the starting point for _all_ tutorials and meat-on-the-bones-guides (i.e
 The [assembly](assembly) module generates two zip-files during the `package` build phase:
 
 - `assembly/target/walking-skeleton-flow.zip` - Flow example view and router layout
-- `assembly/target/walking-skeleton-react.zip` - React example view and router layout
+- `assembly/target/walking-skeleton-hilla.zip` - Hilla example view and router layout
 
 Both zip-files are generated from the same [base project](walking-skeleton), but include different files.
 
 ## Running the Base Project
 
-The [base project](walking-skeleton) is a working application, but it contains both Flow and React versions of the
+The [base project](walking-skeleton) is a working application, but it contains both Flow and Hilla versions of the
 example view and the router layout. These implementations will conflict during runtime. To avoid this, you have to 
 temporarily disable the ones you don't want to work on:
 
 - To disable the Flow view and router layout, comment out the `@Layout` and `@Route` annotations.
-- To disable the React view and router layout, rename the `frontend/views` directory to `frontend/_views`.
+- To disable the Hilla view and router layout, rename the `frontend/views` directory to `frontend/_views`.
 
 *Remember to restore the changes before you commit!*

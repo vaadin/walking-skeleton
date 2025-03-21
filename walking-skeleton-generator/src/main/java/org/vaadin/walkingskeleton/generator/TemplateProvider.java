@@ -16,7 +16,7 @@ class TemplateProvider {
     private final URL reactTemplate;
 
     public TemplateProvider(@Value("${walking-skeleton.templates.flow.url}") URL flowTemplate,
-                            @Value("${walking-skeleton.templates.react.url}") URL reactTemplate) {
+                            @Value("${walking-skeleton.templates.hilla.url}") URL reactTemplate) {
         this.flowTemplate = flowTemplate;
         this.reactTemplate = reactTemplate;
 

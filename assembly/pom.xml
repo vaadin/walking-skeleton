@@ -48,16 +48,16 @@
                 <version>7.1.2</version>
                 <executions>
                     <execution>
-                        <id>preprocess-react</id>
+                        <id>preprocess-hilla</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>preprocess</goal>
                         </goals>
                         <configuration>
                             <vars>
-                                <ui.framework>react</ui.framework>
+                                <ui.framework>hilla</ui.framework>
                             </vars>
-                            <target>${basedir}/target/generated-sources/react</target>
+                            <target>${basedir}/target/generated-sources/hilla</target>
                         </configuration>
                     </execution>
                     <execution>
@@ -81,7 +81,7 @@
                         </goals>
                         <configuration>
                             <vars>
-                                <ui.framework>react</ui.framework>
+                                <ui.framework>hilla</ui.framework>
                                 <ui.hybrid>true</ui.hybrid>
                             </vars>
                             <target>${basedir}/target/generated-sources/hybrid</target>
