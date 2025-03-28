@@ -5,16 +5,132 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.vaadin.walking-skeleton</groupId>
-    <artifactId>walking-skeleton-root</artifactId>
+    <artifactId>walking-skeleton-assembly</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Walking Skeleton Root</name>
+    <name>Walking Skeleton Assembly</name>
     <description>
-        Maven root project for the Walking Skeleton.
+        Uses Maven Assembly Plugin to create zip-files of the Walking Skeleton, ready to be used in projects.
     </description>
 
-    <modules>
-        <module>assembly</module>
-        <module>walking-skeleton-generator</module>
-    </modules>
+    <properties>
+        <spring-boot.version>3.4.3</spring-boot.version>
+        <java.version>21</java.version>
+        <vaadin.version>24.7.1</vaadin.version>
+        <walking-skeleton.source>${basedir}/src/main/resources/walking-skeleton</walking-skeleton.source>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- copy and update versions in pom.xml -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <target>
+                                <copy todir="target/generated-sources">
+                                    <fileset dir="${walking-skeleton.source}">
+                                        <include name="pom.xml"/>
+                                    </fileset>
+                                </copy>
+                                <replace token="###java.version###" value="${java.version}" dir="target/generated-sources">
+                                    <include name="pom.xml"/>
+                                </replace>
+                                <replace token="###vaadin.version###" value="${vaadin.version}" dir="target/generated-sources">
+                                    <include name="pom.xml"/>
+                                </replace>
+                                <replace token="###sping-boot.version###" value="${spring-boot.version}" dir="target/generated-sources">
+                                    <include name="pom.xml"/>
+                                </replace>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- process the templates -->
+            <plugin>
+                <groupId>com.igormaznitsa</groupId>
+                <artifactId>jcp</artifactId>
+                <version>7.1.2</version>
+                <executions>
+                    <execution>
+                        <id>preprocess-hilla</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>preprocess</goal>
+                        </goals>
+                        <configuration>
+                            <vars>
+                                <ui.framework>hilla</ui.framework>
+                            </vars>
+                            <target>${basedir}/target/generated-sources/hilla</target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>preprocess-flow</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>preprocess</goal>
+                        </goals>
+                        <configuration>
+                            <vars>
+                                <ui.framework>flow</ui.framework>
+                            </vars>
+                            <target>${basedir}/target/generated-sources/flow</target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>preprocess-hybrid</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>preprocess</goal>
+                        </goals>
+                        <configuration>
+                            <vars>
+                                <ui.framework>hilla</ui.framework>
+                                <ui.hybrid>true</ui.hybrid>
+                            </vars>
+                            <target>${basedir}/target/generated-sources/hybrid</target>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${walking-skeleton.source}/src/main/java</source>
+                    </sources>
+                    <keepLines>false</keepLines>
+                </configuration>
+            </plugin>
+            <!-- run assembly to build zipped projects -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <finalName>walking-skeleton</finalName>
+                    <descriptors>
+                        <descriptor>src/assembly/empty-skeleton.xml</descriptor>
+                        <descriptor>src/assembly/flow-skeleton.xml</descriptor>
+                        <descriptor>src/assembly/hilla-skeleton.xml</descriptor>
+                        <descriptor>src/assembly/hybrid-skeleton.xml</descriptor>
+                    </descriptors>
+                    <attach>false</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

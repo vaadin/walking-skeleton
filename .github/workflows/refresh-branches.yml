@@ -25,13 +25,13 @@ jobs:
           java-version: '21'
       - run: |
           mvn -ntp -B -q clean package
-          cd assembly/target
+          cd target
           ASSEMBLIES=$(ls *.zip | jq -R -s -c 'split("\n")[:-1]')
           echo "ASSEMBLIES=$ASSEMBLIES" >> $GITHUB_ENV
       - uses: actions/upload-artifact@v4
         with:
           name: assemblies
-          path: assembly/target/walking-skeleton-*.zip
+          path: target/walking-skeleton-*.zip
     outputs:
       assemblies: ${{ env.ASSEMBLIES }}
 

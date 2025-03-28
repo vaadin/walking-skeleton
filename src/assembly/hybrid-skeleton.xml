@@ -1,35 +1,43 @@
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 http://maven.apache.org/xsd/assembly-2.2.0.xsd">
-    <id>flow</id>
+    <id>hybrid</id>
     <formats>
         <format>zip</format>
     </formats>
     <fileSets>
         <fileSet>
+            <outputDirectory>/</outputDirectory>
+            <directory>${basedir}/target/generated-sources</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <outputDirectory>src/main/java</outputDirectory>
-            <directory>${basedir}/target/generated-sources/flow</directory>
+            <directory>${basedir}/target/generated-sources/hybrid</directory>
+            <includes>
+                <include>com/example/application/todo/ui/view/TodoView.java</include>
+            </includes>
         </fileSet>
         <fileSet>
             <outputDirectory/>
-            <directory>${basedir}/../walking-skeleton</directory>
+            <directory>${walking-skeleton.source}</directory>
             <includes>
                 <include>.mvn/**</include>
                 <include>src/**</include>
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
+                <include>README.md</include>
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
-                <include>pom.xml</include>
             </includes>
             <excludes>
-                <exclude>src/main/bundles/**</exclude>
-                <exclude>src/main/frontend/generated/**</exclude>
-                <exclude>src/main/frontend/components/**</exclude>
-                <exclude>src/main/frontend/views/**</exclude>
-                <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/flow instead -->
+                <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
+                <exclude>com/example/application/todo/ui/view/TodoView.java</exclude>
+                <exclude>pom.xml</exclude>
             </excludes>
         </fileSet>
     </fileSets>
