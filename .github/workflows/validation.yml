@@ -8,6 +8,7 @@ on:  pull_request
 
 jobs:
   build_assembly:
+    name: Build assembly
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,6 +33,7 @@ jobs:
       assemblies: ${{ env.ASSEMBLIES }}
 
   validate_assembly:
+    name: Build ${{ matrix.assembly }}
     runs-on: ubuntu-latest
     needs: build_assembly
     strategy:
