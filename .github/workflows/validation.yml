@@ -20,15 +20,18 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Build template and assembly
+      - name: Build template and assemblies
         run: |
           mvn -ntp -B -q clean package
-          ASSEMBLIES=$(ls assembly/target/*.zip)
-      - name: Maven package assemblies
+      - name: Build each assembly
         run: |
-          for ASSEMBLY in $ASSEMBLIES; do
-            echo "Testing $ASSEMBLY"
-            pushd $ASSEMBLY
+          cd assembly/target
+          for ASSEMBLY in empty flow hilla hybrid; do
+            echo "Building walking-skeleton-${ASSEMBLY}"
+            unzip -q ${ASSEMBLY}.zip
+            cd walking-skeleton
             mvn -ntp -B -q clean package
-            popd
+            cd ..
+            rm -rf walking-skeleton
+            echo "Done"
           done
