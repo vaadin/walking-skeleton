@@ -20,12 +20,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Build Walking Skeleton template
+      - name: Build template and assembly
         run: |
-          mvn -ntp -B -q clean package -pl :walking-skeleton
-      - name: Build assemblies
-        run: |
-          mvn -ntp -B -q clean package -pl :assembly
+          mvn -ntp -B -q clean package
           ASSEMBLIES=$(ls assembly/target/*.zip | jq -R -s -c 'split("\n")[:-1]')
       - name: Maven package assemblies
         run: |
