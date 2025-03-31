@@ -1,8 +1,0 @@
-vite.generated.ts
-node_modules/
-src/main/frontend/generated/
-src/main/bundles/
-application-dev.properties
-
-# Don't check in my internal deployment scripts
-/*.sh
