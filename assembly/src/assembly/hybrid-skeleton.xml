@@ -8,10 +8,10 @@
     <fileSets>
         <fileSet>
             <outputDirectory>src/main/java</outputDirectory>
-            <directory>${basedir}/target/generated-sources/hybrid</directory>
-            <includes>
-                <include>com/example/application/todo/ui/view/TodoView.java</include>
-            </includes>
+            <directory>${basedir}/target/generated-sources/hilla</directory>
+            <excludes>
+                <exclude>com/example/application/base/ui/view/MainLayout.java</exclude>
+            </excludes>
         </fileSet>
         <fileSet>
             <outputDirectory/>
@@ -22,6 +22,7 @@
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
+                <include>README.md</include>
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
@@ -29,7 +30,6 @@
             </includes>
             <excludes>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
-                <exclude>com/example/application/todo/ui/view/TodoView.java</exclude>
             </excludes>
         </fileSet>
     </fileSets>
