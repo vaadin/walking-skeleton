@@ -23,7 +23,7 @@ jobs:
       - name: Build template and assembly
         run: |
           mvn -ntp -B -q clean package
-          ASSEMBLIES=$(ls assembly/target/*.zip | jq -R -s -c 'split("\n")[:-1]')
+          ASSEMBLIES=$(ls assembly/target/*.zip)
       - name: Maven package assemblies
         run: |
           for ASSEMBLY in $ASSEMBLIES; do
