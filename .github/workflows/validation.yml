@@ -28,7 +28,7 @@ jobs:
           cd assembly/target
           for ASSEMBLY in empty flow hilla hybrid; do
             echo "Building walking-skeleton-${ASSEMBLY}"
-            unzip -q ${ASSEMBLY}.zip
+            unzip -q walking-skeleton-${ASSEMBLY}
             cd walking-skeleton
             mvn -ntp -B -q clean package
             cd ..
