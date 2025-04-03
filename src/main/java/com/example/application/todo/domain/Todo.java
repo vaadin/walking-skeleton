@@ -1,9 +1,7 @@
 package com.example.application.todo.domain;
 
 import com.example.application.base.domain.AbstractEntity;
-//#if ui.framework == "hilla"
 import com.fasterxml.jackson.annotation.JsonProperty;
-//#endif
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import org.jspecify.annotations.Nullable;
@@ -20,9 +18,7 @@ public class Todo extends AbstractEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "todo_id")
-    //#if ui.framework == "hilla"
     @JsonProperty
-    //#endif
     private Long id;
 
     @Column(name = "description", nullable = false, length = DESCRIPTION_MAX_LENGTH)
