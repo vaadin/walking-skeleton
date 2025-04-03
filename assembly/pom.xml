@@ -73,20 +73,6 @@
                             <target>${basedir}/target/generated-sources/flow</target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>preprocess-hybrid</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>preprocess</goal>
-                        </goals>
-                        <configuration>
-                            <vars>
-                                <ui.framework>hilla</ui.framework>
-                                <ui.hybrid>true</ui.hybrid>
-                            </vars>
-                            <target>${basedir}/target/generated-sources/hybrid</target>
-                        </configuration>
-                    </execution>
                 </executions>
                 <configuration>
                     <sources>
@@ -94,6 +80,29 @@
                     </sources>
                     <keepLines>false</keepLines>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <configuration>
+                            <target>
+                                <!-- Replace hybrid view route in Flow only starter -->
+                                <replace token="task-list-flow" value="" dir="target/generated-sources/flow">
+                                    <include name="**/TodoView.java"/>
+                                </replace>
+                                <!-- Replace hybrid view name in Flow only starter -->
+                                <replace token="Task List Flow" value="Task List" dir="target/generated-sources/flow">
+                                    <include name="**/TodoView.java"/>
+                                </replace>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

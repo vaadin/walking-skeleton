@@ -49,16 +49,18 @@ then be the starting point for _all_ tutorials and meat-on-the-bones-guides (i.e
 
 ## Generating Walking Skeletons
 
-The [assembly](assembly) module generates two zip-files during the `package` build phase:
+The [assembly](assembly) module generates four zip-files during the `package` build phase:
 
+- `assembly/target/walking-skeleton-empty.zip` - Example without any views
 - `assembly/target/walking-skeleton-flow.zip` - Flow example view and router layout
 - `assembly/target/walking-skeleton-hilla.zip` - Hilla example view and router layout
+- `assembly/target/walking-skeleton-hybrid.zip` - Flow and Hilla example views using Hilla router layout
 
-Both zip-files are generated from the same [base project](walking-skeleton), but include different files.
+All zip-files are generated from the same [base project](walking-skeleton), but include different files.
 
 ## Running the Base Project
 
-The [base project](walking-skeleton) is a working application, but it contains both Flow and Hilla versions of the
+The [base project](walking-skeleton) is a working Hybrid application, but it contains both Flow and Hilla versions of the
 example view and the router layout. These implementations will conflict during runtime. To avoid this, you have to 
 temporarily disable the ones you don't want to work on:
 
