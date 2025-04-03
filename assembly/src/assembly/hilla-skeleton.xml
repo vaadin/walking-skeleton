@@ -23,6 +23,7 @@
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
+                <include>README.md</include>
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
