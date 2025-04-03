@@ -15,6 +15,5 @@
 
     <modules>
         <module>assembly</module>
-        <module>walking-skeleton-generator</module>
     </modules>
 </project>
