@@ -2,15 +2,10 @@ package com.example.application.todo.service;
 
 import com.example.application.todo.domain.Todo;
 import com.example.application.todo.domain.TodoRepository;
-//#if ui.framework == "hilla"
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-//#endif
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
-//#if ui.framework == "flow"
-import org.springframework.stereotype.Service;
-//#endif
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +13,8 @@ import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
 
-//#if ui.framework == "flow"
-@Service
-//#endif
-//#if ui.framework == "hilla"
 @BrowserCallable
 @AnonymousAllowed
-//#endif
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public class TodoService {
 
