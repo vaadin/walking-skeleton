@@ -1,12 +1,12 @@
-package com.example.application.todo.domain;
+package com.example.application.taskmanagement.domain;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface TodoRepository extends JpaRepository<Todo, Long>, JpaSpecificationExecutor<Todo> {
+public interface TaskRepository extends JpaRepository<Task, Long>, JpaSpecificationExecutor<Task> {
 
     // If you don't need a total row count, Slice is better than Page.
-    Slice<Todo> findAllBy(Pageable pageable);
+    Slice<Task> findAllBy(Pageable pageable);
 }
