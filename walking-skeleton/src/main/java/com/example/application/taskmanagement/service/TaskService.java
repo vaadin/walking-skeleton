@@ -1,7 +1,7 @@
-package com.example.application.todo.service;
+package com.example.application.taskmanagement.service;
 
-import com.example.application.todo.domain.Todo;
-import com.example.application.todo.domain.TodoRepository;
+import com.example.application.taskmanagement.domain.Task;
+import com.example.application.taskmanagement.domain.TaskRepository;
 //#if ui.framework == "hilla"
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
@@ -26,30 +26,30 @@ import java.util.List;
 @AnonymousAllowed
 //#endif
 @Transactional(propagation = Propagation.REQUIRES_NEW)
-public class TodoService {
+public class TaskService {
 
-    private final TodoRepository todoRepository;
+    private final TaskRepository taskRepository;
 
     private final Clock clock;
 
-    TodoService(TodoRepository todoRepository, Clock clock) {
-        this.todoRepository = todoRepository;
+    TaskService(TaskRepository taskRepository, Clock clock) {
+        this.taskRepository = taskRepository;
         this.clock = clock;
     }
 
-    public void createTodo(String description, @Nullable LocalDate dueDate) {
+    public void createTask(String description, @Nullable LocalDate dueDate) {
         if ("fail".equals(description)) {
             throw new RuntimeException("This is for testing the error handler");
         }
-        var todo = new Todo();
-        todo.setDescription(description);
-        todo.setCreationDate(clock.instant());
-        todo.setDueDate(dueDate);
-        todoRepository.saveAndFlush(todo);
+        var task = new Task();
+        task.setDescription(description);
+        task.setCreationDate(clock.instant());
+        task.setDueDate(dueDate);
+        taskRepository.saveAndFlush(task);
     }
 
-    public List<Todo> list(Pageable pageable) {
-        return todoRepository.findAllBy(pageable).toList();
+    public List<Task> list(Pageable pageable) {
+        return taskRepository.findAllBy(pageable).toList();
     }
 
 }
