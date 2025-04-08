@@ -20,11 +20,11 @@ import java.util.List;
 
 //#if ui.framework == "flow"
 @Service
-//#endif
-//#if ui.framework == "hilla"
+// #endif
+// #if ui.framework == "hilla"
 @BrowserCallable
 @AnonymousAllowed
-//#endif
+// #endif
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public class TaskService {
 

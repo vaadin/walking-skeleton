@@ -7,7 +7,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 /**
- * This view shows up when a user navigates to the root ('/') of the application.
+ * This view shows up when a user navigates to the root ('/') of the
+ * application.
  */
 @Route
 public final class MainView extends Main {

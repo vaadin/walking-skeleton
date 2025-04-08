@@ -20,9 +20,9 @@ public class Task extends AbstractEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
-    //#if ui.framework == "hilla"
+    // #if ui.framework == "hilla"
     @JsonProperty
-    //#endif
+    // #endif
     private Long id;
 
     @Column(name = "description", nullable = false, length = DESCRIPTION_MAX_LENGTH)
