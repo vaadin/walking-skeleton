@@ -1,4 +1,4 @@
-package com.example.application.todo.domain;
+package com.example.application.taskmanagement.domain;
 
 import com.example.application.base.domain.AbstractEntity;
 import jakarta.persistence.*;
@@ -9,14 +9,14 @@ import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "todo")
-public class Todo extends AbstractEntity<Long> {
+@Table(name = "task")
+public class Task extends AbstractEntity<Long> {
 
     public static final int DESCRIPTION_MAX_LENGTH = 255;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "todo_id")
+    @Column(name = "task_id")
     private Long id;
 
     @Column(name = "description", nullable = false, length = DESCRIPTION_MAX_LENGTH)
