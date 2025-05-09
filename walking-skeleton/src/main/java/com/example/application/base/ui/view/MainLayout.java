@@ -16,10 +16,12 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import jakarta.annotation.security.PermitAll;
 
 import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 
 @Layout
+@PermitAll // When security is enabled, allow all authenticated users
 public final class MainLayout extends AppLayout {
 
     MainLayout() {
@@ -68,9 +70,9 @@ public final class MainLayout extends AppLayout {
 
         var userMenuItem = userMenu.addItem(avatar);
         userMenuItem.add("John Smith");
-        userMenuItem.getSubMenu().addItem("View Profile");
-        userMenuItem.getSubMenu().addItem("Manage Settings");
-        userMenuItem.getSubMenu().addItem("Logout");
+        userMenuItem.getSubMenu().addItem("View Profile").setEnabled(false);
+        userMenuItem.getSubMenu().addItem("Manage Settings").setEnabled(false);
+        userMenuItem.getSubMenu().addItem("Logout").setEnabled(false);
 
         return userMenu;
     }

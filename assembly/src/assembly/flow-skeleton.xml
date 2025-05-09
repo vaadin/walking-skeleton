@@ -24,6 +24,7 @@
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
                 <include>pom.xml</include>
+                <include>Dockerfile</include>
             </includes>
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
