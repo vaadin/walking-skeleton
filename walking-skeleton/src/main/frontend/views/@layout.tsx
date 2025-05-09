@@ -4,6 +4,7 @@ import {
   Avatar,
   Icon,
   MenuBar,
+  MenuBarItem,
   MenuBarItemSelectedEvent,
   ProgressBar,
   Scroller,
@@ -39,9 +40,11 @@ function MainMenu() {
   );
 }
 
+type UserMenuItem = MenuBarItem<{ action?: () => void }>;
+
 function UserMenu() {
   // TODO Replace with real user information and actions
-  const items = [
+  const items: Array<UserMenuItem> = [
     {
       component: (
         <>
@@ -49,17 +52,14 @@ function UserMenu() {
         </>
       ),
       children: [
-        { text: 'View Profile', action: () => console.log('View Profile') },
-        { text: 'Manage Settings', action: () => console.log('Manage Settings') },
-        { text: 'Logout', action: () => console.log('Logout') },
+        { text: 'View Profile', disabled: true, action: () => console.log('View Profile') },
+        { text: 'Manage Settings', disabled: true, action: () => console.log('Manage Settings') },
+        { text: 'Logout', disabled: true, action: () => console.log('Logout') },
       ],
     },
   ];
-  const onItemSelected = (event: MenuBarItemSelectedEvent) => {
-    const action = (event.detail.value as any).action;
-    if (action) {
-      action();
-    }
+  const onItemSelected = (event: MenuBarItemSelectedEvent<UserMenuItem>) => {
+    event.detail.value.action?.();
   };
   return (
     <MenuBar theme="tertiary-inline" items={items} onItemSelected={onItemSelected} className="m-m" slot="drawer" />

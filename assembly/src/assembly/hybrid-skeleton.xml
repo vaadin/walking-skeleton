@@ -28,6 +28,7 @@
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
                 <include>pom.xml</include>
+                <include>Dockerfile</include>
             </includes>
             <excludes>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
