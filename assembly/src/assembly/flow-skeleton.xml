@@ -23,7 +23,6 @@
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
-                <include>pom.xml</include>
                 <include>Dockerfile</include>
             </includes>
             <excludes>
@@ -35,4 +34,12 @@
             </excludes>
         </fileSet>
     </fileSets>
+    <!-- At the moment, Control Center only works with Flow apps. Adding its dependency to a Hilla app will break the production build. -->
+    <files>
+        <file>
+            <source>${basedir}/../walking-skeleton/pom-with-control-center.xml</source>
+            <outputDirectory/>
+            <destName>pom.xml</destName>
+        </file>
+    </files>
 </assembly>
