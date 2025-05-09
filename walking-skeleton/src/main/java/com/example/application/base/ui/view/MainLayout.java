@@ -16,7 +16,12 @@ import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.PermitAll;
+import org.jspecify.annotations.Nullable;
+import org.springframework.beans.factory.ObjectProvider;
+
+import java.util.Optional;
 
 import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 
@@ -24,7 +29,10 @@ import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 @PermitAll // When security is enabled, allow all authenticated users
 public final class MainLayout extends AppLayout {
 
-    MainLayout() {
+    private final @Nullable AuthenticationContext authenticationContext;
+
+    MainLayout(ObjectProvider<AuthenticationContext> authenticationContext) {
+        this.authenticationContext = authenticationContext.getIfAvailable();
         setPrimarySection(Section.DRAWER);
         addToDrawer(createHeader(), new Scroller(createSideNav()), createUserMenu());
     }
@@ -58,8 +66,18 @@ public final class MainLayout extends AppLayout {
     }
 
     private Component createUserMenu() {
-        // TODO Replace with real user information and actions
-        var avatar = new Avatar("John Smith");
+        if (authenticationContext == null || !authenticationContext.isAuthenticated()) {
+            // This happens if the security of your application is not configured correctly.
+            // See https://vaadin.com/docs/latest/building-apps/security for details.
+
+            var badge = new Span("Security not configured");
+            badge.getElement().getThemeList().add("badge error");
+            badge.addClassNames(Margin.MEDIUM);
+            return badge;
+        }
+
+        var fullName = getUserFullName().orElseThrow();
+        var avatar = new Avatar(fullName);
         avatar.addThemeVariants(AvatarVariant.LUMO_XSMALL);
         avatar.addClassNames(Margin.Right.SMALL);
         avatar.setColorIndex(5);
@@ -69,12 +87,24 @@ public final class MainLayout extends AppLayout {
         userMenu.addClassNames(Margin.MEDIUM);
 
         var userMenuItem = userMenu.addItem(avatar);
-        userMenuItem.add("John Smith");
-        userMenuItem.getSubMenu().addItem("View Profile").setEnabled(false);
-        userMenuItem.getSubMenu().addItem("Manage Settings").setEnabled(false);
-        userMenuItem.getSubMenu().addItem("Logout").setEnabled(false);
+        userMenuItem.add(fullName);
+        userMenuItem.getSubMenu().addItem("View Profile").setEnabled(false); // TODO Implement or remove
+        userMenuItem.getSubMenu().addItem("Manage Settings").setEnabled(false); // TODO Implement or remove
+        userMenuItem.getSubMenu().addItem("Logout", event -> authenticationContext.logout());
 
         return userMenu;
     }
 
+    private Optional<String> getUserFullName() {
+        if (authenticationContext == null) {
+            return Optional.empty();
+        }
+        // If you are using OIDC (e.g., via Vaadin Control Center), this returns the user's full name:
+        //return authenticationContext
+        //        .getAuthenticatedUser(OidcUser.class)
+        //        .map(OidcUser::getUserInfo)
+        //        .map(StandardClaimAccessor::getFullName);
+
+        return authenticationContext.getPrincipalName(); // TODO This is typically a username or ID, not the full name.
+    }
 }
