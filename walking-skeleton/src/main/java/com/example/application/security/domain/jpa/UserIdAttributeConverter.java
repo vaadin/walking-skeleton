@@ -8,17 +8,16 @@ import org.jspecify.annotations.Nullable;
 /**
  * JPA attribute converter for {@link UserId} domain primitives.
  * <p>
- * This converter enables seamless persistence of {@link UserId} objects in JPA entities
- * by converting them to and from their string representation in the database. It allows
- * entity fields of type {@link UserId} to be automatically converted to {@code VARCHAR}
- * columns and vice versa.
+ * This converter enables seamless persistence of {@link UserId} objects in JPA entities by converting them to and from
+ * their string representation in the database. It allows entity fields of type {@link UserId} to be automatically
+ * converted to {@code VARCHAR} columns and vice versa.
  * </p>
  * <p>
- * The converter handles null values gracefully, converting null {@link UserId} objects
- * to null database values and null database values back to null {@link UserId} objects.
+ * The converter handles null values gracefully, converting null {@link UserId} objects to null database values and null
+ * database values back to null {@link UserId} objects.
  * </p>
  * <p>
- * Example usage in JPA entities:
+ * Example usage in JPA entities: <!-- spotless:off -->
  * <pre>
  * {@code
  * @Entity
@@ -31,11 +30,11 @@ import org.jspecify.annotations.Nullable;
  * }
  * }
  * </pre>
+ * <!-- spotless:on -->
  * </p>
  * <p>
- * To apply this converter automatically to all {@link UserId} fields without explicit
- * {@code @Convert} annotations, add {@code autoApply = true} to the {@code @Converter}
- * annotation.
+ * To apply this converter automatically to all {@link UserId} fields without explicit {@code @Convert} annotations, add
+ * {@code autoApply = true} to the {@code @Converter} annotation.
  * </p>
  *
  * @see UserId The domain primitive this converter handles

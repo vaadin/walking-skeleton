@@ -8,17 +8,16 @@ import static java.util.Objects.requireNonNull;
 /**
  * Domain primitive representing a user's unique identifier.
  * <p>
- * This class encapsulates a user ID string value, providing type safety and validation.
- * It follows the domain primitive pattern, ensuring that all user IDs in the application
- * are validated consistently and can be used as immutable value objects.
+ * This class encapsulates a user ID string value, providing type safety and validation. It follows the domain primitive
+ * pattern, ensuring that all user IDs in the application are validated consistently and can be used as immutable value
+ * objects.
  * </p>
  * <p>
- * UserId objects are immutable, serializable, and implement proper equality semantics.
- * They should be used throughout the application wherever a user ID is needed, rather
- * than using raw strings.
+ * UserId objects are immutable, serializable, and implement proper equality semantics. They should be used throughout
+ * the application wherever a user ID is needed, rather than using raw strings.
  * </p>
  * <p>
- * Example usage:
+ * Example usage: <!-- spotless:off -->
  * <pre>
  * {@code
  * // Creating a UserId
@@ -31,6 +30,7 @@ import static java.util.Objects.requireNonNull;
  * String userIdString = userId.toString();
  * }
  * </pre>
+ * <!-- spotless:on -->
  * </p>
  */
 public final class UserId implements Serializable {
@@ -45,8 +45,8 @@ public final class UserId implements Serializable {
     /**
      * Creates a new {@code UserId} instance with the specified value.
      * <p>
-     * This factory method is the recommended way to create UserId objects. It
-     * ensures proper validation and encapsulation of the user ID value.
+     * This factory method is the recommended way to create UserId objects. It ensures proper validation and
+     * encapsulation of the user ID value.
      * </p>
      *
      * @param userId
@@ -62,8 +62,7 @@ public final class UserId implements Serializable {
     /**
      * Returns the string representation of this user ID.
      * <p>
-     * This method returns the original user ID string that was provided when this
-     * object was created.
+     * This method returns the original user ID string that was provided when this object was created.
      * </p>
      *
      * @return the user ID as a string

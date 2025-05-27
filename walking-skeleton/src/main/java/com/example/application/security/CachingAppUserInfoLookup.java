@@ -13,17 +13,16 @@ import static java.util.Objects.requireNonNull;
 /**
  * Caching decorator for {@link AppUserInfoLookup} that provides in-memory caching of user information.
  * <p>
- * This implementation wraps another {@link AppUserInfoLookup} and caches successful lookups
- * in memory to reduce the number of expensive remote calls. The cache has configurable
- * expiration and maximum size limits to prevent memory issues.
+ * This implementation wraps another {@link AppUserInfoLookup} and caches successful lookups in memory to reduce the
+ * number of expensive remote calls. The cache has configurable expiration and maximum size limits to prevent memory
+ * issues.
  * </p>
  * <p>
- * The cache is thread-safe and handles concurrent access properly. Cache misses and
- * lookup failures are not cached, ensuring that temporary failures don't prevent
- * future successful lookups.
+ * The cache is thread-safe and handles concurrent access properly. Cache misses and lookup failures are not cached,
+ * ensuring that temporary failures don't prevent future successful lookups.
  * </p>
  * <p>
- * Example usage:
+ * Example usage: <!-- spotless:off -->
  * <pre>
  * {@code
  * AppUserInfoLookup keycloakLookup = new KeycloakAppUserInfoLookup(credentials);
@@ -34,6 +33,7 @@ import static java.util.Objects.requireNonNull;
  *     .build();
  * }
  * </pre>
+ * <!-- spotless:on -->
  * </p>
  *
  * @see AppUserInfoLookup The interface this decorator implements
@@ -44,8 +44,7 @@ public final class CachingAppUserInfoLookup implements AppUserInfoLookup {
     private final Cache<UserId, AppUserInfo> cache;
 
     /**
-     * Creates a new caching lookup with the specified delegate and cache
-     * configuration.
+     * Creates a new caching lookup with the specified delegate and cache configuration.
      *
      * @param delegate
      *            the underlying lookup service to delegate to
@@ -80,8 +79,7 @@ public final class CachingAppUserInfoLookup implements AppUserInfoLookup {
     }
 
     /**
-     * Builder for creating {@link CachingAppUserInfoLookup} instances with custom
-     * configuration.
+     * Builder for creating {@link CachingAppUserInfoLookup} instances with custom configuration.
      */
     public static class Builder {
         private @Nullable AppUserInfoLookup delegate;

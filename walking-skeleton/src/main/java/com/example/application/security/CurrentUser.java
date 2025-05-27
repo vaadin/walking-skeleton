@@ -11,17 +11,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Optional;
 
 /**
- * Utility class for retrieving the currently authenticated user from the Spring
- * Security context.
+ * Utility class for retrieving the currently authenticated user from the Spring Security context.
  * <p>
- * This class provides methods to safely access user information stored in the
- * authentication principal, supporting principals that implement
- * {@link AppUserPrincipal}. It serves as a bridge between Spring Security's
- * authentication model and the application's user information model.
+ * This class provides methods to safely access user information stored in the authentication principal, supporting
+ * principals that implement {@link AppUserPrincipal}. It serves as a bridge between Spring Security's authentication
+ * model and the application's user information model.
  * </p>
  * <p>
  * Usage examples:
- * 
+ *
+ * <!-- spotless:off -->
  * <pre>
  * {@code
  * // Get the current user if available
@@ -34,13 +33,12 @@ import java.util.Optional;
  * String fullName = CurrentUser.require().fullName();
  * }
  * </pre>
+ * <!-- spotless:on -->
  * </p>
  *
  * @see AppUserInfo The application's user information model
- * @see AppUserPrincipal The principal interface that provides access to user
- *      information
- * @see AppUserInfoLookup For looking up information about any user, not just
- *      the current one
+ * @see AppUserPrincipal The principal interface that provides access to user information
+ * @see AppUserInfoLookup For looking up information about any user, not just the current one
  */
 public final class CurrentUser {
 
@@ -55,19 +53,17 @@ public final class CurrentUser {
     /**
      * Returns the currently authenticated user from the security context.
      * <p>
-     * This method safely extracts user information from the current security
-     * context without throwing exceptions for unauthenticated requests or
-     * incompatible principal types.
+     * This method safely extracts user information from the current security context without throwing exceptions for
+     * unauthenticated requests or incompatible principal types.
      * </p>
      * <p>
-     * The method expects the authentication principal to implement
-     * {@link AppUserPrincipal}. If the principal doesn't implement this interface,
-     * a warning is logged and an empty Optional is returned.
+     * The method expects the authentication principal to implement {@link AppUserPrincipal}. If the principal doesn't
+     * implement this interface, a warning is logged and an empty Optional is returned.
      * </p>
      *
-     * @return an {@code Optional} containing the current user if authenticated and
-     *         accessible, or an empty {@code Optional} if there is no authenticated
-     *         user or the principal doesn't implement {@link AppUserPrincipal}
+     * @return an {@code Optional} containing the current user if authenticated and accessible, or an empty
+     *         {@code Optional} if there is no authenticated user or the principal doesn't implement
+     *         {@link AppUserPrincipal}
      * @see #require() For cases where authentication is required
      */
     public static Optional<AppUserInfo> get() {
@@ -78,10 +74,8 @@ public final class CurrentUser {
      * Extracts user information from the provided authentication object.
      *
      * @param authentication
-     *            the authentication object from which to extract user information,
-     *            may be {@code null}
-     * @return the user information if available, or {@code null} if it cannot be
-     *         extracted
+     *            the authentication object from which to extract user information, may be {@code null}
+     * @return the user information if available, or {@code null} if it cannot be extracted
      */
     private static @Nullable AppUserInfo getUserFromAuthentication(@Nullable Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null
@@ -103,14 +97,14 @@ public final class CurrentUser {
     /**
      * Returns the currently authenticated user from the security context.
      * <p>
-     * Unlike {@link #get()}, this method throws an exception if no user is
-     * authenticated, making it suitable for endpoints that require authentication.
+     * Unlike {@link #get()}, this method throws an exception if no user is authenticated, making it suitable for
+     * endpoints that require authentication.
      * </p>
      *
      * @return the currently authenticated user (never {@code null})
      * @throws AuthenticationCredentialsNotFoundException
-     *             if there is no authenticated user, or the authenticated principal
-     *             doesn't implement {@link AppUserPrincipal}
+     *             if there is no authenticated user, or the authenticated principal doesn't implement
+     *             {@link AppUserPrincipal}
      */
     public static AppUserInfo require() {
         return get().orElseThrow(() -> new AuthenticationCredentialsNotFoundException("No current user"));
