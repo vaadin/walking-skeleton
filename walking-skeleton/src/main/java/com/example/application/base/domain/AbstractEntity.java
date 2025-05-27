@@ -10,9 +10,9 @@ import org.springframework.data.util.ProxyUtils;
 @MappedSuperclass
 public abstract class AbstractEntity<ID> {
 
-//#if ui.framework == "hilla"
+    //#if ui.framework == "hilla"
     @JsonIgnore
-//#endif
+    //#endif
     public abstract @Nullable ID getId();
 
     @Override

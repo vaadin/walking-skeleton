@@ -8,9 +8,9 @@
  * </p>
  */
 @NullMarked
-// #if ui.framework == "hilla"
+//#if ui.framework == "hilla"
 @NonNullApi // Until https://github.com/vaadin/hilla/issues/2612 has been fixed
-// #endif
+//#endif
 package com.example.application.taskmanagement.service;
 
 import org.jspecify.annotations.NullMarked;
