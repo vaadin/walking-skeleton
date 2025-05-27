@@ -20,6 +20,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+      - name: Spotless check
+        run: |
+          mvn spotless:check
       - name: Build template and assemblies
         run: |
           mvn -ntp -B -q clean package
