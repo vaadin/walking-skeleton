@@ -129,6 +129,7 @@
                 <version>2.44.4</version>
                 <configuration>
                     <java>
+                        <toggleOffOn/>
                         <eclipse>
                             <version>4.35</version>
                             <file>${project.basedir}/eclipse-formatter.xml</file>

@@ -29,7 +29,7 @@
                         <toggleOffOn/>
                         <eclipse>
                             <version>4.35</version>
-                            <file>${maven.multiModuleProjectDirectory}/eclipse-formatter.xml</file>
+                            <file>${maven.multiModuleProjectDirectory}/walking-skeleton/eclipse-formatter.xml</file>
                         </eclipse>
                         <importOrder>
                             <file>${maven.multiModuleProjectDirectory}/eclipse.importorder</file>
