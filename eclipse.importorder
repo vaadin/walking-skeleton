@@ -3,4 +3,4 @@
 2=java
 4=com.google.gwt
 5=com.vaadin
-6=elemental
+6=com.fasterxml.jackson
