@@ -5,7 +5,11 @@ import { router } from 'Frontend/generated/routes.js';
 import { AuthProvider } from 'Frontend/security/auth';
 
 function App() {
-  return <AuthProvider><RouterProvider router={router} /></AuthProvider>;
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
 }
 
 const outlet = document.getElementById('outlet')!;
