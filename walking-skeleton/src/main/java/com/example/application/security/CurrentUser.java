@@ -67,17 +67,38 @@ public final class CurrentUser {
      * @see #require() For cases where authentication is required
      */
     public static Optional<AppUserInfo> get() {
-        return Optional.ofNullable(getUserFromAuthentication(SecurityContextHolder.getContext().getAuthentication()));
+        return getPrincipal().map(AppUserPrincipal::getAppUser);
     }
 
     /**
-     * Extracts user information from the provided authentication object.
+     * Returns the currently authenticated principal from the security context.
+     * <p>
+     * This method safely extracts the principal from the current security context without throwing exceptions for
+     * unauthenticated requests or incompatible principal types.
+     * </p>
+     * <p>
+     * The method expects the authentication principal to implement {@link AppUserPrincipal}. If the principal doesn't
+     * implement this interface, a warning is logged and an empty Optional is returned.
+     * </p>
+     *
+     * @return an {@code Optional} containing the current principal if authenticated and accessible, or an empty
+     *         {@code Optional} if there is no authenticated user or the principal doesn't implement
+     *         {@link AppUserPrincipal}
+     * @see #requirePrincipal() For cases where authentication is required
+     */
+    public static Optional<AppUserPrincipal> getPrincipal() {
+        return Optional
+                .ofNullable(getPrincipalFromAuthentication(SecurityContextHolder.getContext().getAuthentication()));
+    }
+
+    /**
+     * Extracts the principal from the provided authentication object.
      *
      * @param authentication
-     *            the authentication object from which to extract user information, may be {@code null}
-     * @return the user information if available, or {@code null} if it cannot be extracted
+     *            the authentication object from which to extract the principal, may be {@code null}
+     * @return the principal if available, or {@code null} if it cannot be extracted
      */
-    private static @Nullable AppUserInfo getUserFromAuthentication(@Nullable Authentication authentication) {
+    private static @Nullable AppUserPrincipal getPrincipalFromAuthentication(@Nullable Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null
                 || authentication instanceof AnonymousAuthenticationToken) {
             return null;
@@ -86,7 +107,7 @@ public final class CurrentUser {
         var principal = authentication.getPrincipal();
 
         if (principal instanceof AppUserPrincipal appUserPrincipal) {
-            return appUserPrincipal.getAppUser();
+            return appUserPrincipal;
         }
 
         log.warn("Unexpected principal type: {}", principal.getClass().getName());
@@ -108,5 +129,21 @@ public final class CurrentUser {
      */
     public static AppUserInfo require() {
         return get().orElseThrow(() -> new AuthenticationCredentialsNotFoundException("No current user"));
+    }
+
+    /**
+     * Returns the currently authenticated principal from the security context.
+     * <p>
+     * Unlike {@link #getPrincipal()}, this method throws an exception if no user is authenticated, making it suitable
+     * for endpoints that require authentication.
+     * </p>
+     *
+     * @return the currently authenticated principal (never {@code null})
+     * @throws AuthenticationCredentialsNotFoundException
+     *             if there is no authenticated user, or the authenticated principal doesn't implement
+     *             {@link AppUserPrincipal}
+     */
+    public static AppUserPrincipal requirePrincipal() {
+        return getPrincipal().orElseThrow(() -> new AuthenticationCredentialsNotFoundException("No current user"));
     }
 }

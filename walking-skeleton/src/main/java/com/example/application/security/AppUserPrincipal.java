@@ -44,9 +44,9 @@ public interface AppUserPrincipal extends Principal {
     }
 
     /**
-     * TODO Document me!
+     * Returns the authorities of the principal.
      *
-     * @return
+     * @return an unmodifiable collection of granted authorities (never {@code null})
      */
     Collection<? extends GrantedAuthority> getAuthorities();
 }
