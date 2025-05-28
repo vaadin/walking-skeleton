@@ -1,6 +1,9 @@
 package com.example.application.security;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.security.Principal;
+import java.util.Collection;
 
 /**
  * Interface for principals that provide access to application user information.
@@ -39,4 +42,11 @@ public interface AppUserPrincipal extends Principal {
     default String getName() {
         return getAppUser().getUserId().toString();
     }
+
+    /**
+     * TODO Document me!
+     *
+     * @return
+     */
+    Collection<? extends GrantedAuthority> getAuthorities();
 }

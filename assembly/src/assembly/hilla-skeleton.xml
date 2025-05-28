@@ -11,7 +11,6 @@
             <directory>${basedir}/target/generated-sources/hilla</directory>
             <excludes>
                 <exclude>com/example/application/base/ui/**</exclude>
-                <exclude>com/example/application/security/dev/DevLoginView.java</exclude>
                 <exclude>com/example/application/taskmanagement/ui/**</exclude>
             </excludes>
         </fileSet>

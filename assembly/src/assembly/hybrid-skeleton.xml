@@ -12,7 +12,6 @@
             <excludes>
                 <exclude>com/example/application/base/ui/view/MainLayout.java</exclude>
                 <exclude>com/example/application/base/ui/view/MainView.java</exclude>
-                <exclude>com/example/application/security/dev/DevLoginView.java</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -34,7 +33,6 @@
             <excludes>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainView.java</exclude>
-                <exclude>src/main/java/com/example/application/security/dev/DevLoginView.java</exclude>
             </excludes>
         </fileSet>
     </fileSets>

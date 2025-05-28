@@ -36,6 +36,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * </p>
  *
  * @see DevUserDetailsService The in-memory user details service implementation
+ * @see DevLoginView The login view used for authentication
  * @see DevUser Builder for creating development test users
  * @see Profile The profile annotation that activates this configuration
  * @see SampleUsers User credentials for the predefined users
@@ -53,14 +54,8 @@ class DevSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.with(VaadinSecurityConfigurer.vaadin(), configurer -> configurer
-                //#if ui.framework == "flow"
-                .loginView(DevLoginView.class)
-                //#endif
-                //#if ui.framework == "hilla"
-                .loginView("/login")
-        //#endif
-        ).build();
+        return http.with(VaadinSecurityConfigurer.vaadin(), configurer -> configurer.loginView(DevLoginView.class))
+                .build();
     }
 
     @Bean
