@@ -1,6 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import '@vaadin/icons';
-import '@vaadin/vaadin-lumo-styles/vaadin-iconset.js';
 import {
   AppLayout,
   Avatar,
