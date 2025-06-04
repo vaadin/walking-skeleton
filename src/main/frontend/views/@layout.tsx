@@ -1,4 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router';
+import '@vaadin/icons';
 import {
   AppLayout,
   Avatar,
