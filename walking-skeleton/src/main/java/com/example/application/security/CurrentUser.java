@@ -38,7 +38,6 @@ import java.util.Optional;
  *
  * @see AppUserInfo The application's user information model
  * @see AppUserPrincipal The principal interface that provides access to user information
- * @see AppUserInfoLookup For looking up information about any user, not just the current one
  */
 public final class CurrentUser {
 
