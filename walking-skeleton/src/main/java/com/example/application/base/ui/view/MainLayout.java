@@ -2,6 +2,7 @@ package com.example.application.base.ui.view;
 
 import com.example.application.security.CurrentUser;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
@@ -79,7 +80,8 @@ public final class MainLayout extends AppLayout {
         var userMenuItem = userMenu.addItem(avatar);
         userMenuItem.add(user.getFullName());
         if (user.getProfileUrl() != null) {
-            userMenuItem.getSubMenu().addItem(new Anchor(user.getProfileUrl(), "View Profile", AnchorTarget.BLANK));
+            userMenuItem.getSubMenu().addItem("View Profile",
+                    event -> UI.getCurrent().getPage().open(user.getProfileUrl()));
         }
         // TODO Add additional items to the user menu if needed
         userMenuItem.getSubMenu().addItem("Logout", event -> authenticationContext.logout());
