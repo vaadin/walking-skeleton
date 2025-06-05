@@ -2,15 +2,24 @@ package com.example.application.security.dev;
 
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import com.vaadin.flow.spring.security.VaadinSecurityConfigurer;
+import jakarta.servlet.Filter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * Security configuration for the development environment.
@@ -36,7 +45,6 @@ import org.springframework.security.web.SecurityFilterChain;
  * </p>
  *
  * @see DevUserDetailsService The in-memory user details service implementation
- * @see DevLoginView The login view used for authentication
  * @see DevUser Builder for creating development test users
  * @see Profile The profile annotation that activates this configuration
  * @see SampleUsers User credentials for the predefined users
@@ -54,8 +62,62 @@ class DevSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.with(VaadinSecurityConfigurer.vaadin(), configurer -> configurer.loginView(DevLoginView.class))
-                .build();
+        return http
+                .formLogin(Customizer.withDefaults())
+                .with(VaadinSecurityConfigurer.vaadin(), Customizer.withDefaults())
+                .addFilterBefore(vaadinLoginPageFilter(), UsernamePasswordAuthenticationFilter.class).build();
+    }
+
+    /**
+     * Creates a servlet filter that injects the Vaadin refresh comment into Spring Security's default login page
+     * response.
+     *
+     * <p>
+     * This filter is necessary because when a Vaadin application performs a logout operation, it expects either a JSON
+     * response or an HTML response containing the special comment {@code <!-- Vaadin-Refresh -->}. Without this
+     * comment, Vaadin's client-side code doesn't recognize that the user has been logged out and fails to refresh the
+     * page to show the login form.
+     * </p>
+     *
+     * <p>
+     * The filter intercepts requests to {@code /login}, captures Spring Security's generated HTML login page, and
+     * injects the required Vaadin comment immediately after the opening {@code <body>} tag. This allows the application
+     * to use Spring Security's auto-generated login page during development while maintaining compatibility with
+     * Vaadin's logout handling.
+     * </p>
+     *
+     * <p>
+     * <strong>Note:</strong> This is intended for development use only. Production deployments should use OIDC
+     * authentication which handles logout properly without requiring this workaround.
+     * </p>
+     *
+     * @return a Filter that modifies login page responses to include the Vaadin refresh comment
+     * @see HttpServletResponseWrapper
+     */
+    private Filter vaadinLoginPageFilter() {
+        return (request, response, chain) -> {
+            var httpRequest = (HttpServletRequest) request;
+            if (httpRequest.getRequestURI().equals("/login")) {
+                var stringWriter = new StringWriter();
+                var wrapper = new HttpServletResponseWrapper((HttpServletResponse) response) {
+                    private final PrintWriter printWriter = new PrintWriter(stringWriter);
+
+                    @Override
+                    public PrintWriter getWriter() {
+                        return printWriter;
+                    }
+                };
+                chain.doFilter(request, wrapper);
+                var html = stringWriter.toString();
+                if (html.contains("<body>")) {
+                    html = html.replace("<body>", "<body><!-- Vaadin-Refresh -->");
+                }
+                response.setContentLength(html.length());
+                response.getWriter().write(html);
+            } else {
+                chain.doFilter(request, response);
+            }
+        };
     }
 
     @Bean

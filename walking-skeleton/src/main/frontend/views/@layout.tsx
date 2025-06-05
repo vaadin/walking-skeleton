@@ -3,7 +3,6 @@ import '@vaadin/icons';
 import {
   AppLayout,
   Avatar,
-  Button,
   Icon,
   MenuBar,
   MenuBarItem,
@@ -16,6 +15,7 @@ import {
 import { Suspense, useMemo } from 'react';
 import { createMenuItems } from '@vaadin/hilla-file-router/runtime.js';
 import { useAuth } from 'Frontend/security/auth';
+import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
 
 function Header() {
   // TODO Replace with real application logo and name
@@ -80,24 +80,18 @@ function UserMenu() {
   );
 }
 
-function LoginButton() {
-  const navigate = useNavigate();
-  return (
-    <Button theme="primary" className="m-m" slot="drawer" onClick={() => navigate('/login')}>
-      Log in
-    </Button>
-  );
-}
+export const config: ViewConfig = {
+  loginRequired: true,
+};
 
 export default function MainLayout() {
-  const auth = useAuth();
   return (
     <AppLayout primarySection="drawer">
       <Header />
       <Scroller slot="drawer">
         <MainMenu />
       </Scroller>
-      {auth.state.user ? <UserMenu /> : <LoginButton />}
+      <UserMenu />
       <Suspense fallback={<ProgressBar indeterminate={true} className="m-0" />}>
         <Outlet />
       </Suspense>
