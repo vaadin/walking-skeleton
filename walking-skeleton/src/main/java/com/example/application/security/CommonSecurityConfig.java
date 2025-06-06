@@ -7,6 +7,7 @@ import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 import java.time.Clock;
 import java.util.Optional;
@@ -19,6 +20,8 @@ import java.util.Optional;
  * <ul>
  * <li>Spring Security's method-level security annotations</li>
  * <li>JPA auditing with automatic tracking of who and when entities are modified</li>
+ * <li>A {@link CurrentUser} for accessing information about the current user, using the application's security
+ * model</li>
  * </ul>
  * </p>
  * <p>
@@ -109,8 +112,8 @@ class CommonSecurityConfig {
      * @return an {@link AuditorAware} that provides the current user's ID
      */
     @Bean
-    public AuditorAware<UserId> auditorAware() {
-        return () -> CurrentUser.get().map(AppUserInfo::getUserId);
+    public AuditorAware<UserId> auditorAware(CurrentUser currentUser) {
+        return () -> currentUser.get().map(AppUserInfo::getUserId);
     }
 
     /**
@@ -137,5 +140,34 @@ class CommonSecurityConfig {
     @Bean
     public DateTimeProvider dateTimeProvider(Clock clock) {
         return () -> Optional.of(clock.instant());
+    }
+
+    /**
+     * Provides access to the currently authenticated user's information.
+     * <p>
+     * This method creates a {@link CurrentUser} service that can be used throughout the application to safely access
+     * information about the currently authenticated user. The service uses the provided
+     * {@link SecurityContextHolderStrategy} to retrieve the security context and extract user details from the
+     * authentication principal.
+     * </p>
+     * <p>
+     * The {@link CurrentUser} service provides both optional access via {@link CurrentUser#get()} for cases where
+     * authentication may not be present, and required access via {@link CurrentUser#require()} for endpoints that
+     * mandate authentication. It expects all authenticated principals to implement {@link AppUserPrincipal}.
+     * </p>
+     * <p>
+     * <strong>Note:</strong> This bean is also used by the JPA auditing configuration to automatically populate audit
+     * fields in entities with the current user's ID.
+     * </p>
+     *
+     * @param securityContextHolderStrategy
+     *            the strategy for accessing the security context
+     * @return a {@link CurrentUser} service for accessing current user information
+     * @see AppUserPrincipal The principal interface that all authenticated users must implement
+     * @see CurrentUser The service class for accessing current user information
+     */
+    @Bean
+    public CurrentUser currentUser(SecurityContextHolderStrategy securityContextHolderStrategy) {
+        return new CurrentUser(securityContextHolderStrategy);
     }
 }

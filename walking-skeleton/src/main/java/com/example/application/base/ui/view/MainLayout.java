@@ -6,8 +6,6 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.avatar.AvatarVariant;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.AnchorTarget;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
@@ -29,9 +27,11 @@ import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 @PermitAll // When security is enabled, allow all authenticated users
 public final class MainLayout extends AppLayout {
 
+    private final CurrentUser currentUser;
     private final AuthenticationContext authenticationContext;
 
-    MainLayout(AuthenticationContext authenticationContext) {
+    MainLayout(CurrentUser currentUser, AuthenticationContext authenticationContext) {
+        this.currentUser = currentUser;
         this.authenticationContext = authenticationContext;
         setPrimarySection(Section.DRAWER);
         addToDrawer(createHeader(), new Scroller(createSideNav()), createUserMenu());
@@ -66,7 +66,7 @@ public final class MainLayout extends AppLayout {
     }
 
     private Component createUserMenu() {
-        var user = CurrentUser.require();
+        var user = currentUser.require();
 
         var avatar = new Avatar(user.getFullName(), user.getPictureUrl());
         avatar.addThemeVariants(AvatarVariant.LUMO_XSMALL);

@@ -6,31 +6,33 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 import java.util.Optional;
 
+import static java.util.Objects.requireNonNull;
+
 /**
- * Utility class for retrieving the currently authenticated user from the Spring Security context.
+ * Service for retrieving the currently authenticated user from the Spring Security context.
  * <p>
- * This class provides methods to safely access user information stored in the authentication principal, supporting
+ * This service provides methods to safely access user information stored in the authentication principal, supporting
  * principals that implement {@link AppUserPrincipal}. It serves as a bridge between Spring Security's authentication
  * model and the application's user information model.
  * </p>
  * <p>
- * Usage examples:
+ * Usage examples (assumes {@code currentUser} has been injected):
  *
  * <!-- spotless:off -->
  * <pre>
  * {@code
  * // Get the current user if available
- * Optional<AppUserInfo> currentUser = CurrentUser.get();
+ * Optional<AppUserInfo> currentUser = currentUser.get();
  *
  * // Get the current user, throwing an exception if not authenticated
- * AppUserInfo user = CurrentUser.require();
+ * AppUserInfo user = currentUser.require();
  *
  * // Access user properties
- * String fullName = CurrentUser.require().fullName();
+ * String fullName = currentUser.require().fullName();
  * }
  * </pre>
  * <!-- spotless:on -->
@@ -39,14 +41,25 @@ import java.util.Optional;
  * @see AppUserInfo The application's user information model
  * @see AppUserPrincipal The principal interface that provides access to user information
  */
-public final class CurrentUser {
+public class CurrentUser {
 
     private static final Logger log = LoggerFactory.getLogger(CurrentUser.class);
 
+    private final SecurityContextHolderStrategy securityContextHolderStrategy;
+
     /**
-     * Private constructor to prevent instantiation of this utility class.
+     * Creates a new {@code CurrentUser} service for the given {@link SecurityContextHolderStrategy}.
+     * <p>
+     * This constructor uses the new Spring Security recommendation of accessing the
+     * {@link SecurityContextHolderStrategy} as a bean rather than using the static methods of
+     * {@link org.springframework.security.core.context.SecurityContextHolder}.
+     * </p>
+     *
+     * @param securityContextHolderStrategy
+     *            the strategy used to fetch the security context (never {@code null}).
      */
-    private CurrentUser() {
+    CurrentUser(SecurityContextHolderStrategy securityContextHolderStrategy) {
+        this.securityContextHolderStrategy = requireNonNull(securityContextHolderStrategy);
     }
 
     /**
@@ -65,7 +78,7 @@ public final class CurrentUser {
      *         {@link AppUserPrincipal}
      * @see #require() For cases where authentication is required
      */
-    public static Optional<AppUserInfo> get() {
+    public Optional<AppUserInfo> get() {
         return getPrincipal().map(AppUserPrincipal::getAppUser);
     }
 
@@ -85,9 +98,9 @@ public final class CurrentUser {
      *         {@link AppUserPrincipal}
      * @see #requirePrincipal() For cases where authentication is required
      */
-    public static Optional<AppUserPrincipal> getPrincipal() {
-        return Optional
-                .ofNullable(getPrincipalFromAuthentication(SecurityContextHolder.getContext().getAuthentication()));
+    public Optional<AppUserPrincipal> getPrincipal() {
+        return Optional.ofNullable(
+                getPrincipalFromAuthentication(securityContextHolderStrategy.getContext().getAuthentication()));
     }
 
     /**
@@ -97,7 +110,7 @@ public final class CurrentUser {
      *            the authentication object from which to extract the principal, may be {@code null}
      * @return the principal if available, or {@code null} if it cannot be extracted
      */
-    private static @Nullable AppUserPrincipal getPrincipalFromAuthentication(@Nullable Authentication authentication) {
+    private @Nullable AppUserPrincipal getPrincipalFromAuthentication(@Nullable Authentication authentication) {
         if (authentication == null || authentication.getPrincipal() == null
                 || authentication instanceof AnonymousAuthenticationToken) {
             return null;
@@ -126,7 +139,7 @@ public final class CurrentUser {
      *             if there is no authenticated user, or the authenticated principal doesn't implement
      *             {@link AppUserPrincipal}
      */
-    public static AppUserInfo require() {
+    public AppUserInfo require() {
         return get().orElseThrow(() -> new AuthenticationCredentialsNotFoundException("No current user"));
     }
 
@@ -142,7 +155,7 @@ public final class CurrentUser {
      *             if there is no authenticated user, or the authenticated principal doesn't implement
      *             {@link AppUserPrincipal}
      */
-    public static AppUserPrincipal requirePrincipal() {
+    public AppUserPrincipal requirePrincipal() {
         return getPrincipal().orElseThrow(() -> new AuthenticationCredentialsNotFoundException("No current user"));
     }
 }

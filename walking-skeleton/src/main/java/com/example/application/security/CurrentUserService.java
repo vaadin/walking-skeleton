@@ -23,6 +23,12 @@ import java.util.Collection;
 @PermitAll
 class CurrentUserService {
 
+    private final CurrentUser currentUser;
+
+    CurrentUserService(CurrentUser currentUser) {
+        this.currentUser = currentUser;
+    }
+
     /**
      * Data transfer object containing user information for client-side consumption.
      * <p>
@@ -71,7 +77,7 @@ class CurrentUserService {
      *             {@link AppUserPrincipal}
      */
     public @NonNull UserInfo getUserInfo() {
-        var principal = CurrentUser.requirePrincipal();
+        var principal = currentUser.requirePrincipal();
         var user = principal.getAppUser();
         var authorities = principal.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         return new UserInfo(user.getUserId().toString(), user.getPreferredUsername(), user.getFullName(),
