@@ -54,7 +54,7 @@ import java.io.StringWriter;
 @EnableWebSecurity
 @Configuration
 @Profile("dev")
-@Import({VaadinAwareSecurityContextHolderStrategyConfiguration.class})
+@Import({ VaadinAwareSecurityContextHolderStrategyConfiguration.class })
 class DevSecurityConfig {
 
     private static final Logger log = LoggerFactory.getLogger(DevSecurityConfig.class);
@@ -65,8 +65,7 @@ class DevSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .formLogin(Customizer.withDefaults())
+        return http.formLogin(Customizer.withDefaults())
                 .with(VaadinSecurityConfigurer.vaadin(), Customizer.withDefaults())
                 .addFilterBefore(vaadinLoginPageFilter(), UsernamePasswordAuthenticationFilter.class).build();
     }
