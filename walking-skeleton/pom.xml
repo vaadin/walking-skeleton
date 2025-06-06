@@ -64,6 +64,18 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <!-- Remove if you are not going to use Control Center -->
+            <groupId>com.vaadin</groupId>
+            <artifactId>control-center-starter</artifactId>
+            <version>1.3.0.beta2</version> <!-- TODO Remove explicit version! -->
+            <exclusions>
+                <exclusion> <!-- TODO Remove exclusion! -->
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
@@ -71,9 +83,18 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
+            <!-- Use H2 for local development -->
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <!-- Use PostgreSQL for integration tests. If you want to use PostgreSQL for local development as well,
+                 change the scope to 'runtime' and delete the H2 dependency above. Also clean up the 'production'
+                 profile further down in the file. -->
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <scope>test</scope>
         </dependency>
 
         <!-- Additional Spring Dependencies -->
@@ -121,7 +142,8 @@
     </dependencies>
 
     <build>
-        <defaultGoal>spring-boot:test-run</defaultGoal>
+        <!-- Change the default goal to spring-boot:test-run to start the application with Testcontainers and PostgreSQL -->
+        <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -189,6 +211,12 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
+                <!-- Include PostgreSQL in production build. -->
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
             </dependencies>
             <build>
                 <plugins>
@@ -204,6 +232,19 @@
                                 <phase>compile</phase>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <!-- Exclude H2 from the production build -->
+                            <excludes>
+                                <exclude>
+                                    <groupId>com.h2database</groupId>
+                                    <artifactId>h2</artifactId>
+                                </exclude>
+                            </excludes>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
