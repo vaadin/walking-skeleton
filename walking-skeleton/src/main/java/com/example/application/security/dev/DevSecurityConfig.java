@@ -1,6 +1,7 @@
 package com.example.application.security.dev;
 
 import com.vaadin.flow.server.VaadinServiceInitListener;
+import com.vaadin.flow.spring.security.VaadinAwareSecurityContextHolderStrategyConfiguration;
 import com.vaadin.flow.spring.security.VaadinSecurityConfigurer;
 import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,6 +54,7 @@ import java.io.StringWriter;
 @EnableWebSecurity
 @Configuration
 @Profile("dev")
+@Import({VaadinAwareSecurityContextHolderStrategyConfiguration.class})
 class DevSecurityConfig {
 
     private static final Logger log = LoggerFactory.getLogger(DevSecurityConfig.class);
