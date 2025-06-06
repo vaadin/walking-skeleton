@@ -1,5 +1,8 @@
-package com.example.application.security;
+package com.example.application.security.hilla;
 
+import com.example.application.security.AppUserInfo;
+import com.example.application.security.AppUserPrincipal;
+import com.example.application.security.CurrentUser;
 import com.vaadin.hilla.BrowserCallable;
 import jakarta.annotation.security.PermitAll;
 import org.jspecify.annotations.NonNull;

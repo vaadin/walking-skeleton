@@ -10,7 +10,7 @@
             <outputDirectory>src/main/java</outputDirectory>
             <directory>${basedir}/target/generated-sources/flow</directory>
             <excludes>
-                <exclude>com/example/application/security/CurrentUserService.java</exclude>
+                <exclude>com/example/application/security/hilla/**</exclude>
             </excludes>
         </fileSet>
         <fileSet>
