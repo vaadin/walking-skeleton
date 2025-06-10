@@ -23,7 +23,7 @@ public class TestApplication {
     }
 
     /**
-     * Vaadin does not recognize starting the application from {@code test-classes} and will so deduce the wrong project
+     * Vaadin does not recognize starting the application from {@code test-classes} and deduces the wrong project
      * directory. This method is a workaround that deduces the project folder correctly and uses a system property to
      * instruct Vaadin to use it.
      */
