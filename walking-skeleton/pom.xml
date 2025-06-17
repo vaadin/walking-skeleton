@@ -68,7 +68,6 @@
             <!-- Remove if you are not going to use Control Center -->
             <groupId>com.vaadin</groupId>
             <artifactId>control-center-starter</artifactId>
-            <version>1.3.0.rc2</version> <!-- TODO Remove this version -->
         </dependency>
 
         <!-- Persistence -->
