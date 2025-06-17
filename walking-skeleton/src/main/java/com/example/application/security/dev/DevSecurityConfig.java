@@ -57,7 +57,8 @@ class DevSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.with(VaadinSecurityConfigurer.vaadin(), configurer -> configurer.loginView("login")).build();
+        return http.with(VaadinSecurityConfigurer.vaadin(), configurer -> configurer.loginView(DevLoginView.LOGIN_PATH))
+                .build();
     }
 
     @Bean
@@ -73,7 +74,7 @@ class DevSecurityConfig {
                         "Development profile is active but Vaadin is running in production mode. This indicates a configuration error - development profile should not be used in production.");
             }
             var routeConfiguration = RouteConfiguration.forApplicationScope();
-            routeConfiguration.setRoute("login", DevLoginView.class);
+            routeConfiguration.setRoute(DevLoginView.LOGIN_PATH, DevLoginView.class);
         };
     }
 }

@@ -16,12 +16,14 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 // No @Route annotation - the route is registered dynamically by DevSecurityConfig.
 class DevLoginView extends Main implements BeforeEnterObserver {
 
+    static final String LOGIN_PATH = "dev-login";
+
     private final LoginForm login;
 
     public DevLoginView() {
         // Create the components
         login = new LoginForm();
-        login.setAction("login");
+        login.setAction(LOGIN_PATH);
 
         var userList = new UnorderedList();
         SampleUsers.ALL_USERS.forEach(user -> userList.add(new ListItem(user.getAppUser().getPreferredUsername())));
