@@ -32,7 +32,7 @@ import static java.util.Objects.requireNonNull;
  * AppUserInfo user = currentUser.require();
  *
  * // Access user properties
- * String fullName = currentUser.require().fullName();
+ * String fullName = currentUser.require().getFullName();
  * }
  * </pre>
  * <!-- spotless:on -->
