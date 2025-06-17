@@ -64,6 +64,11 @@
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <!-- Remove if you are not going to use Control Center -->
+            <groupId>com.vaadin</groupId>
+            <artifactId>control-center-starter</artifactId>
+        </dependency>
 
         <!-- Persistence -->
         <dependency>
@@ -71,9 +76,8 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <!-- Replace with the database you will be using in production -->
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
 
@@ -88,6 +92,10 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
@@ -99,8 +107,18 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -117,6 +135,7 @@
     </dependencies>
 
     <build>
+        <!-- Change the default goal to spring-boot:test-run to start the application with Testcontainers and PostgreSQL -->
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
             <plugin>
@@ -172,10 +191,40 @@
 
     <profiles>
         <profile>
+            <!--
+            To avoid problems, you should use the same database engine in development and in production. Docker,
+            Testcontainers and service connections make this easy to do. However, this requires you to install and
+            run Docker on your development machine.
+
+            This Maven profile makes it possible to start the skeleton quickly, using an H2 in-memory database and
+            does not require installing Docker. It does, however, still use Testcontainers and PostgreSQL for
+            integration tests.
+
+            If you have Docker installed and running on your machine, you can delete this profile. When you do this,
+            you should also change the default goal to `spring-boot:test-run` (at the beginning of the <build> section).
+             -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>h2-local-development</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>production</id>
             <dependencies>
-                <!-- Exclude development dependencies from production -->
                 <dependency>
+                    <!-- Exclude development dependencies from production -->
                     <groupId>com.vaadin</groupId>
                     <artifactId>vaadin-core</artifactId>
                     <exclusions>
