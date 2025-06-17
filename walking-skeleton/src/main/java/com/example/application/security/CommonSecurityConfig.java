@@ -69,10 +69,6 @@ class CommonSecurityConfig {
      * authentication may not be present, and required access via {@link CurrentUser#require()} for endpoints that
      * mandate authentication. It expects all authenticated principals to implement {@link AppUserPrincipal}.
      * </p>
-     * <p>
-     * <strong>Note:</strong> This bean is also used by the JPA auditing configuration to automatically populate audit
-     * fields in entities with the current user's ID.
-     * </p>
      *
      * @param securityContextHolderStrategy
      *            the strategy for accessing the security context
