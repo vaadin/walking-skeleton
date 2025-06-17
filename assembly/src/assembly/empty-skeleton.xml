@@ -33,9 +33,12 @@
                 <exclude>src/main/bundles/**</exclude>
                 <exclude>src/main/frontend/generated/**</exclude>
                 <exclude>src/main/frontend/components/**</exclude>
+                <exclude>src/main/frontend/security/**</exclude>
                 <exclude>src/main/frontend/views/**</exclude>
+                <exclude>src/main/frontend/index.tsx</exclude>
                 <exclude>src/main/java/**</exclude>
-                <exclude>src/test/java/**</exclude>
+                <exclude>src/test/java/com/example/application/ArchitectureTest.java</exclude>
+                <exclude>src/test/java/com/example/application/taskmanagement/**</exclude>
             </excludes>
         </fileSet>
     </fileSets>

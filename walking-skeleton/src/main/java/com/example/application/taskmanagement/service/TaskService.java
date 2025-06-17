@@ -8,6 +8,7 @@ import com.vaadin.hilla.BrowserCallable;
 //#endif
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 //#if ui.framework == "flow"
 import org.springframework.stereotype.Service;
 //#endif
@@ -23,9 +24,11 @@ import java.util.List;
 //#endif
 //#if ui.framework == "hilla"
 @BrowserCallable
+// Until https://github.com/vaadin/hilla/issues/3271 is fixed, @PreAuthorize needs to be combined with @AnonymousAllowed
 @AnonymousAllowed
 //#endif
 @Transactional(propagation = Propagation.REQUIRES_NEW)
+@PreAuthorize("isAuthenticated()")
 public class TaskService {
 
     private final TaskRepository taskRepository;
