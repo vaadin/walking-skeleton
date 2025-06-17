@@ -1,6 +1,7 @@
 package com.example.application.taskmanagement.service;
 
 import com.example.application.TestcontainersConfiguration;
+import com.example.application.security.dev.SampleUsers;
 import com.example.application.taskmanagement.domain.Task;
 import com.example.application.taskmanagement.domain.TaskRepository;
 import jakarta.validation.ValidationException;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +41,7 @@ class TaskServiceIT {
     }
 
     @Test
+    @WithUserDetails(SampleUsers.USER_USERNAME)
     public void tasks_are_stored_in_the_database_with_the_current_timestamp() {
         var now = clock.instant();
         var due = LocalDate.of(2025, 2, 7);
@@ -49,6 +52,7 @@ class TaskServiceIT {
     }
 
     @Test
+    @WithUserDetails(SampleUsers.ADMIN_USERNAME)
     public void tasks_are_validated_before_they_are_stored() {
         assertThatThrownBy(() -> taskService.createTask("X".repeat(Task.DESCRIPTION_MAX_LENGTH + 1), null))
                 .isInstanceOf(ValidationException.class);

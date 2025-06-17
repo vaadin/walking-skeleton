@@ -6,6 +6,7 @@ export const config: ViewConfig = {
   menu: {
     exclude: true,
   },
+  loginRequired: true,
 };
 
 export default function MainView() {
