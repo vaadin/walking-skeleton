@@ -14,6 +14,7 @@
         <java.version>17</java.version>
         <vaadin.version>24.8.0.rc1</vaadin.version>
         <archunit.version>1.4.1</archunit.version>
+        <keycloak.version>26.0.5</keycloak.version>
     </properties>
 
     <parent>
@@ -68,6 +69,7 @@
             <!-- Remove if you are not going to use Control Center -->
             <groupId>com.vaadin</groupId>
             <artifactId>control-center-starter</artifactId>
+            <version>1.3.0.rc2</version> <!-- TODO Remove this version -->
         </dependency>
 
         <!-- Persistence -->
@@ -92,14 +94,30 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- Keycloak -->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-admin-client</artifactId>
+            <version>${keycloak.version}</version>
         </dependency>
 
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
