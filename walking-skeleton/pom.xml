@@ -14,7 +14,6 @@
         <java.version>17</java.version>
         <vaadin.version>24.8.0.rc1</vaadin.version>
         <archunit.version>1.4.1</archunit.version>
-        <keycloak.version>26.0.5</keycloak.version>
     </properties>
 
     <parent>
@@ -100,13 +99,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
-        </dependency>
-
-        <!-- Keycloak -->
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-admin-client</artifactId>
-            <version>${keycloak.version}</version>
         </dependency>
 
         <!-- Testing -->

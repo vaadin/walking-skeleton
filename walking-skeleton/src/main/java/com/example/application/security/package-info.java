@@ -5,7 +5,7 @@
  * <ul>
  * <li>An application-specific user model for accessing user information regardless of the underlying identity
  * management implementation ({@link com.example.application.security.AppUserInfo},
- * {@link com.example.application.security.CurrentUser}, {@link com.example.application.security.AppUserInfoLookup})</li>
+ * {@link com.example.application.security.CurrentUser})</li>
  * <li>A value object for identifying users ({@link com.example.application.security.domain.UserId})</li>
  * <li>Method-level security ({@link com.example.application.security.CommonSecurityConfig})</li>
  * <li>A development mode security configuration with simple login and in-memory users ({@code dev} package)</li>
