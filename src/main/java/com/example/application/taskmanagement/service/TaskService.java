@@ -4,6 +4,7 @@ import com.example.application.taskmanagement.domain.Task;
 import com.example.application.taskmanagement.domain.TaskRepository;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRES_NEW)
+@PreAuthorize("isAuthenticated()")
 public class TaskService {
 
     private final TaskRepository taskRepository;
