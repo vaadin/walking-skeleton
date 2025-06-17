@@ -12,8 +12,9 @@ import {
   SideNav,
   SideNavItem,
 } from '@vaadin/react-components';
-import { Suspense } from 'react';
+import { Suspense, useMemo } from 'react';
 import { createMenuItems } from '@vaadin/hilla-file-router/runtime.js';
+import { useAuth } from 'Frontend/security/auth';
 
 function Header() {
   // TODO Replace with real application logo and name
@@ -41,22 +42,33 @@ function MainMenu() {
   );
 }
 
-type UserMenuItem = MenuBarItem<{ action?: () => void }>;
+type UserMenuItem = MenuBarItem<{ action?: () => void | Promise<void> }>;
 
 function UserMenu() {
-  // TODO Replace with real user information and actions
+  const { logout, state } = useAuth();
+
+  const fullName = state.user?.fullName;
+  const pictureUrl = state.user?.pictureUrl;
+  const profileUrl = state.user?.profileUrl;
+
+  const children: Array<UserMenuItem> = useMemo(() => {
+    const items: Array<UserMenuItem> = [];
+    if (profileUrl) {
+      items.push({ text: 'View Profile', action: () => window.open(profileUrl, 'blank')?.focus() });
+    }
+    // TODO Add additional items to the user menu if needed
+    items.push({ text: 'Logout', action: logout });
+    return items;
+  }, [profileUrl, logout]);
+
   const items: Array<UserMenuItem> = [
     {
       component: (
         <>
-          <Avatar theme="xsmall" name="John Smith" colorIndex={5} className="mr-s" /> John Smith
+          <Avatar theme="xsmall" img={pictureUrl} name={fullName} colorIndex={5} className="mr-s" /> {fullName}
         </>
       ),
-      children: [
-        { text: 'View Profile', disabled: true, action: () => console.log('View Profile') },
-        { text: 'Manage Settings', disabled: true, action: () => console.log('Manage Settings') },
-        { text: 'Logout', disabled: true, action: () => console.log('Logout') },
-      ],
+      children: children,
     },
   ];
   const onItemSelected = (event: MenuBarItemSelectedEvent<UserMenuItem>) => {
