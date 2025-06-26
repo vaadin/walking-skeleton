@@ -9,6 +9,7 @@ on:
     branches:
       - v24.7
       - v24.8
+      - v24.9
 
 jobs:
   build_assembly:
