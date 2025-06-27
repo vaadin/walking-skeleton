@@ -1,6 +1,5 @@
 package com.example.application.security.dev;
 
-import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.router.BeforeEnterEvent;
@@ -15,7 +14,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
  */
 @PageTitle("Login")
 @AnonymousAllowed
-@CssImport("./themes/default/dev-login.css")
 // No @Route annotation - the route is registered dynamically by DevSecurityConfig.
 class DevLoginView extends Main implements BeforeEnterObserver {
 
