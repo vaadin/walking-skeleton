@@ -27,7 +27,6 @@ import java.util.List;
 // Until https://github.com/vaadin/hilla/issues/3271 is fixed, @PreAuthorize needs to be combined with @AnonymousAllowed
 @AnonymousAllowed
 //#endif
-@Transactional(propagation = Propagation.REQUIRES_NEW)
 @PreAuthorize("isAuthenticated()")
 public class TaskService {
 
@@ -40,6 +39,7 @@ public class TaskService {
         this.clock = clock;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void createTask(String description, @Nullable LocalDate dueDate) {
         if ("fail".equals(description)) {
             throw new RuntimeException("This is for testing the error handler");
@@ -51,6 +51,7 @@ public class TaskService {
         taskRepository.saveAndFlush(task);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     public List<Task> list(Pageable pageable) {
         return taskRepository.findAllBy(pageable).toList();
     }
