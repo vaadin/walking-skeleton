@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@Transactional(propagation = Propagation.REQUIRES_NEW)
 @PreAuthorize("isAuthenticated()")
 public class TaskService {
 
@@ -27,6 +26,7 @@ public class TaskService {
         this.clock = clock;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void createTask(String description, @Nullable LocalDate dueDate) {
         if ("fail".equals(description)) {
             throw new RuntimeException("This is for testing the error handler");
@@ -38,6 +38,7 @@ public class TaskService {
         taskRepository.saveAndFlush(task);
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = true)
     public List<Task> list(Pageable pageable) {
         return taskRepository.findAllBy(pageable).toList();
     }
