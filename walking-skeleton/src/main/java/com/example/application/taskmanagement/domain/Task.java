@@ -18,7 +18,7 @@ public class Task extends AbstractEntity<Long> {
     public static final int DESCRIPTION_MAX_LENGTH = 255;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "task_id")
     //#if ui.framework == "hilla"
     @JsonProperty
