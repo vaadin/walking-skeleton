@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Transactional
-class TaskServiceIT {
+class TaskServiceIT { // TODO Rename to TaskServiceTest to run it together with the unit tests.
 
     @Autowired
     TaskService taskService;
