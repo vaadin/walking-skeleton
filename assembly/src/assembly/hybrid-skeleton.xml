@@ -31,6 +31,7 @@
                 <include>Dockerfile</include>
             </includes>
             <excludes>
+                <exclude>src/main/frontend/themes/default/empty-styles.css</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainView.java</exclude>
             </excludes>
