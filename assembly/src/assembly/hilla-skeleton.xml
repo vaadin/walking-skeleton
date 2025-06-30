@@ -33,6 +33,7 @@
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
                 <exclude>src/main/frontend/generated/**</exclude>
+                <exclude>src/main/frontend/themes/default/empty-styles.css</exclude>
                 <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/hilla instead -->
             </excludes>
         </fileSet>
