@@ -48,7 +48,7 @@ class DevLoginView extends Main implements BeforeEnterObserver {
         contentDiv.addClassNames("dev-content-div");
         add(contentDiv);
 
-        var devModeMenuDiv = new Div("You can also use the Dev Mode Menu here to impersonate any user!");
+        var devModeMenuDiv = new Div("You can also use the Dev Mode Menu here to impersonate any user");
         devModeMenuDiv.addClassNames("dev-mode-speech-bubble");
         // Hide the callout when clicked
         devModeMenuDiv.addClickListener(event -> {
