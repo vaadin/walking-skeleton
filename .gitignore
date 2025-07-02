@@ -1,4 +1,4 @@
-target/
+/target/
 .idea/
 .vscode/
 .settings
@@ -8,9 +8,7 @@ target/
 *.iml
 .DS_Store
 
-/walking-skeleton/package.json
-/walking-skeleton/package-lock.json
-/walking-skeleton/tsconfig.json
-/walking-skeleton/types.d.ts
-/walking-skeleton/vite.config.ts
-/walking-skeleton/src/main/bundles/
+# The following files are generated/updated by vaadin-maven-plugin
+node_modules/
+src/main/frontend/generated/
+vite.generated.ts
