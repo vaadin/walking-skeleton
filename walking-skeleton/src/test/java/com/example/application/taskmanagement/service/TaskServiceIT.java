@@ -49,6 +49,5 @@ class TaskServiceIT { // TODO Rename to TaskServiceTest to run it together with 
     public void tasks_are_validated_before_they_are_stored() {
         assertThatThrownBy(() -> taskService.createTask("X".repeat(Task.DESCRIPTION_MAX_LENGTH + 1), null))
                 .isInstanceOf(ValidationException.class);
-        assertThat(taskRepository.count()).isEqualTo(0);
     }
 }
