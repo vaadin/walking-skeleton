@@ -60,7 +60,7 @@ jobs:
           name: assemblies
       - name: Unzip assembly
         run: |
-          unzip walking-skeleton-${{ env.VIEWS }}.zip
+          unzip -o walking-skeleton-${{ env.VIEWS }}.zip
           mv -f walking-skeleton/{.,}* .
           rmdir walking-skeleton
           rm walking-skeleton-*.zip
