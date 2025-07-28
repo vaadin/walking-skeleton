@@ -5,8 +5,7 @@ import { TaskService } from 'Frontend/generated/endpoints';
 import { useSignal } from '@vaadin/hilla-react-signals';
 import handleError from 'Frontend/views/_ErrorHandler';
 import { Group, ViewToolbar } from 'Frontend/components/ViewToolbar';
-import Task from 'Frontend/generated/com/example/application/taskmanagement/domain/Task';
-import { useDataProvider } from '@vaadin/hilla-react-crud';
+import { useGridDataProvider } from '@vaadin/hilla-react-crud';
 
 export const config: ViewConfig = {
   title: 'Task List',
@@ -71,9 +70,7 @@ function TaskEntryForm(props: TaskEntryFormProps) {
 }
 
 export default function TaskListView() {
-  const dataProvider = useDataProvider<Task>({
-    list: (pageable) => TaskService.list(pageable),
-  });
+  const dataProvider = useGridDataProvider(TaskService.list);
 
   return (
     <main className="w-full h-full flex flex-col box-border gap-s p-m">
@@ -82,7 +79,7 @@ export default function TaskListView() {
           <TaskEntryForm onTaskCreated={dataProvider.refresh} />
         </Group>
       </ViewToolbar>
-      <Grid dataProvider={dataProvider.dataProvider}>
+      <Grid dataProvider={dataProvider}>
         <GridColumn path="description" />
         <GridColumn path="dueDate" header="Due Date">
           {({ item }) => (item.dueDate ? dateFormatter.format(new Date(item.dueDate)) : 'Never')}
