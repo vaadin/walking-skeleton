@@ -15,6 +15,12 @@ To build the application in production mode, run:
 ./mvnw -Pproduction package
 ```
 
+To also build a Docker image, continue by running:
+
+```bash
+docker build -t my-application:latest .
+```
+
 ## Getting Started
 
 The [Getting Started](https://vaadin.com/docs/latest/getting-started) guide will quickly familiarize you with your new
