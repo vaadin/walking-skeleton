@@ -1,16 +1,17 @@
 package com.example.application.security.dev;
 
-import com.example.application.security.controlcenter.ControlCenterSecurityConfig;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import com.vaadin.flow.spring.security.VaadinAwareSecurityContextHolderStrategyConfiguration;
 import com.vaadin.flow.spring.security.VaadinSecurityConfigurer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +28,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * </ul>
  * </p>
  * <p>
- * This configuration is automatically activated when {@link ControlCenterSecurityConfig} is not active. It should
+ * This configuration is automatically activated when the {@code prod} Spring profile is not active. It should
  * <strong>not</strong> be used in production environments, as it uses hardcoded credentials and simplified security
  * settings.
  * </p>
@@ -46,13 +47,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Configuration
 @Import({ VaadinAwareSecurityContextHolderStrategyConfiguration.class })
-@ConditionalOnMissingBean(ControlCenterSecurityConfig.class)
+@Profile("!prod")
 class DevSecurityConfig {
 
     private static final Logger log = LoggerFactory.getLogger(DevSecurityConfig.class);
 
-    DevSecurityConfig() {
-        log.warn("Using DEVELOPMENT security configuration. This should not be used in production environments!");
+    DevSecurityConfig(Environment environment) {
+        if (!isRunningLocally(environment)) {
+            log.error("Development security config attempted in non-local environment");
+            throw new IllegalStateException("Development security can only be used when running locally");
+        }
+        log.warn("╔═════════════════════════════════════════════════════════════╗");
+        log.warn("║                     DEVELOPMENT SECURITY                    ║");
+        log.warn("║ This should not be used in production environments.         ║");
+        log.warn("╚═════════════════════════════════════════════════════════════╝");
     }
 
     @Bean
@@ -70,11 +78,23 @@ class DevSecurityConfig {
     VaadinServiceInitListener developmentLoginConfigurer() {
         return (serviceInitEvent) -> {
             if (serviceInitEvent.getSource().getDeploymentConfiguration().isProductionMode()) {
-                throw new IllegalStateException(
-                        "Development profile is active but Vaadin is running in production mode. This indicates a configuration error - development profile should not be used in production.");
+                log.warn("╔════════════════════════════════════════════════════════════════════════════════════════╗");
+                log.warn("║ DEVELOPMENT SECURITY is ACTIVE but Vaadin is running in PRODUCTION mode.               ║");
+                log.warn("║ If you are testing production mode on your local machine, this is fine.                ║");
+                log.warn("║ If you are seeing this in production, you should check your application configuration! ║");
+                log.warn("╚════════════════════════════════════════════════════════════════════════════════════════╝");
             }
             var routeConfiguration = RouteConfiguration.forApplicationScope();
             routeConfiguration.setRoute(DevLoginView.LOGIN_PATH, DevLoginView.class);
         };
+    }
+
+    private boolean isRunningLocally(Environment environment) {
+        boolean hasUserHome = System.getProperty("user.home") != null;
+        CloudPlatform activePlatform = CloudPlatform.getActive(environment);
+
+        log.info("Local environment check - User home: {}, Cloud platform: {}", hasUserHome, activePlatform);
+
+        return hasUserHome && activePlatform == null;
     }
 }
