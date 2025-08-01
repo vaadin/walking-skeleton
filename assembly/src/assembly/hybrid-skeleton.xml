@@ -12,6 +12,7 @@
             <excludes>
                 <exclude>com/example/application/base/ui/view/MainLayout.java</exclude>
                 <exclude>com/example/application/base/ui/view/MainView.java</exclude>
+                <exclude>com/example/application/SecurityConfig.java</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -34,6 +35,7 @@
                 <exclude>src/main/frontend/themes/default/empty-styles.css</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainView.java</exclude>
+                <exclude>src/main/java/com/example/application/SecurityConfig.java</exclude>
             </excludes>
         </fileSet>
     </fileSets>

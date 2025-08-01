@@ -11,6 +11,7 @@
             <directory>${basedir}/target/generated-sources/flow</directory>
             <includes>
                 <include>com/example/application/Application.java</include>
+                <include>com/example/application/SecurityConfig.java</include>
             </includes>
         </fileSet>
         <fileSet>
