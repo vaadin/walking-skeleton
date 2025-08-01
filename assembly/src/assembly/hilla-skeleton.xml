@@ -12,6 +12,7 @@
             <excludes>
                 <exclude>com/example/application/base/ui/**</exclude>
                 <exclude>com/example/application/taskmanagement/ui/**</exclude>
+                <exclude>com/example/application/SecurityConfig.java</exclude>
             </excludes>
         </fileSet>
         <fileSet>
