@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnCloudPlatfo
 import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
@@ -23,7 +24,8 @@ import org.springframework.util.StringUtils;
  * </p>
  *
  * <p>
- * The configuration is conditionally activated when the application is deployed on the Kubernetes platform.
+ * The configuration is conditionally activated when the application is deployed on the Kubernetes platform
+ * <strong>and</strong> the {@code prod} Spring profile is active.
  * </p>
  *
  * <p>
@@ -36,7 +38,8 @@ import org.springframework.util.StringUtils;
 @EnableWebSecurity
 @Configuration
 @ConditionalOnCloudPlatform(CloudPlatform.KUBERNETES)
-public class ControlCenterSecurityConfig extends IdentityManagementConfiguration {
+@Profile("prod")
+class ControlCenterSecurityConfig extends IdentityManagementConfiguration {
 
     /**
      * Creates and configures an OIDC user service with custom user mapping for the application.
