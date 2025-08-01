@@ -66,14 +66,10 @@ jobs:
           rm walking-skeleton-*.zip
       - name: Commit and push
         run: |
-          if ! git diff --quiet || ! git diff --cached --quiet; then
-            git config --global user.email "vaadin-bot@vaadin.com"
-            git config --global user.name "Vaadin Bot"
-            git status
-            git add --all
-            git commit -am "Refresh branch ${{ env.BRANCH }}"
-            git status
-            git push origin
-          else
-            echo "No changes on ${{ env.BRANCH }}"
-          fi
+          git config --global user.email "vaadin-bot@vaadin.com"
+          git config --global user.name "Vaadin Bot"
+          git status
+          git add --all
+          git commit -am "Refresh branch ${{ env.BRANCH }}"
+          git status
+          git push origin
