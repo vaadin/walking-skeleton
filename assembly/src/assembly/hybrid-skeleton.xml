@@ -32,7 +32,9 @@
                 <include>Dockerfile</include>
             </includes>
             <excludes>
+                <exclude>src/main/frontend/generated/**</exclude>
                 <exclude>src/main/frontend/themes/default/empty-styles.css</exclude>
+                <exclude>src/main/frontend/index.html</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/view/MainView.java</exclude>
                 <exclude>src/main/java/com/example/application/SecurityConfig.java</exclude>
