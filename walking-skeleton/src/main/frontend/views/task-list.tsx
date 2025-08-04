@@ -8,11 +8,11 @@ import { Group, ViewToolbar } from 'Frontend/components/ViewToolbar';
 import { useGridDataProvider } from '@vaadin/hilla-react-crud';
 
 export const config: ViewConfig = {
-  title: 'Task List',
+  title: 'Task List Hilla',
   menu: {
     icon: 'vaadin:clipboard-check',
     order: 1,
-    title: 'Task List',
+    title: 'Task List Hilla',
   },
   loginRequired: true,
 };
@@ -74,7 +74,7 @@ export default function TaskListView() {
 
   return (
     <main className="w-full h-full flex flex-col box-border gap-s p-m">
-      <ViewToolbar title="Task List">
+      <ViewToolbar title="Task List Hilla">
         <Group>
           <TaskEntryForm onTaskCreated={dataProvider.refresh} />
         </Group>
