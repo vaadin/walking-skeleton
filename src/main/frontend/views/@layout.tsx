@@ -62,11 +62,7 @@ function UserMenu() {
   }, [profileUrl, logout]);
 
   if (!state.user) {
-    return (
-      <span {...{ theme: 'badge error' }} slot="drawer">
-        Not logged in
-      </span>
-    );
+    return null;
   }
 
   const items: Array<UserMenuItem> = [
