@@ -1,0 +1,53 @@
+# Walking Skeleton README
+
+- [ ] TODO Replace or update this README with instructions relevant to your application
+
+To start the application in development mode, import it into your IDE and run the `Application` class. 
+You can also start the application from the command line by running: 
+
+```bash
+./mvnw
+```
+
+To build the application in production mode, run:
+
+```bash
+./mvnw -Pproduction package
+```
+
+To also build a Docker image, continue by running:
+
+```bash
+docker build -t my-application:latest .
+```
+
+## Getting Started
+
+The [Getting Started](https://vaadin.com/docs/latest/getting-started) guide will quickly familiarize you with your new
+Walking Skeleton implementation. You'll learn how to set up your development environment, understand the project 
+structure, and find resources to help you add muscles to your skeleton — transforming it into a fully-featured 
+application.
+
+## Disabling the Login Screen
+
+By default, all views in the project are restricted to *authenticated users*. This means that if you try to access any
+view without being logged in, you'll be redirected to the login screen.
+
+To make Flow views publicly accessible, replace the `@PermitAll` annotation with `@AnonymousAllowed` from the
+`com.vaadin.flow.server.auth` package.
+
+To make Hilla views publicly accessible, set the `loginRequired` property to `false` in the view's `config` object:
+
+```tsx
+export const config: ViewConfig = {
+  // ...
+  loginRequired: false,
+};
+```
+
+For example, applying this change to `src/main/frontend/views/@index.tsx` allows you to open http://localhost:8080
+without logging in.
+
+If you allow anonymous access to `src/main/frontend/views/task-list.tsx` (Hilla) or `TaskListView` (Flow), you’ll also 
+need to update the method-level security annotations in `TaskService`. Without these changes, the views may load, but 
+data fetching or saving will fail due to backend access restrictions.

@@ -23,7 +23,6 @@
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
-                <include>README.md</include>
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
@@ -43,4 +42,10 @@
             </excludes>
         </fileSet>
     </fileSets>
+    <files>
+        <file>
+            <source>${basedir}/../walking-skeleton/README-flow.md</source>
+            <destName>README.md</destName>
+        </file>
+    </files>
 </assembly>
