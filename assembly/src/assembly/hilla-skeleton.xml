@@ -48,7 +48,7 @@
     </fileSets>
     <files>
         <file>
-            <source>${basedir}/../walking-skeleton/README-flow.md</source>
+            <source>${basedir}/../walking-skeleton/README-hilla.md</source>
             <destName>README.md</destName>
         </file>
     </files>
