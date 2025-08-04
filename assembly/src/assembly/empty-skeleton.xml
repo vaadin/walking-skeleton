@@ -23,7 +23,6 @@
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
-                <include>README.md</include>
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
@@ -38,6 +37,7 @@
                 <!-- empty-styles.css will be included as styles.css (see below) -->
                 <exclude>src/main/frontend/themes/default/*.css</exclude>
                 <exclude>src/main/frontend/views/**</exclude>
+                <exclude>src/main/frontend/index.html</exclude>
                 <exclude>src/main/frontend/index.tsx</exclude>
                 <exclude>src/main/java/**</exclude>
                 <exclude>src/test/java/com/example/application/ArchitectureTest.java</exclude>
@@ -49,6 +49,10 @@
         <file>
             <source>${basedir}/../walking-skeleton/src/main/frontend/themes/default/empty-styles.css</source>
             <destName>src/main/frontend/themes/default/styles.css</destName>
+        </file>
+        <file>
+            <source>${basedir}/../walking-skeleton/README-empty.md</source>
+            <destName>README.md</destName>
         </file>
     </files>
 </assembly>

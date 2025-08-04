@@ -16,6 +16,15 @@
             </excludes>
         </fileSet>
         <fileSet>
+            <outputDirectory>src/main/frontend</outputDirectory>
+            <directory>${basedir}/target/generated-sources/hilla-frontend</directory>
+            <excludes>
+                <exclude>generated/**</exclude>
+                <exclude>themes/default/empty-styles.css</exclude>
+                <exclude>index.html</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
             <outputDirectory/>
             <directory>${basedir}/../walking-skeleton</directory>
             <includes>
@@ -24,7 +33,6 @@
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
-                <include>README.md</include>
                 <include>LICENSE.md</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
@@ -33,10 +41,15 @@
             </includes>
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
-                <exclude>src/main/frontend/generated/**</exclude>
-                <exclude>src/main/frontend/themes/default/empty-styles.css</exclude>
+                <exclude>src/main/frontend/**</exclude> <!-- Included from generated-sources/hilla-frontend instead -->
                 <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/hilla instead -->
             </excludes>
         </fileSet>
     </fileSets>
+    <files>
+        <file>
+            <source>${basedir}/../walking-skeleton/README-hilla.md</source>
+            <destName>README.md</destName>
+        </file>
+    </files>
 </assembly>

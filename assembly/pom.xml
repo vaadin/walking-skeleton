@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>com.igormaznitsa</groupId>
                 <artifactId>jcp</artifactId>
-                <version>7.1.2</version>
+                <version>7.2.1</version>
                 <executions>
                     <execution>
                         <id>preprocess-hilla</id>
@@ -82,6 +82,32 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>preprocess-hilla-frontend</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <outputDirectory>${basedir}/target/generated-sources/hilla-frontend</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../walking-skeleton/src/main/frontend</directory>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
@@ -95,6 +121,10 @@
                                 <!-- Replace hybrid view name in Flow only starter -->
                                 <replace token="Task List Flow" value="Task List" dir="target/generated-sources/flow">
                                     <include name="**/TaskListView.java"/>
+                                </replace>
+                                <!-- Replace hybrid view name in Hilla only starter -->
+                                <replace token="Task List Hilla" value="Task List" dir="target/generated-sources/hilla-frontend">
+                                    <include name="**/task-list.tsx"/>
                                 </replace>
                             </target>
                         </configuration>
