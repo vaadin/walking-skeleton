@@ -28,7 +28,6 @@ Walking Skeleton implementation. You'll learn how to set up your development env
 structure, and find resources to help you add muscles to your skeleton — transforming it into a fully-featured 
 application.
 
-
 ## Disabling the Login Screen
 
 By default, all views in the project are restricted to *authenticated users*. This means that if you try to access any
@@ -41,3 +40,14 @@ http://localhost:8080 without logging in.
 If you allow anonymous access to `TaskListView`, you’ll also need to update the method-level security annotations in
 `TaskService`. Without these changes, the view may load, but data fetching or saving will fail due to backend access
 restrictions.
+
+## Removing Security
+
+This project includes a basic, preconfigured security setup. If you prefer to implement your own security configuration
+from scratch, delete the `security` Java package.
+
+After this change, you may encounter some minor compilation errors. These typically occur
+in places where the current security setup is referenced - for example, integration tests that run as specific users,
+or UI components (like the main layout) that display the current user's name and avatar.
+
+To resolve these issues, either remove the affected code or refactor it to align with your custom security setup.
