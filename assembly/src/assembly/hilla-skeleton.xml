@@ -12,7 +12,6 @@
             <excludes>
                 <exclude>com/example/application/base/ui/**</exclude>
                 <exclude>com/example/application/taskmanagement/ui/**</exclude>
-                <exclude>com/example/application/SecurityConfig.java</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -20,7 +19,6 @@
             <directory>${basedir}/target/generated-sources/hilla-frontend</directory>
             <excludes>
                 <exclude>generated/**</exclude>
-                <exclude>themes/default/empty-styles.css</exclude>
                 <exclude>index.html</exclude>
             </excludes>
         </fileSet>

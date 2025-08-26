@@ -2,11 +2,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router';
 import '@vaadin/icons';
 import {
   AppLayout,
-  Avatar,
   Icon,
-  MenuBar,
-  MenuBarItem,
-  MenuBarItemSelectedEvent,
   ProgressBar,
   Scroller,
   SideNav,
@@ -14,7 +10,6 @@ import {
 } from '@vaadin/react-components';
 import { Suspense, useMemo } from 'react';
 import { createMenuItems } from '@vaadin/hilla-file-router/runtime.js';
-import { useAuth } from 'Frontend/security/auth';
 
 function Header() {
   // TODO Replace with real application logo and name
@@ -42,47 +37,6 @@ function MainMenu() {
   );
 }
 
-type UserMenuItem = MenuBarItem<{ action?: () => void | Promise<void> }>;
-
-function UserMenu() {
-  const { logout, state } = useAuth();
-
-  const fullName = state.user?.fullName;
-  const pictureUrl = state.user?.pictureUrl;
-  const profileUrl = state.user?.profileUrl;
-
-  const children: Array<UserMenuItem> = useMemo(() => {
-    const items: Array<UserMenuItem> = [];
-    if (profileUrl) {
-      items.push({ text: 'View Profile', action: () => window.open(profileUrl, 'blank')?.focus() });
-    }
-    // TODO Add additional items to the user menu if needed
-    items.push({ text: 'Logout', action: logout });
-    return items;
-  }, [profileUrl, logout]);
-
-  if (!state.user) {
-    return null;
-  }
-
-  const items: Array<UserMenuItem> = [
-    {
-      component: (
-        <>
-          <Avatar theme="xsmall" img={pictureUrl} name={fullName} colorIndex={5} className="mr-s" /> {fullName}
-        </>
-      ),
-      children: children,
-    },
-  ];
-  const onItemSelected = (event: MenuBarItemSelectedEvent<UserMenuItem>) => {
-    event.detail.value.action?.();
-  };
-  return (
-    <MenuBar theme="tertiary-inline" items={items} onItemSelected={onItemSelected} className="m-m" slot="drawer" />
-  );
-}
-
 export default function MainLayout() {
   return (
     <AppLayout primarySection="drawer">
@@ -90,7 +44,6 @@ export default function MainLayout() {
       <Scroller slot="drawer">
         <MainMenu />
       </Scroller>
-      <UserMenu />
       <Suspense fallback={<ProgressBar indeterminate={true} className="m-0" />}>
         <Outlet />
       </Suspense>

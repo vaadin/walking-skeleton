@@ -9,10 +9,6 @@
         <fileSet>
             <outputDirectory>src/main/java</outputDirectory>
             <directory>${basedir}/target/generated-sources/flow</directory>
-            <excludes>
-                <exclude>com/example/application/security/hilla/**</exclude>
-                <exclude>com/example/application/SecurityConfig.java</exclude>
-            </excludes>
         </fileSet>
         <fileSet>
             <outputDirectory/>

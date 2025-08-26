@@ -1,40 +1,25 @@
 package com.example.application.base.ui.view;
 
-import com.example.application.security.AppUserInfo;
-import com.example.application.security.CurrentUser;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.avatar.Avatar;
-import com.vaadin.flow.component.avatar.AvatarVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.menubar.MenuBar;
-import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
-import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
-import com.vaadin.flow.spring.security.AuthenticationContext;
 
 import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 
 @Layout
-@AnonymousAllowed // Allow all users, including anonymous ones. If you want only authenticated users, change to @PermitAll.
 public final class MainLayout extends AppLayout {
 
-    private final AuthenticationContext authenticationContext;
-
-    MainLayout(CurrentUser currentUser, AuthenticationContext authenticationContext) {
-        this.authenticationContext = authenticationContext;
+    MainLayout() {
         setPrimarySection(Section.DRAWER);
         addToDrawer(createHeader(), new Scroller(createSideNav()));
-        currentUser.get().ifPresent(user -> addToDrawer(createUserMenu(user)));
     }
 
     private Div createHeader() {
@@ -64,27 +49,4 @@ public final class MainLayout extends AppLayout {
             return new SideNavItem(menuEntry.title(), menuEntry.path());
         }
     }
-
-    private Component createUserMenu(AppUserInfo user) {
-        var avatar = new Avatar(user.getFullName(), user.getPictureUrl());
-        avatar.addThemeVariants(AvatarVariant.LUMO_XSMALL);
-        avatar.addClassNames(Margin.Right.SMALL);
-        avatar.setColorIndex(5);
-
-        var userMenu = new MenuBar();
-        userMenu.addThemeVariants(MenuBarVariant.LUMO_TERTIARY_INLINE);
-        userMenu.addClassNames(Margin.MEDIUM);
-
-        var userMenuItem = userMenu.addItem(avatar);
-        userMenuItem.add(user.getFullName());
-        if (user.getProfileUrl() != null) {
-            userMenuItem.getSubMenu().addItem("View Profile",
-                    event -> UI.getCurrent().getPage().open(user.getProfileUrl()));
-        }
-        // TODO Add additional items to the user menu if needed
-        userMenuItem.getSubMenu().addItem("Logout", event -> authenticationContext.logout());
-
-        return userMenu;
-    }
-
 }

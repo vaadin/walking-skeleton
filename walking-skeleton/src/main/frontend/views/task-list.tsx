@@ -13,8 +13,7 @@ export const config: ViewConfig = {
     icon: 'vaadin:clipboard-check',
     order: 1,
     title: 'Task List Hilla',
-  },
-  loginRequired: true,
+  }
 };
 
 const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
