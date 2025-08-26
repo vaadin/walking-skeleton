@@ -1,13 +1,10 @@
 package com.example.application.taskmanagement.service;
 
-import com.example.application.TestcontainersConfiguration;
 import com.example.application.taskmanagement.domain.Task;
-import com.example.application.taskmanagement.domain.TaskRepository;
 import jakarta.validation.ValidationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +14,12 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Import(TestcontainersConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Transactional
-class TaskServiceIT { // TODO Rename to TaskServiceTest to run it together with the unit tests.
+class TaskServiceTest {
 
     @Autowired
     TaskService taskService;
-
-    @Autowired
-    TaskRepository taskRepository;
 
     @Autowired
     Clock clock;
