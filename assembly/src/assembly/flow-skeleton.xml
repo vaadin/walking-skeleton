@@ -14,14 +14,11 @@
             <outputDirectory/>
             <directory>${basedir}/../walking-skeleton</directory>
             <includes>
-                <include>.mvn/**</include>
                 <include>src/**</include>
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
-                <include>mvnw</include>
-                <include>mvnw.cmd</include>
                 <include>pom.xml</include>
                 <include>Dockerfile</include>
             </includes>
@@ -36,6 +33,15 @@
                 <exclude>src/main/frontend/index.tsx</exclude>
                 <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/flow instead -->
             </excludes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory/>
+            <directory>${basedir}/../</directory>
+            <includes>
+                <include>.mvn/**</include>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
         </fileSet>
     </fileSets>
     <files>

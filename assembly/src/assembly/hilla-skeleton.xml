@@ -26,14 +26,11 @@
             <outputDirectory/>
             <directory>${basedir}/../walking-skeleton</directory>
             <includes>
-                <include>.mvn/**</include>
                 <include>src/**</include>
                 <include>.gitignore</include>
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
-                <include>mvnw</include>
-                <include>mvnw.cmd</include>
                 <include>pom.xml</include>
                 <include>Dockerfile</include>
             </includes>
@@ -42,6 +39,15 @@
                 <exclude>src/main/frontend/**</exclude> <!-- Included from generated-sources/hilla-frontend instead -->
                 <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/hilla instead -->
             </excludes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory/>
+            <directory>${basedir}/../</directory>
+            <includes>
+                <include>.mvn/**</include>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
         </fileSet>
     </fileSets>
     <files>
