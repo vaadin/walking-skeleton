@@ -4,10 +4,12 @@ package com.example.application.base.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //#endif
 import jakarta.persistence.MappedSuperclass;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.util.ProxyUtils;
 
 @MappedSuperclass
+@NullMarked
 public abstract class AbstractEntity<ID> {
 
     //#if ui.framework == "hilla"
@@ -43,8 +45,7 @@ public abstract class AbstractEntity<ID> {
             return false;
         }
 
-        var id = getId();
-        return id != null && id.equals(((AbstractEntity<?>) obj).getId());
+        return getId() != null && getId().equals(((AbstractEntity<?>) obj).getId());
     }
 
 }
