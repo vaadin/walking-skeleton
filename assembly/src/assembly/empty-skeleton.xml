@@ -22,7 +22,6 @@
                 <include>.prettierrc.json</include>
                 <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
-                <include>pom.xml</include>
                 <include>Dockerfile</include>
             </includes>
             <excludes>
@@ -52,6 +51,9 @@
         <file>
             <source>${basedir}/../walking-skeleton/README-empty.md</source>
             <destName>README.md</destName>
+        </file>
+        <file>
+            <source>${basedir}/target/empty-project/pom.xml</source>
         </file>
     </files>
 </assembly>

@@ -34,7 +34,7 @@
                         <toggleOffOn/>
                         <eclipse>
                             <version>4.35</version>
-                            <file>${maven.multiModuleProjectDirectory}/walking-skeleton/eclipse-formatter.xml</file>
+                            <file>${maven.multiModuleProjectDirectory}/eclipse-formatter.xml</file>
                         </eclipse>
                         <importOrder>
                             <file>${maven.multiModuleProjectDirectory}/eclipse.importorder</file>
@@ -54,7 +54,7 @@
                         </excludes>
                         <prettier>
                             <prettierVersion>3.5.0</prettierVersion>
-                            <configFile>.prettierrc.json</configFile>
+                            <configFile>${maven.multiModuleProjectDirectory}/.prettierrc.json</configFile>
                         </prettier>
                     </typescript>
                 </configuration>
