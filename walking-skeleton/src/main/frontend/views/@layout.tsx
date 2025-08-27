@@ -1,13 +1,6 @@
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import '@vaadin/icons';
-import {
-  AppLayout,
-  Icon,
-  ProgressBar,
-  Scroller,
-  SideNav,
-  SideNavItem,
-} from '@vaadin/react-components';
+import { AppLayout, Icon, ProgressBar, Scroller, SideNav, SideNavItem } from '@vaadin/react-components';
 import { Suspense, useMemo } from 'react';
 import { createMenuItems } from '@vaadin/hilla-file-router/runtime.js';
 
