@@ -1,7 +1,5 @@
-package com.example.application.taskmanagement.service;
+package com.example.application.taskmanagement;
 
-import com.example.application.taskmanagement.domain.Task;
-import jakarta.validation.ValidationException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +35,6 @@ class TaskServiceTest {
     @Test
     public void tasks_are_validated_before_they_are_stored() {
         assertThatThrownBy(() -> taskService.createTask("X".repeat(Task.DESCRIPTION_MAX_LENGTH + 1), null))
-                .isInstanceOf(ValidationException.class);
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

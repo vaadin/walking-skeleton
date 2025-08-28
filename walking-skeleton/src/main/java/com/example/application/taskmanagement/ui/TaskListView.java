@@ -1,8 +1,8 @@
-package com.example.application.taskmanagement.ui.view;
+package com.example.application.taskmanagement.ui;
 
 import com.example.application.base.ui.component.ViewToolbar;
-import com.example.application.taskmanagement.domain.Task;
-import com.example.application.taskmanagement.service.TaskService;
+import com.example.application.taskmanagement.Task;
+import com.example.application.taskmanagement.TaskService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -15,7 +15,6 @@ import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import jakarta.annotation.security.PermitAll;
 
 import java.time.Clock;
 import java.time.format.DateTimeFormatter;
@@ -27,8 +26,7 @@ import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRe
 @Route("task-list-flow")
 @PageTitle("Task List Flow")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List Flow")
-@PermitAll // When security is enabled, allow all authenticated users
-public class TaskListView extends Main {
+class TaskListView extends Main {
 
     private final TaskService taskService;
 
@@ -37,7 +35,7 @@ public class TaskListView extends Main {
     final Button createBtn;
     final Grid<Task> taskGrid;
 
-    public TaskListView(TaskService taskService, Clock clock) {
+    TaskListView(TaskService taskService, Clock clock) {
         this.taskService = taskService;
 
         description = new TextField();
