@@ -15,7 +15,7 @@ To build the application in production mode, run:
 ./mvnw -Pproduction package
 ```
 
-To also build a Docker image, continue by running:
+To build a Docker image, run:
 
 ```bash
 docker build -t my-application:latest .

@@ -14,3 +14,4 @@ target/
 /walking-skeleton/types.d.ts
 /walking-skeleton/vite.config.ts
 /walking-skeleton/src/main/bundles/
+/walking-skeleton/src/main/frontend/index.html
