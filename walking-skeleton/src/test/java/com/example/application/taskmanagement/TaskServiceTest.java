@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,12 +19,9 @@ class TaskServiceTest {
     @Autowired
     TaskService taskService;
 
-    @Autowired
-    Clock clock;
-
     @Test
     public void tasks_are_stored_in_the_database_with_the_current_timestamp() {
-        var now = clock.instant();
+        var now = Instant.now();
         var due = LocalDate.of(2025, 2, 7);
         taskService.createTask("Do this", due);
         assertThat(taskService.list(PageRequest.ofSize(1))).singleElement()

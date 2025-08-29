@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 //#endif
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,11 +26,8 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    private final Clock clock;
-
-    TaskService(TaskRepository taskRepository, Clock clock) {
+    TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-        this.clock = clock;
     }
 
     @Transactional
@@ -38,7 +35,7 @@ public class TaskService {
         if ("fail".equals(description)) {
             throw new RuntimeException("This is for testing the error handler");
         }
-        var task = new Task(description, clock.instant());
+        var task = new Task(description, Instant.now());
         task.setDueDate(dueDate);
         taskRepository.saveAndFlush(task);
     }
