@@ -16,7 +16,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
-import java.time.Clock;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Optional;
@@ -35,7 +35,7 @@ class TaskListView extends Main {
     final Button createBtn;
     final Grid<Task> taskGrid;
 
-    TaskListView(TaskService taskService, Clock clock) {
+    TaskListView(TaskService taskService) {
         this.taskService = taskService;
 
         description = new TextField();
@@ -51,8 +51,8 @@ class TaskListView extends Main {
         createBtn = new Button("Create", event -> createTask());
         createBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        var dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withZone(clock.getZone())
-                .withLocale(getLocale());
+        var dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(getLocale())
+                .withZone(ZoneId.systemDefault());
         var dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(getLocale());
 
         taskGrid = new Grid<>();
