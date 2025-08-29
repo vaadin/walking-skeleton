@@ -11,5 +11,8 @@
  * directly to the application package.
  * </p>
  */
+@NullMarked
 package com.example.application.taskmanagement;
 // TODO Remove this package once you have added real features
+
+import org.jspecify.annotations.NullMarked;
