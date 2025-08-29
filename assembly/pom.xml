@@ -134,6 +134,39 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                        <configuration>
+                            <transformationSets>
+                                <transformationSet>
+                                    <dir>${basedir}/../walking-skeleton</dir>
+                                    <includes>
+                                        <include>pom.xml</include>
+                                    </includes>
+                                    <stylesheet>src/assembly/pom-transform.xsl</stylesheet>
+                                    <outputDir>${basedir}/target/nonempty-project</outputDir>
+                                </transformationSet>
+                                <transformationSet>
+                                    <dir>${basedir}/../walking-skeleton</dir>
+                                    <includes>
+                                        <include>pom.xml</include>
+                                    </includes>
+                                    <stylesheet>src/assembly/empty-pom-transform.xsl</stylesheet>
+                                    <outputDir>${basedir}/target/empty-project</outputDir>
+                                </transformationSet>
+                            </transformationSets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
