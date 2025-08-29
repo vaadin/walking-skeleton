@@ -10,40 +10,43 @@
             <outputDirectory>src/main/java</outputDirectory>
             <directory>${basedir}/target/generated-sources/hilla</directory>
             <excludes>
-                <exclude>com/example/application/base/ui/view/MainLayout.java</exclude>
-                <exclude>com/example/application/base/ui/view/MainView.java</exclude>
-                <exclude>com/example/application/SecurityConfig.java</exclude>
+                <exclude>com/example/application/base/ui/MainLayout.java</exclude>
+                <exclude>com/example/application/base/ui/MainView.java</exclude>
             </excludes>
         </fileSet>
         <fileSet>
             <outputDirectory/>
             <directory>${basedir}/../walking-skeleton</directory>
             <includes>
-                <include>.mvn/**</include>
                 <include>src/**</include>
                 <include>.gitignore</include>
-                <include>.prettierrc.json</include>
-                <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
-                <include>mvnw</include>
-                <include>mvnw.cmd</include>
-                <include>pom.xml</include>
                 <include>Dockerfile</include>
             </includes>
             <excludes>
                 <exclude>src/main/frontend/generated/**</exclude>
-                <exclude>src/main/frontend/themes/default/empty-styles.css</exclude>
                 <exclude>src/main/frontend/index.html</exclude>
-                <exclude>src/main/java/com/example/application/base/ui/view/MainLayout.java</exclude>
-                <exclude>src/main/java/com/example/application/base/ui/view/MainView.java</exclude>
-                <exclude>src/main/java/com/example/application/SecurityConfig.java</exclude>
+                <exclude>src/main/java/com/example/application/base/ui/MainLayout.java</exclude>
+                <exclude>src/main/java/com/example/application/base/ui/MainView.java</exclude>
             </excludes>
+        </fileSet>
+        <fileSet>
+            <outputDirectory/>
+            <directory>${basedir}/../</directory>
+            <includes>
+                <include>.mvn/**</include>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
         </fileSet>
     </fileSets>
     <files>
         <file>
             <source>${basedir}/../walking-skeleton/README-hybrid.md</source>
             <destName>README.md</destName>
+        </file>
+        <file>
+            <source>${basedir}/target/nonempty-project/pom.xml</source>
         </file>
     </files>
 </assembly>
