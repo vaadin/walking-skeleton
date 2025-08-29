@@ -1,28 +1,21 @@
-package com.example.application.taskmanagement.service;
+package com.example.application.taskmanagement;
 
-import com.example.application.taskmanagement.domain.Task;
-import com.example.application.taskmanagement.domain.TaskRepository;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@PreAuthorize("isAuthenticated()")
 public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    private final Clock clock;
-
-    TaskService(TaskRepository taskRepository, Clock clock) {
+    TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-        this.clock = clock;
     }
 
     @Transactional
@@ -30,9 +23,7 @@ public class TaskService {
         if ("fail".equals(description)) {
             throw new RuntimeException("This is for testing the error handler");
         }
-        var task = new Task();
-        task.setDescription(description);
-        task.setCreationDate(clock.instant());
+        var task = new Task(description, Instant.now());
         task.setDueDate(dueDate);
         taskRepository.saveAndFlush(task);
     }
