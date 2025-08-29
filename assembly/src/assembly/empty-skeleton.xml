@@ -19,8 +19,6 @@
             <includes>
                 <include>src/**</include>
                 <include>.gitignore</include>
-                <include>.prettierrc.json</include>
-                <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
                 <include>Dockerfile</include>
             </includes>
@@ -33,6 +31,7 @@
                 <exclude>src/main/frontend/index.html</exclude>
                 <exclude>src/main/frontend/index.tsx</exclude>
                 <exclude>src/main/java/**</exclude>
+                <exclude>src/main/resources/META-INF/**</exclude>
                 <exclude>src/test/java/com/example/application/ArchitectureTest.java</exclude>
                 <exclude>src/test/java/com/example/application/taskmanagement/**</exclude>
             </excludes>

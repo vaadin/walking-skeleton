@@ -28,8 +28,6 @@
             <includes>
                 <include>src/**</include>
                 <include>.gitignore</include>
-                <include>.prettierrc.json</include>
-                <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
                 <include>Dockerfile</include>
             </includes>
