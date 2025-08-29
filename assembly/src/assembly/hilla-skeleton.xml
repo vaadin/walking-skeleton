@@ -10,9 +10,8 @@
             <outputDirectory>src/main/java</outputDirectory>
             <directory>${basedir}/target/generated-sources/hilla</directory>
             <excludes>
-                <exclude>com/example/application/base/ui/**</exclude>
+                <exclude>com/example/application/base/**</exclude>
                 <exclude>com/example/application/taskmanagement/ui/**</exclude>
-                <exclude>com/example/application/SecurityConfig.java</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -20,7 +19,6 @@
             <directory>${basedir}/target/generated-sources/hilla-frontend</directory>
             <excludes>
                 <exclude>generated/**</exclude>
-                <exclude>themes/default/empty-styles.css</exclude>
                 <exclude>index.html</exclude>
             </excludes>
         </fileSet>
@@ -28,15 +26,9 @@
             <outputDirectory/>
             <directory>${basedir}/../walking-skeleton</directory>
             <includes>
-                <include>.mvn/**</include>
                 <include>src/**</include>
                 <include>.gitignore</include>
-                <include>.prettierrc.json</include>
-                <include>eclipse-formatter.xml</include>
                 <include>LICENSE.md</include>
-                <include>mvnw</include>
-                <include>mvnw.cmd</include>
-                <include>pom.xml</include>
                 <include>Dockerfile</include>
             </includes>
             <excludes>
@@ -45,11 +37,23 @@
                 <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/hilla instead -->
             </excludes>
         </fileSet>
+        <fileSet>
+            <outputDirectory/>
+            <directory>${basedir}/../</directory>
+            <includes>
+                <include>.mvn/**</include>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
+        </fileSet>
     </fileSets>
     <files>
         <file>
             <source>${basedir}/../walking-skeleton/README-hilla.md</source>
             <destName>README.md</destName>
+        </file>
+        <file>
+            <source>${basedir}/target/nonempty-project/pom.xml</source>
         </file>
     </files>
 </assembly>
