@@ -14,7 +14,6 @@ export const config: ViewConfig = {
     order: 1,
     title: 'Task List',
   },
-  loginRequired: true,
 };
 
 const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
