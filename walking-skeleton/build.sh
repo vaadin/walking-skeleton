@@ -5,6 +5,14 @@ set -euo pipefail  # Exit on error, undefined variables, and pipe failures
 # Read Vaadin Pro key if available
 VAADIN_PRO_KEY=""
 PRO_KEY_FILE="$HOME/.vaadin/proKey"
+DOCKER_TAG=""
+
+if [ $# -gt 0 ]; then
+  DOCKER_TAG="$1"
+else
+  ARTIFACT_ID=$(./mvnw help:evaluate -Dexpression=project.artifactId -q -DforceStdout 2>/dev/null)
+  DOCKER_TAG="$ARTIFACT_ID:latest"
+fi
 
 if [ -f "$PRO_KEY_FILE" ]; then
     if command -v jq >/dev/null 2>&1; then
@@ -40,15 +48,15 @@ if ! command -v docker >/dev/null 2>&1; then
 fi
 
 # Build the Docker image with Vaadin Pro key if available
-echo "🔨 Building Docker image..."
+echo "🔨 Building Docker image $DOCKER_TAG..."
 
 if [ -n "$VAADIN_PRO_KEY" ]; then
-    if ! docker build --build-arg VAADIN_PRO_KEY="$VAADIN_PRO_KEY" .; then
+    if ! docker build -t "$DOCKER_TAG" --build-arg VAADIN_PRO_KEY="$VAADIN_PRO_KEY" .; then
         echo "❌ Docker build failed with Vaadin Pro key" >&2
         exit 1
     fi
 else
-    if ! docker build .; then
+    if ! docker build -t "$DOCKER_TAG" .; then
         echo "❌ Docker build failed" >&2
         exit 1
     fi
