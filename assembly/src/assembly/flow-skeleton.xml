@@ -18,6 +18,8 @@
                 <include>.gitignore</include>
                 <include>LICENSE.md</include>
                 <include>Dockerfile</include>
+                <include>build.ps1</include>
+                <include>build.sh</include>
             </includes>
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
