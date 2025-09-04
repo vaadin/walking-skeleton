@@ -12,11 +12,11 @@ COPY . $HOME
 
 # If you have a Vaadin Pro key, pass it as a secret with id "proKey":
 #
-#   $ docker build --secret id=proKey,src=$HOME/.vaadin/proKey  .
+#   $ docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
 #
 # If you have a Vaadin Offline key, pass it as a secret with id "offlineKey":
 #
-#   $ docker build --secret id=offlineKey,src=$HOME/.vaadin/offlineKey  .
+#   $ docker build --secret id=offlineKey,src=$HOME/.vaadin/offlineKey .
 
 RUN --mount=type=cache,target=/root/.m2 \
     --mount=type=secret,id=proKey \
