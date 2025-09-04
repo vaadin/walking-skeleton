@@ -1,18 +1,29 @@
+FROM ghcr.io/jqlang/jq:latest AS jq-stage
+
 FROM eclipse-temurin:21-jdk AS build
+COPY --from=jq-stage /jq /usr/bin/jq
+# Test that jq works after copying
+RUN jq --version
+
 ENV HOME=/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
 COPY . $HOME
 
-# Build the application with production profile
-# Accept VAADIN_PRO_KEY as build argument for commercial components
-ARG VAADIN_PRO_KEY
+# If you have a Vaadin Pro key, pass it as a secret with id "proKey":
+#
+#   $ docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
+#
+# If you have a Vaadin Offline key, pass it as a secret with id "offlineKey":
+#
+#   $ docker build --secret id=offlineKey,src=$HOME/.vaadin/offlineKey .
 
-# If VAADIN_PRO_KEY is provided, use it directly (CI scenario)
-# Otherwise, Vaadin will look for the key in ~/.vaadin/proKey (local build)
-ENV VAADIN_PRO_KEY=${VAADIN_PRO_KEY}
-
-RUN --mount=type=cache,target=/root/.m2 ./mvnw clean package -Pproduction -DskipTests
+RUN --mount=type=cache,target=/root/.m2 \
+    --mount=type=secret,id=proKey \
+    --mount=type=secret,id=offlineKey \
+    sh -c 'PRO_KEY=$(jq -r ".proKey // empty" /run/secrets/proKey 2>/dev/null || echo "") && \
+    OFFLINE_KEY=$(cat /run/secrets/offlineKey 2>/dev/null || echo "") && \
+    ./mvnw clean package -Pproduction -DskipTests -Dvaadin.proKey=${PRO_KEY} -Dvaadin.offlineKey=${OFFLINE_KEY}'
 
 FROM eclipse-temurin:21-jre-alpine
 COPY --from=build /app/target/*.jar app.jar
