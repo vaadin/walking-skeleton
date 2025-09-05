@@ -21,6 +21,12 @@ To build a Docker image, run:
 docker build -t my-application:latest .
 ```
 
+If you use commercial components, pass the license key as a build secret:
+
+```bash
+docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
+```
+
 ## Getting Started
 
 The [Getting Started](https://vaadin.com/docs/latest/getting-started) guide will quickly familiarize you with your new
