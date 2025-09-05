@@ -48,6 +48,12 @@
             <artifactId>h2</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -55,7 +61,7 @@
     </dependencies>
 
     <build>
-        <defaultGoal>spring-boot:run</defaultGoal>
+        <defaultGoal>spring-boot:test-run</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -106,19 +112,6 @@
     <profiles>
         <profile>
             <id>production</id>
-            <dependencies>
-                <dependency>
-                    <!-- Exclude development dependencies from production -->
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>vaadin-core</artifactId>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>com.vaadin</groupId>
-                            <artifactId>vaadin-dev</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
             <build>
                 <plugins>
                     <plugin>
