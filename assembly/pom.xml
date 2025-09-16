@@ -29,7 +29,6 @@
                         <descriptor>src/assembly/empty-skeleton.xml</descriptor>
                         <descriptor>src/assembly/flow-skeleton.xml</descriptor>
                         <descriptor>src/assembly/hilla-skeleton.xml</descriptor>
-                        <descriptor>src/assembly/hybrid-skeleton.xml</descriptor>
                     </descriptors>
                     <attach>false</attach>
                 </configuration>
@@ -124,7 +123,7 @@
                                 </replace>
                                 <!-- Replace hybrid view name in Hilla only starter -->
                                 <replace token="Task List Hilla" value="Task List" dir="target/generated-sources/hilla-frontend">
-                                    <include name="**/task-list.tsx"/>
+                                    <include name="**/@index.tsx"/>
                                 </replace>
                             </target>
                         </configuration>
