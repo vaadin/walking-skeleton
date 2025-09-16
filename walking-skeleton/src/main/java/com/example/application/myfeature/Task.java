@@ -1,4 +1,4 @@
-package com.example.application.taskmanagement;
+package com.example.application.myfeature;
 
 import jakarta.persistence.*;
 import org.jspecify.annotations.Nullable;
@@ -16,6 +16,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "task_id")
     private Long id;
+
+    @Version
+    @Column(name = "version")
+    private Long version;
 
     @Column(name = "description", nullable = false, length = DESCRIPTION_MAX_LENGTH)
     private String description = "";
