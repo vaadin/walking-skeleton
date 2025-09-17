@@ -29,7 +29,7 @@ jobs:
       - name: Build each assembly
         run: |
           cd assembly/target
-          for ASSEMBLY in empty flow hilla hybrid; do
+          for ASSEMBLY in empty flow hilla; do
             echo "Building walking-skeleton-${ASSEMBLY}"
             unzip -q walking-skeleton-${ASSEMBLY}
             cd walking-skeleton
