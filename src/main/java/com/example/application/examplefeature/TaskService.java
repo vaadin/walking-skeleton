@@ -1,4 +1,4 @@
-package com.example.application.taskmanagement;
+package com.example.application.examplefeature;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;

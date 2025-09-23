@@ -1,27 +1,92 @@
-// TODO Replace with your own main view.
-
 import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { Icon } from '@vaadin/react-components';
-import { ViewToolbar } from 'Frontend/components/ViewToolbar';
+import { Button, DatePicker, Grid, GridColumn, TextField } from '@vaadin/react-components';
+import { Notification } from '@vaadin/react-components/Notification';
+import { TaskService } from 'Frontend/generated/endpoints';
+import { useSignal } from '@vaadin/hilla-react-signals';
+import handleError from 'Frontend/views/_ErrorHandler';
+import { Group, ViewToolbar } from 'Frontend/components/ViewToolbar';
+import { useGridDataProvider } from '@vaadin/hilla-react-crud';
 
 export const config: ViewConfig = {
+  title: 'Task List Hilla',
   menu: {
-    icon: 'vaadin:home',
-    order: -100,
-    title: 'Welcome!',
+    icon: 'vaadin:clipboard-check',
+    order: 1,
+    title: 'Task List Hilla',
   },
 };
 
-export default function MainView() {
+const dateTimeFormatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: 'medium',
+  timeStyle: 'medium',
+});
+
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  dateStyle: 'medium',
+});
+
+type TaskEntryFormProps = {
+  onTaskCreated?: () => void;
+};
+
+function TaskEntryForm(props: TaskEntryFormProps) {
+  const description = useSignal('');
+  const dueDate = useSignal<string | undefined>('');
+  const createTask = async () => {
+    try {
+      await TaskService.createTask(description.value, dueDate.value);
+      if (props.onTaskCreated) {
+        props.onTaskCreated();
+      }
+      description.value = '';
+      dueDate.value = undefined;
+      Notification.show('Task added', { duration: 3000, position: 'bottom-end', theme: 'success' });
+    } catch (error) {
+      handleError(error);
+    }
+  };
   return (
-    <main className="p-m flex flex-col box-border w-full h-full">
-      <ViewToolbar title="Welcome to Vaadin!" />
-      <div className="flex-grow flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center">
-          <Icon src="icons/construction.svg" className="text-success" style={{ width: '200px', height: '200px' }} />
-          <p>Replace this view with your own main view!</p>
-        </div>
-      </div>
+    <>
+      <TextField
+        placeholder="What do you want to do?"
+        aria-label="Task description"
+        maxlength={255}
+        style={{ minWidth: '20em' }}
+        value={description.value}
+        onValueChanged={(evt) => (description.value = evt.detail.value)}
+      />
+      <DatePicker
+        placeholder="Due date"
+        aria-label="Due date"
+        value={dueDate.value}
+        onValueChanged={(evt) => (dueDate.value = evt.detail.value)}
+      />
+      <Button onClick={createTask} theme="primary">
+        Create
+      </Button>
+    </>
+  );
+}
+
+export default function TaskListView() {
+  const dataProvider = useGridDataProvider(TaskService.list);
+
+  return (
+    <main className="w-full h-full flex flex-col box-border gap-s p-m">
+      <ViewToolbar title="Task List Hilla">
+        <Group>
+          <TaskEntryForm onTaskCreated={dataProvider.refresh} />
+        </Group>
+      </ViewToolbar>
+      <Grid dataProvider={dataProvider}>
+        <GridColumn path="description" />
+        <GridColumn path="dueDate" header="Due Date">
+          {({ item }) => (item.dueDate ? dateFormatter.format(new Date(item.dueDate)) : 'Never')}
+        </GridColumn>
+        <GridColumn path="creationDate" header="Creation Date">
+          {({ item }) => dateTimeFormatter.format(new Date(item.creationDate))}
+        </GridColumn>
+      </Grid>
     </main>
   );
 }
