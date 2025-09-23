@@ -2,12 +2,57 @@
 
 - [ ] TODO Replace or update this README with instructions relevant to your application
 
+## Project Structure
+
+The sources of your Walking Skeleton have the following structure:
+
+```
+src
+├── main/frontend
+│   └── themes
+│       └── default
+│           ├── styles.css
+│           └── theme.json
+├── main/java
+│   └── [application package]
+│       ├── base
+│       │   └── ui
+│       │       ├── component
+│       │       │   └── ViewToolbar.java
+│       │       ├── MainErrorHandler.java
+│       │       └── MainLayout.java
+│       ├── myfeature
+│       │   ├── ui
+│       │   │   └── TaskListView.java
+│       │   ├── Task.java
+│       │   ├── TaskRepository.java
+│       │   └── TaskService.java                
+│       └── Application.java       
+└── test/java
+    └── [application package]
+        └── myfeature
+           └── TaskServiceTest.java                 
+```
+
+The main entry point into the application is `Application.java`. This class contains the `main()` method that start up the Spring Boot application.
+
+The skeleton follows a *feature-based package structure*, organizing code by *functional units* rather than traditional architectural layers. It includes two feature packages: `base` and `myfeature`.
+
+* The `base` package contains classes meant for reuse across different features, either through composition or inheritance.
+* The `myfeature` package is an example feature package that demonstrates the structure. It represents a *self-contained unit of functionality*, including UI components, business logic, data access, and an integration test. Once you create your own features, *you'll remove this package*.
+
+The `src/main/frontend` directory contains an empty theme called `default`, based on the Lumo theme. It is activated in the `Application` class, using the `@Theme` annotation.
+
+## Starting in Development Mode
+
 To start the application in development mode, import it into your IDE and run the `Application` class. 
 You can also start the application from the command line by running: 
 
 ```bash
 ./mvnw
 ```
+
+## Building for Production
 
 To build the application in production mode, run:
 
