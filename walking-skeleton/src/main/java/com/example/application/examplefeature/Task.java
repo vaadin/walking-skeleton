@@ -1,4 +1,4 @@
-package com.example.application.taskmanagement;
+package com.example.application.examplefeature;
 
 import jakarta.persistence.*;
 import org.jspecify.annotations.Nullable;

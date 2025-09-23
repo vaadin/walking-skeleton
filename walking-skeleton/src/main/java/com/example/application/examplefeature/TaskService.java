@@ -1,4 +1,4 @@
-package com.example.application.taskmanagement;
+package com.example.application.examplefeature;
 
 //#if ui.framework == "hilla"
 import com.vaadin.flow.server.auth.AnonymousAllowed;
