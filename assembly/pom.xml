@@ -114,17 +114,17 @@
                         <phase>prepare-package</phase>
                         <configuration>
                             <target>
-                                <!-- Replace hybrid view route in Flow only starter -->
-                                <replace token="task-list-flow" value="task-list" dir="target/generated-sources/flow">
+                                <!-- Replace Flow view route in Flow only starter -->
+                                <replace token="task-list-flow" value="" dir="target/generated-sources/flow">
                                     <include name="**/TaskListView.java"/>
                                 </replace>
-                                <!-- Replace hybrid view name in Flow only starter -->
+                                <!-- Replace Flow view name in Flow only starter -->
                                 <replace token="Task List Flow" value="Task List" dir="target/generated-sources/flow">
                                     <include name="**/TaskListView.java"/>
                                 </replace>
                                 <!-- Replace hybrid view name in Hilla only starter -->
                                 <replace token="Task List Hilla" value="Task List" dir="target/generated-sources/hilla-frontend">
-                                    <include name="**/task-list.tsx"/>
+                                    <include name="**/@index.tsx"/>
                                 </replace>
                             </target>
                         </configuration>
