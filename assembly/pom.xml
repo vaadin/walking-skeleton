@@ -124,7 +124,7 @@
                                 </replace>
                                 <!-- Replace hybrid view name in Hilla only starter -->
                                 <replace token="Task List Hilla" value="Task List" dir="target/generated-sources/hilla-frontend">
-                                    <include name="**/task-list.tsx"/>
+                                    <include name="**/@index.tsx"/>
                                 </replace>
                             </target>
                         </configuration>
