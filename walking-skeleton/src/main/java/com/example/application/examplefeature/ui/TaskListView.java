@@ -1,8 +1,8 @@
-package com.example.application.taskmanagement.ui;
+package com.example.application.examplefeature.ui;
 
 import com.example.application.base.ui.component.ViewToolbar;
-import com.example.application.taskmanagement.Task;
-import com.example.application.taskmanagement.TaskService;
+import com.example.application.examplefeature.Task;
+import com.example.application.examplefeature.TaskService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
