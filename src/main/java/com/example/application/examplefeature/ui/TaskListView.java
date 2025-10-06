@@ -7,14 +7,15 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Main;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +27,7 @@ import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRe
 @Route("")
 @PageTitle("Task List")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
-class TaskListView extends Main {
+class TaskListView extends VerticalLayout {
 
     private final TaskService taskService;
 
@@ -61,11 +62,14 @@ class TaskListView extends Main {
         taskGrid.addColumn(task -> Optional.ofNullable(task.getDueDate()).map(dateFormatter::format).orElse("Never"))
                 .setHeader("Due Date");
         taskGrid.addColumn(task -> dateTimeFormatter.format(task.getCreationDate())).setHeader("Creation Date");
+        taskGrid.setEmptyStateText("You have no tasks to complete");
         taskGrid.setSizeFull();
+        taskGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
         setSizeFull();
-        addClassNames(LumoUtility.BoxSizing.BORDER, LumoUtility.Display.FLEX, LumoUtility.FlexDirection.COLUMN,
-                LumoUtility.Padding.MEDIUM, LumoUtility.Gap.SMALL);
+        setPadding(false);
+        setSpacing(false);
+        getStyle().setOverflow(Style.Overflow.HIDDEN);
 
         add(new ViewToolbar("Task List", ViewToolbar.group(description, dueDate, createBtn)));
         add(taskGrid);
