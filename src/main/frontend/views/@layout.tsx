@@ -1,16 +1,16 @@
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import '@vaadin/icons';
-import { AppLayout, Icon, ProgressBar, Scroller, SideNav, SideNavItem } from '@vaadin/react-components';
+import { AppLayout, Icon, ProgressBar, Scroller, SideNav, SideNavItem, VerticalLayout } from '@vaadin/react-components';
 import { Suspense, useMemo } from 'react';
 import { createMenuItems } from '@vaadin/hilla-file-router/runtime.js';
 
 function Header() {
   // TODO Replace with real application logo and name
   return (
-    <div className="flex p-m gap-m items-center" slot="drawer">
-      <Icon icon="vaadin:cubes" className="text-primary icon-l" />
-      <span className="font-semibold text-l">Walking Skeleton</span>
-    </div>
+    <VerticalLayout slot="drawer" theme="spacing padding" style={{ alignItems: 'center' }}>
+      <Icon icon="vaadin:cubes" style={{ width: '48px', height: '48px' }} />
+      <span style={{ fontWeight: 'bold' }}>Walking Skeleton</span>
+    </VerticalLayout>
   );
 }
 
@@ -19,7 +19,7 @@ function MainMenu() {
   const location = useLocation();
 
   return (
-    <SideNav className="mx-m" onNavigate={({ path }) => path != null && navigate(path)} location={location}>
+    <SideNav onNavigate={({ path }) => path != null && navigate(path)} location={location}>
       {createMenuItems().map(({ to, icon, title }) => (
         <SideNavItem path={to} key={to}>
           {icon && <Icon icon={icon} slot="prefix" />}
@@ -37,7 +37,7 @@ export default function MainLayout() {
       <Scroller slot="drawer">
         <MainMenu />
       </Scroller>
-      <Suspense fallback={<ProgressBar indeterminate={true} className="m-0" />}>
+      <Suspense fallback={<ProgressBar indeterminate={true} />}>
         <Outlet />
       </Suspense>
     </AppLayout>
