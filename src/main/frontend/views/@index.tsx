@@ -1,5 +1,5 @@
 import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { Button, DatePicker, Grid, GridColumn, TextField } from '@vaadin/react-components';
+import { Button, DatePicker, Grid, GridColumn, TextField, VerticalLayout } from '@vaadin/react-components';
 import { Notification } from '@vaadin/react-components/Notification';
 import { TaskService } from 'Frontend/generated/endpoints';
 import { useSignal } from '@vaadin/hilla-react-signals';
@@ -72,13 +72,13 @@ export default function TaskListView() {
   const dataProvider = useGridDataProvider(TaskService.list);
 
   return (
-    <main className="w-full h-full flex flex-col box-border gap-s p-m">
+    <VerticalLayout style={{ overflow: 'hidden' }}>
       <ViewToolbar title="Task List Hilla">
         <Group>
           <TaskEntryForm onTaskCreated={dataProvider.refresh} />
         </Group>
       </ViewToolbar>
-      <Grid dataProvider={dataProvider}>
+      <Grid theme="no-border" dataProvider={dataProvider}>
         <GridColumn path="description" />
         <GridColumn path="dueDate" header="Due Date">
           {({ item }) => (item.dueDate ? dateFormatter.format(new Date(item.dueDate)) : 'Never')}
@@ -87,6 +87,6 @@ export default function TaskListView() {
           {({ item }) => dateTimeFormatter.format(new Date(item.creationDate))}
         </GridColumn>
       </Grid>
-    </main>
+    </VerticalLayout>
   );
 }
