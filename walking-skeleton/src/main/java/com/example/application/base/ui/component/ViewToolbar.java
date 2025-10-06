@@ -3,42 +3,40 @@ package com.example.application.base.ui.component;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.theme.lumo.LumoUtility.*;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 @NullMarked
-public final class ViewToolbar extends Composite<Header> {
+public final class ViewToolbar extends Composite<HorizontalLayout> {
 
     public ViewToolbar(@Nullable String viewTitle, Component... components) {
-        addClassNames(Display.FLEX, FlexDirection.COLUMN, JustifyContent.BETWEEN, AlignItems.STRETCH, Gap.MEDIUM,
-                FlexDirection.Breakpoint.Medium.ROW, AlignItems.Breakpoint.Medium.CENTER);
+        var layout = getContent();
+        layout.setPadding(true);
+        layout.setWrap(true);
+        layout.setWidthFull();
+        layout.getStyle().setBorderBottom("1px solid var(--vaadin-border-color-secondary)");
 
         var drawerToggle = new DrawerToggle();
-        drawerToggle.addClassNames(Margin.NONE);
-
         var title = new H1(viewTitle);
-        title.addClassNames(FontSize.XLARGE, Margin.NONE, FontWeight.LIGHT);
 
-        var toggleAndTitle = new Div(drawerToggle, title);
-        toggleAndTitle.addClassNames(Display.FLEX, AlignItems.CENTER);
-        getContent().add(toggleAndTitle);
+        var toggleAndTitle = new HorizontalLayout(drawerToggle, title);
+        toggleAndTitle.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
+        layout.add(toggleAndTitle);
+        layout.setFlexGrow(1, toggleAndTitle);
 
         if (components.length > 0) {
-            var actions = new Div(components);
-            actions.addClassNames(Display.FLEX, FlexDirection.COLUMN, JustifyContent.BETWEEN, Flex.GROW, Gap.SMALL,
-                    FlexDirection.Breakpoint.Medium.ROW);
-            getContent().add(actions);
+            var actions = new HorizontalLayout(components);
+            actions.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+            layout.add(actions);
         }
     }
 
     public static Component group(Component... components) {
-        var group = new Div(components);
-        group.addClassNames(Display.FLEX, FlexDirection.COLUMN, AlignItems.STRETCH, Gap.SMALL,
-                FlexDirection.Breakpoint.Medium.ROW, AlignItems.Breakpoint.Medium.CENTER);
+        var group = new HorizontalLayout(components);
+        group.setWrap(true);
         return group;
     }
 }

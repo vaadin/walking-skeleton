@@ -1,18 +1,19 @@
 package com.example.application.base.ui;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.Scroller;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
-
-import static com.vaadin.flow.theme.lumo.LumoUtility.*;
 
 @Layout
 public final class MainLayout extends AppLayout {
@@ -22,22 +23,21 @@ public final class MainLayout extends AppLayout {
         addToDrawer(createHeader(), new Scroller(createSideNav()));
     }
 
-    private Div createHeader() {
+    private Component createHeader() {
         // TODO Replace with real application logo and name
         var appLogo = VaadinIcon.CUBES.create();
-        appLogo.addClassNames(TextColor.PRIMARY, IconSize.LARGE);
+        appLogo.setSize("48px");
 
         var appName = new Span("Walking Skeleton");
-        appName.addClassNames(FontWeight.SEMIBOLD, FontSize.LARGE);
+        appName.getStyle().setFontWeight(Style.FontWeight.BOLD);
 
-        var header = new Div(appLogo, appName);
-        header.addClassNames(Display.FLEX, Padding.MEDIUM, Gap.MEDIUM, AlignItems.CENTER);
+        var header = new VerticalLayout(appLogo, appName);
+        header.setAlignItems(FlexComponent.Alignment.CENTER);
         return header;
     }
 
     private SideNav createSideNav() {
         var nav = new SideNav();
-        nav.addClassNames(Margin.Horizontal.MEDIUM);
         MenuConfiguration.getMenuEntries().forEach(entry -> nav.addItem(createSideNavItem(entry)));
         return nav;
     }
