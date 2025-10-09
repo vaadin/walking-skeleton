@@ -63,7 +63,7 @@ You can also start the application from the command line by running:
 To build the application in production mode, run:
 
 ```bash
-./mvnw -Pproduction package
+./mvnw package
 ```
 
 To build a Docker image, run:
