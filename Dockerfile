@@ -11,7 +11,7 @@ RUN \
 WORKDIR /app/walking-skeleton-generator
 RUN \
  --mount=type=cache,target=/root/.m2 \
- mvn -C clean package -Pproduction
+ mvn -C clean package
 RUN mv target/*.jar target/generator.jar
 
 # Generate config files
