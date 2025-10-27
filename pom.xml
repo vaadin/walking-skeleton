@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.0-M3</version>
+        <version>4.0.0-RC1</version>
         <relativePath/>
     </parent>
     <dependencyManagement>
@@ -35,6 +35,11 @@
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-dev</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.vaadin</groupId>
@@ -72,46 +77,17 @@
                             <goal>prepare-frontend</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>package-for-production</id>
+                        <goals>
+                            <goal>build-frontend</goal>
+                        </goals>
+                        <phase>prepare-package</phase>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-    
-    <profiles>
-        <profile>
-            <id>production</id>
-            <dependencies>
-                <dependency>
-                    <!-- Exclude development dependencies from production -->
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>vaadin-core</artifactId>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>com.vaadin</groupId>
-                            <artifactId>vaadin-dev</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.vaadin</groupId>
-                        <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>${vaadin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>build-frontend</goal>
-                                </goals>
-                                <phase>compile</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     
     <repositories>
         <repository>
