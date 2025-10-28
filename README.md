@@ -19,7 +19,6 @@ src
 │       │   └── ui
 │       │       ├── component
 │       │       │   └── ViewToolbar.java
-│       │       ├── MainErrorHandler.java
 │       │       └── MainLayout.java
 │       ├── examplefeature
 │       │   ├── ui
