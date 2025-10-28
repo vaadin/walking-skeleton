@@ -17,8 +17,7 @@ src
 │   │       └── theme.json
 │   └── views
 │       ├── @index.tsx
-│       ├── @layout.tsx
-│       └── _ErrorHandler.ts
+│       └── @layout.tsx
 ├── main/java
 │   └── [application package]
 │       ├── examplefeature
@@ -48,7 +47,7 @@ The `src/main/frontend` directory contains the following:
 * an example view `@index.tsx` that communicates with the `TaskService`. Once you create your own features,
   *you'll replace this*.
 * a main layout `@layout.tsx` that you can reuse and expand in your application.
-* an `_ErrorHandler.ts` that you can reuse in your application.
+
 
 ## Starting in Development Mode
 
