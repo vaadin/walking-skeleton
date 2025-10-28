@@ -32,13 +32,13 @@ function TaskEntryForm(props: TaskEntryFormProps) {
   const description = useSignal('');
   const dueDate = useSignal<string | undefined>('');
   const createTask = async () => {
-      await TaskService.createTask(description.value, dueDate.value);
-      if (props.onTaskCreated) {
-        props.onTaskCreated();
-      }
-      description.value = '';
-      dueDate.value = undefined;
-      Notification.show('Task added', { duration: 3000, position: 'bottom-end', theme: 'success' });
+    await TaskService.createTask(description.value, dueDate.value);
+    if (props.onTaskCreated) {
+      props.onTaskCreated();
+    }
+    description.value = '';
+    dueDate.value = undefined;
+    Notification.show('Task added', { duration: 3000, position: 'bottom-end', theme: 'success' });
   };
   return (
     <>
