@@ -8,18 +8,12 @@ The sources of your Walking Skeleton have the following structure:
 
 ```
 src
-├── main/frontend
-│   └── themes
-│       └── default
-│           ├── styles.css
-│           └── theme.json
 ├── main/java
 │   └── [application package]
 │       ├── base
 │       │   └── ui
 │       │       ├── component
 │       │       │   └── ViewToolbar.java
-│       │       ├── MainErrorHandler.java
 │       │       └── MainLayout.java
 │       ├── examplefeature
 │       │   ├── ui
@@ -27,7 +21,12 @@ src
 │       │   ├── Task.java
 │       │   ├── TaskRepository.java
 │       │   └── TaskService.java                
-│       └── Application.java       
+│       └── Application.java     
+├── main/resources
+│   ├── META-INF
+│   │   └── resources
+│   │       └── styles.css
+│   └── application.properties 
 └── test/java
     └── [application package]
         └── examplefeature
@@ -46,8 +45,6 @@ architectural layers. It includes two feature packages: `base` and `examplefeatu
   *self-contained unit of functionality*, including UI components, business logic, data access, and an integration test.
   Once you create your own features, *you'll remove this package*.
 
-The `src/main/frontend` directory contains an empty theme called `default`, based on the Lumo theme. It is activated in
-the `Application` class, using the `@Theme` annotation.
 
 ## Starting in Development Mode
 
