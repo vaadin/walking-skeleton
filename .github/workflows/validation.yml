@@ -25,20 +25,20 @@ jobs:
           java-version: '21'
       - name: Spotless check
         run: |
-          mvn spotless:check
+          mvn -ntp -B spotless:check
       - name: Build template and assemblies
         run: |
-          mvn -ntp -B -q clean package
+          mvn -ntp -B clean package
       - name: Build each assembly
         shell: bash
         run: |
           cd assembly/target
           for ASSEMBLY in empty flow hilla hybrid; do
-            echo "Building walking-skeleton-${ASSEMBLY}"
+            echo "> ==================== Building walking-skeleton-${ASSEMBLY} ..."
             unzip -q walking-skeleton-${ASSEMBLY}
             cd walking-skeleton
             mvn -ntp -B -q clean package
             cd ..
             rm -rf walking-skeleton
-            echo "Done"
+            echo "> ==================== Done"
           done
