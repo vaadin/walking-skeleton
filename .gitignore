@@ -15,3 +15,4 @@ target/
 /walking-skeleton/vite.config.ts
 /walking-skeleton/src/main/bundles/
 /walking-skeleton/src/main/frontend/index.html
+node_modules
