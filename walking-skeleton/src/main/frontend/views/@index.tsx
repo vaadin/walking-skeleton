@@ -3,7 +3,6 @@ import { Button, DatePicker, Grid, GridColumn, TextField } from '@vaadin/react-c
 import { Notification } from '@vaadin/react-components/Notification';
 import { TaskService } from 'Frontend/generated/endpoints';
 import { useSignal } from '@vaadin/hilla-react-signals';
-import handleError from 'Frontend/views/_ErrorHandler';
 import { Group, ViewToolbar } from 'Frontend/components/ViewToolbar';
 import { useGridDataProvider } from '@vaadin/hilla-react-crud';
 
@@ -33,17 +32,13 @@ function TaskEntryForm(props: TaskEntryFormProps) {
   const description = useSignal('');
   const dueDate = useSignal<string | undefined>('');
   const createTask = async () => {
-    try {
-      await TaskService.createTask(description.value, dueDate.value);
-      if (props.onTaskCreated) {
-        props.onTaskCreated();
-      }
-      description.value = '';
-      dueDate.value = undefined;
-      Notification.show('Task added', { duration: 3000, position: 'bottom-end', theme: 'success' });
-    } catch (error) {
-      handleError(error);
+    await TaskService.createTask(description.value, dueDate.value);
+    if (props.onTaskCreated) {
+      props.onTaskCreated();
     }
+    description.value = '';
+    dueDate.value = undefined;
+    Notification.show('Task added', { duration: 3000, position: 'bottom-end', theme: 'success' });
   };
   return (
     <>
