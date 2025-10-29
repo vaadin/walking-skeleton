@@ -71,6 +71,9 @@ jobs:
           git config --global user.name "Vaadin Bot"
           git status
           git add --all
-          git commit -am "Refresh branch ${{ env.BRANCH }}"
-          git status
-          git push origin
+          if ! git diff --quiet || ! git diff --cached --quiet; then
+            git commit -m "Refresh branch ${{ env.BRANCH }}"
+            git push origin
+          else
+            echo "No changes to commit"
+          fi
