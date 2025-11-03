@@ -5,7 +5,7 @@
     <!-- Include base xsl with everything -->
     <xsl:include href="base-pom-transform.xsl"/>
 
-    <!-- Remove Hilla specific dependencies -->
-    <xsl:template match="maven:dependency[maven:artifactId='hilla-spring-boot-starter']"/>
+    <!-- Remove specific dependencies -->
+    <xsl:template match="maven:dependency[maven:artifactId='vaadin-spring-boot-starter']"/>
 
 </xsl:stylesheet>
