@@ -29,12 +29,5 @@
 
     <!-- Remove specific plugins -->
     <xsl:template match="maven:plugin[maven:artifactId='spotless-maven-plugin']"/>
-    <!-- Remove specific dependencies -->
-    <xsl:template match="maven:dependency[maven:artifactId='hilla-spring-boot-starter']"/>
-
-    <xsl:template match="maven:dependency[maven:artifactId='spring-boot-starter-data-jpa']"/>
-    <xsl:template match="maven:dependency[maven:artifactId='h2']"/>
-    <xsl:template match="maven:dependency[maven:artifactId='spring-boot-starter-validation']"/>
-    <xsl:template match="maven:dependency[maven:artifactId='spring-boot-starter-actuator']"/>
 
 </xsl:stylesheet>

@@ -159,6 +159,14 @@
                                     <includes>
                                         <include>pom.xml</include>
                                     </includes>
+                                    <stylesheet>src/assembly/hilla-pom-transform.xsl</stylesheet>
+                                    <outputDir>${basedir}/target/hilla-nonempty-project</outputDir>
+                                </transformationSet>
+                                <transformationSet>
+                                    <dir>${basedir}/../walking-skeleton</dir>
+                                    <includes>
+                                        <include>pom.xml</include>
+                                    </includes>
                                     <stylesheet>src/assembly/empty-pom-transform.xsl</stylesheet>
                                     <outputDir>${basedir}/target/empty-project</outputDir>
                                 </transformationSet>

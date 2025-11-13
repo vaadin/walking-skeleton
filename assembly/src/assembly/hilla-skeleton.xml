@@ -53,7 +53,7 @@
             <destName>README.md</destName>
         </file>
         <file>
-            <source>${basedir}/target/nonempty-project/pom.xml</source>
+            <source>${basedir}/target/hilla-nonempty-project/pom.xml</source>
         </file>
     </files>
 </assembly>
