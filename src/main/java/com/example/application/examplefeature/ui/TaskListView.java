@@ -1,6 +1,6 @@
 package com.example.application.examplefeature.ui;
 
-import com.example.application.base.ui.component.ViewToolbar;
+import com.example.application.base.ui.ViewToolbar;
 import com.example.application.examplefeature.Task;
 import com.example.application.examplefeature.TaskService;
 import com.vaadin.flow.component.button.Button;
