@@ -14,6 +14,7 @@ import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 
 @Layout
 public final class MainLayout extends AppLayout {
@@ -27,8 +28,9 @@ public final class MainLayout extends AppLayout {
         // TODO Replace with real application logo and name
         var appLogo = VaadinIcon.CUBES.create();
         appLogo.setSize("48px");
+        appLogo.setColor("green");
 
-        var appName = new Span("Walking Skeleton");
+        var appName = new Span("My Application");
         appName.getStyle().setFontWeight(Style.FontWeight.BOLD);
 
         var header = new VerticalLayout(appLogo, appName);
@@ -38,6 +40,7 @@ public final class MainLayout extends AppLayout {
 
     private SideNav createSideNav() {
         var nav = new SideNav();
+        nav.addClassNames(LumoUtility.Margin.Horizontal.MEDIUM);
         MenuConfiguration.getMenuEntries().forEach(entry -> nav.addItem(createSideNavItem(entry)));
         return nav;
     }
