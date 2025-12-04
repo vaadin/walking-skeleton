@@ -1,4 +1,4 @@
-package com.example.application.base.ui.component;
+package com.example.application.base.ui;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -6,10 +6,9 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import org.jspecify.annotations.NullMarked;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.jspecify.annotations.Nullable;
 
-@NullMarked
 public final class ViewToolbar extends Composite<HorizontalLayout> {
 
     public ViewToolbar(@Nullable String viewTitle, Component... components) {
@@ -17,10 +16,13 @@ public final class ViewToolbar extends Composite<HorizontalLayout> {
         layout.setPadding(true);
         layout.setWrap(true);
         layout.setWidthFull();
-        layout.getStyle().setBorderBottom("1px solid var(--vaadin-border-color-secondary)");
+        layout.addClassName(LumoUtility.Border.BOTTOM);
 
         var drawerToggle = new DrawerToggle();
+        drawerToggle.addClassNames(LumoUtility.Margin.NONE);
+
         var title = new H1(viewTitle);
+        title.addClassNames(LumoUtility.FontSize.XLARGE, LumoUtility.Margin.NONE, LumoUtility.FontWeight.LIGHT);
 
         var toggleAndTitle = new HorizontalLayout(drawerToggle, title);
         toggleAndTitle.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
