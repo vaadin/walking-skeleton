@@ -11,6 +11,7 @@ on:
       - v24.8
       - v24.9
       - v25.0
+      - v25.1
 
 jobs:
   build_assembly:
