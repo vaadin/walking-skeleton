@@ -27,6 +27,7 @@
                 <exclude>src/main/frontend/**</exclude>
                 <exclude>src/main/java/**</exclude>
                 <exclude>src/test/**</exclude>
+                <exclude>src/main/resources/*.properties</exclude>
             </excludes>
         </fileSet>
         <fileSet>
@@ -46,6 +47,10 @@
         </file>
         <file>
             <source>${basedir}/target/empty-project/pom.xml</source>
+        </file>
+        <file>
+            <source>${basedir}/../walking-skeleton/src/main/resources/empty-application.properties</source>
+            <destName>src/main/resources/application.properties</destName>
         </file>
     </files>
 </assembly>
