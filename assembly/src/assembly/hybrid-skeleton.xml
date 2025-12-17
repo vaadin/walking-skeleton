@@ -28,6 +28,7 @@
                 <exclude>src/main/frontend/index.html</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/MainLayout.java</exclude>
                 <exclude>src/main/java/com/example/application/base/ui/MainView.java</exclude>
+                <exclude>src/main/resources/empty-application.properties</exclude>
             </excludes>
         </fileSet>
         <fileSet>

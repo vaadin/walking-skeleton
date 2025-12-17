@@ -35,6 +35,7 @@
                 <exclude>src/main/bundles/**</exclude>
                 <exclude>src/main/frontend/**</exclude> <!-- Included from generated-sources/hilla-frontend instead -->
                 <exclude>src/main/java/**</exclude> <!-- Included from generated-sources/hilla instead -->
+                <exclude>src/main/resources/empty-application.properties</exclude>
             </excludes>
         </fileSet>
         <fileSet>
