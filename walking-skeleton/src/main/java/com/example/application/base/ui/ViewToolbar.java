@@ -15,6 +15,7 @@ public final class ViewToolbar extends Composite<HorizontalLayout> {
         layout.setPadding(true);
         layout.setWrap(true);
         layout.setWidthFull();
+        layout.getStyle().setBorderBottom("1px solid var(--vaadin-border-color-secondary)");
 
         var drawerToggle = new DrawerToggle();
 
