@@ -14,7 +14,6 @@ import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
-import com.vaadin.flow.theme.lumo.LumoUtility;
 
 @Layout
 public final class MainLayout extends AppLayout {
@@ -40,7 +39,6 @@ public final class MainLayout extends AppLayout {
 
     private SideNav createSideNav() {
         var nav = new SideNav();
-        nav.addClassNames(LumoUtility.Margin.Horizontal.MEDIUM);
         MenuConfiguration.getMenuEntries().forEach(entry -> nav.addItem(createSideNavItem(entry)));
         return nav;
     }

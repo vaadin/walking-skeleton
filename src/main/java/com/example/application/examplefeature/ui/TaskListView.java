@@ -9,7 +9,6 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
@@ -44,13 +43,15 @@ class TaskListView extends VerticalLayout {
         description.setAriaLabel("Task description");
         description.setMaxLength(Task.DESCRIPTION_MAX_LENGTH);
         description.setMinWidth("20em");
+        description.getStyle().setFlexGrow("1");
 
         dueDate = new DatePicker();
         dueDate.setPlaceholder("Due date");
         dueDate.setAriaLabel("Due date");
+        dueDate.getStyle().setFlexGrow("1");
 
         createBtn = new Button("Create", event -> createTask());
-        createBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        createBtn.addThemeVariants(ButtonVariant.AURA_PRIMARY);
 
         var dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(getLocale())
                 .withZone(ZoneId.systemDefault());
@@ -64,7 +65,7 @@ class TaskListView extends VerticalLayout {
         taskGrid.addColumn(task -> dateTimeFormatter.format(task.getCreationDate())).setHeader("Creation Date");
         taskGrid.setEmptyStateText("You have no tasks to complete");
         taskGrid.setSizeFull();
-        taskGrid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        taskGrid.addThemeVariants(GridVariant.AURA_NO_BORDER);
 
         setSizeFull();
         setPadding(false);
@@ -80,8 +81,7 @@ class TaskListView extends VerticalLayout {
         taskGrid.getDataProvider().refreshAll();
         description.clear();
         dueDate.clear();
-        Notification.show("Task added", 3000, Notification.Position.BOTTOM_END)
-                .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        Notification.show("Task added", 3000, Notification.Position.BOTTOM_END);
     }
 
 }
