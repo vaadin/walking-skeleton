@@ -77,6 +77,11 @@ class TaskListView extends VerticalLayout {
     }
 
     private void createTask() {
+        if (description.getValue().isBlank()) {
+            description.setInvalid(true);
+            description.setErrorMessage("Description is required");
+            return;
+        }
         taskService.createTask(description.getValue(), dueDate.getValue());
         taskGrid.getDataProvider().refreshAll();
         description.clear();
