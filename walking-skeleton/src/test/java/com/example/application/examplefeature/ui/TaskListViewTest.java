@@ -18,8 +18,7 @@ class TaskListViewTest extends SpringBrowserlessTest {
     void empty_grid_shows_no_tasks() {
         var view = navigate(TaskListView.class);
         assertThat(test(view.taskGrid).size()).isZero();
-        assertThat(view.taskGrid.getEmptyStateText())
-                .isEqualTo("You have no tasks to complete");
+        assertThat(view.taskGrid.getEmptyStateText()).isEqualTo("You have no tasks to complete");
     }
 
     @Test
