@@ -23,9 +23,9 @@ import java.util.Optional;
 
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
 
-@Route("task-list-flow")
-@PageTitle("Task List Flow")
-@Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List Flow")
+@Route("")
+@PageTitle("Task List")
+@Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
 class TaskListView extends VerticalLayout {
 
     private final TaskService taskService;
