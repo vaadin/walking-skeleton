@@ -7,13 +7,6 @@
     </formats>
     <fileSets>
         <fileSet>
-            <outputDirectory>src/main/java</outputDirectory>
-            <directory>${basedir}/target/generated-sources/flow</directory>
-            <includes>
-                <include>com/example/application/Application.java</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <outputDirectory/>
             <directory>${basedir}/../walking-skeleton</directory>
             <includes>
@@ -25,7 +18,8 @@
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
                 <exclude>src/main/frontend/**</exclude>
-                <exclude>src/main/java/**</exclude>
+                <exclude>src/main/java/com/example/application/base/**</exclude>
+                <exclude>src/main/java/com/example/application/examplefeature/**</exclude>
                 <exclude>src/test/**</exclude>
                 <exclude>src/main/resources/*.properties</exclude>
             </excludes>
