@@ -72,7 +72,7 @@ class TaskListView extends VerticalLayout {
         setSpacing(false);
         getStyle().setOverflow(Style.Overflow.HIDDEN);
 
-        add(new ViewToolbar("Task List", ViewToolbar.group(description, dueDate, createBtn)));
+        add(new ViewToolbar("Task List Flow", ViewToolbar.group(description, dueDate, createBtn)));
         add(taskGrid);
     }
 
