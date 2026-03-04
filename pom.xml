@@ -18,6 +18,7 @@
         <version>4.0.3</version>
         <relativePath/>
     </parent>
+    
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -94,6 +95,7 @@
             </snapshots>
         </repository>
     </repositories>
+    
     <pluginRepositories>
         <pluginRepository>
             <id>vaadin-prereleases</id>
