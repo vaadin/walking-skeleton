@@ -28,8 +28,6 @@
                     <descriptors>
                         <descriptor>src/assembly/empty-skeleton.xml</descriptor>
                         <descriptor>src/assembly/flow-skeleton.xml</descriptor>
-                        <descriptor>src/assembly/hilla-skeleton.xml</descriptor>
-                        <descriptor>src/assembly/hybrid-skeleton.xml</descriptor>
                     </descriptors>
                     <attach>false</attach>
                 </configuration>
@@ -38,98 +36,6 @@
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.igormaznitsa</groupId>
-                <artifactId>jcp</artifactId>
-                <version>7.2.1</version>
-                <executions>
-                    <execution>
-                        <id>preprocess-hilla</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>preprocess</goal>
-                        </goals>
-                        <configuration>
-                            <vars>
-                                <ui.framework>hilla</ui.framework>
-                            </vars>
-                            <target>${basedir}/target/generated-sources/hilla</target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>preprocess-flow</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>preprocess</goal>
-                        </goals>
-                        <configuration>
-                            <vars>
-                                <ui.framework>flow</ui.framework>
-                            </vars>
-                            <target>${basedir}/target/generated-sources/flow</target>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sources>
-                        <source>${basedir}/../walking-skeleton/src/main/java</source>
-                    </sources>
-                    <keepLines>false</keepLines>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>preprocess-hilla-frontend</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                            <outputDirectory>${basedir}/target/generated-sources/hilla-frontend</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/../walking-skeleton/src/main/frontend</directory>
-                                    <includes>
-                                        <include>**</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <configuration>
-                            <target>
-                                <!-- Replace Flow view route in Flow only starter -->
-                                <replace token="task-list-flow" value="" dir="target/generated-sources/flow">
-                                    <include name="**/TaskListView.java"/>
-                                </replace>
-                                <!-- Replace Flow view name in Flow only starter -->
-                                <replace token="Task List Flow" value="Task List" dir="target/generated-sources/flow">
-                                    <include name="**/TaskListView.java"/>
-                                </replace>
-                                <!-- Replace hybrid view name in Hilla only starter -->
-                                <replace token="Task List Hilla" value="Task List" dir="target/generated-sources/hilla-frontend">
-                                    <include name="**/@index.tsx"/>
-                                </replace>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -151,16 +57,8 @@
                                     <includes>
                                         <include>pom.xml</include>
                                     </includes>
-                                    <stylesheet>src/assembly/pom-transform.xsl</stylesheet>
+                                    <stylesheet>src/assembly/base-pom-transform.xsl</stylesheet>
                                     <outputDir>${basedir}/target/nonempty-project</outputDir>
-                                </transformationSet>
-                                <transformationSet>
-                                    <dir>${basedir}/../walking-skeleton</dir>
-                                    <includes>
-                                        <include>pom.xml</include>
-                                    </includes>
-                                    <stylesheet>src/assembly/hilla-pom-transform.xsl</stylesheet>
-                                    <outputDir>${basedir}/target/hilla-nonempty-project</outputDir>
                                 </transformationSet>
                                 <transformationSet>
                                     <dir>${basedir}/../walking-skeleton</dir>

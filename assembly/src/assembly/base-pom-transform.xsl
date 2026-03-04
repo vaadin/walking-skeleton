@@ -20,7 +20,7 @@
     </xsl:template>
 
     <!-- Add double newlines to improve readability -->
-    <xsl:template match="maven:packaging | maven:properties | maven:dependencyManagement | maven:project/maven:dependencies | maven:project/maven:build | maven:profiles">
+    <xsl:template match="maven:packaging | maven:properties | maven:dependencyManagement | maven:project/maven:dependencies | maven:project/maven:build | maven:profiles | maven:project/maven:repositories | maven:project/maven:parent">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
         </xsl:copy>
