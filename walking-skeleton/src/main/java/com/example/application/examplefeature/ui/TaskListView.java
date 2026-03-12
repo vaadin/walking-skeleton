@@ -53,7 +53,7 @@ class TaskListView extends VerticalLayout {
         dueDate.getStyle().setFlexGrow("1");
 
         createBtn = new Button("Create", event -> createTask());
-        createBtn.addThemeVariants(ButtonVariant.AURA_PRIMARY);
+        createBtn.addThemeVariants(ButtonVariant.PRIMARY);
 
         var dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(getLocale())
                 .withZone(ZoneId.systemDefault());
@@ -67,7 +67,7 @@ class TaskListView extends VerticalLayout {
         taskGrid.addColumn(task -> dateTimeFormatter.format(task.getCreationDate())).setHeader("Creation Date");
         taskGrid.setEmptyStateText("You have no tasks to complete");
         taskGrid.setSizeFull();
-        taskGrid.addThemeVariants(GridVariant.AURA_NO_BORDER);
+        taskGrid.addThemeVariants(GridVariant.NO_BORDER);
 
         setSizeFull();
         setPadding(false);
