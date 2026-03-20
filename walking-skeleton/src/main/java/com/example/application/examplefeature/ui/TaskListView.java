@@ -1,34 +1,37 @@
 package com.example.application.examplefeature.ui;
 
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Optional;
-
-import com.example.application.base.ui.ViewToolbar;
+import com.example.application.base.ui.HasNavbarContent;
 import com.example.application.examplefeature.Task;
 import com.example.application.examplefeature.TaskService;
-
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.jspecify.annotations.NonNull;
+
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Optional;
 
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
 
 @Route("")
 @PageTitle("Task List")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
-class TaskListView extends VerticalLayout {
+class TaskListView extends VerticalLayout implements HasNavbarContent {
 
     private final TaskService taskService;
 
@@ -74,7 +77,6 @@ class TaskListView extends VerticalLayout {
         setSpacing(false);
         getStyle().setOverflow(Style.Overflow.HIDDEN);
 
-        add(new ViewToolbar("Task List Flow", ViewToolbar.group(description, dueDate, createBtn)));
         add(taskGrid);
     }
 
@@ -92,4 +94,11 @@ class TaskListView extends VerticalLayout {
                 .addThemeVariants(NotificationVariant.SUCCESS);
     }
 
+    @Override
+    public @NonNull Component createNavbarContent() {
+        var navBar = new HorizontalLayout(JustifyContentMode.BETWEEN, new H2("Task list"),
+                new HorizontalLayout(description, dueDate, createBtn));
+        navBar.setWidthFull();
+        return navBar;
+    }
 }
