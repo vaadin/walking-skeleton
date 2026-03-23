@@ -1,7 +1,6 @@
 package com.example.application.examplefeature.ui;
 
 import com.example.application.base.ui.HasNavbarContent;
-import com.example.application.base.ui.MainLayout;
 import com.example.application.examplefeature.Task;
 import com.example.application.examplefeature.TaskService;
 import com.vaadin.flow.component.Component;
@@ -29,7 +28,7 @@ import java.util.Optional;
 
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
 
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "")
 @PageTitle("Task List")
 @Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
 class TaskListView extends VerticalLayout implements HasNavbarContent {
