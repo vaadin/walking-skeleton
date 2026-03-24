@@ -11,8 +11,3 @@
     font-weight: var(--aura-font-weight-semibold);
     font-size: var(--aura-font-size-l);
 }
-
-.view-toolbar h1 {
-    font-size: var(--aura-font-size-l);
-    font-weight: var(--aura-font-weight-semibold);
-}

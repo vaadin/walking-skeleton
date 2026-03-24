@@ -1,13 +1,12 @@
 package com.example.application.examplefeature.ui;
 
+import com.example.application.base.ui.ViewTitle;
 import com.example.application.examplefeature.Task;
 import com.example.application.examplefeature.TaskService;
-import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -43,7 +42,7 @@ class TaskListView extends VerticalLayout {
         description.setPlaceholder("What do you want to do?");
         description.setAriaLabel("Task description");
         description.setMaxLength(Task.DESCRIPTION_MAX_LENGTH);
-        description.setMinWidth("20em");
+        description.setMinWidth("15em");
 
         dueDate = new DatePicker();
         dueDate.setPlaceholder("Due date");
@@ -53,9 +52,7 @@ class TaskListView extends VerticalLayout {
         createBtn.addThemeVariants(ButtonVariant.PRIMARY);
 
         var toolbar = new HorizontalLayout();
-        toolbar.addClassName("view-toolbar");
-        toolbar.addToStart(new DrawerToggle(), new H1("Task List"));
-        toolbar.addToEnd(description, dueDate, createBtn);
+        toolbar.add(new ViewTitle("Task List"), description, dueDate, createBtn);
         toolbar.setFlexGrow(1, description, dueDate);
         toolbar.setWrap(true);
         toolbar.setWidthFull();
