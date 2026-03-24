@@ -1,68 +1,50 @@
 package com.example.application.base.ui;
 
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.HasElement;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.html.Footer;
+import com.vaadin.flow.component.html.Header;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.Scroller;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
-import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.server.menu.MenuConfiguration;
 import com.vaadin.flow.server.menu.MenuEntry;
-import org.jspecify.annotations.Nullable;
 
 @Layout
 public final class MainLayout extends AppLayout {
 
-    private @Nullable Component navBarContent;
-
     MainLayout() {
         setPrimarySection(Section.DRAWER);
-        addToDrawer(createApplicationHeader(), new Scroller(createSideNav()));
-        addToNavbar(new DrawerToggle());
-    }
-
-    @Override
-    public void showRouterLayoutContent(HasElement content) {
-        super.showRouterLayoutContent(content);
-        if (content instanceof HasNavbarContent hasNavBarContent) {
-            navBarContent = hasNavBarContent.createNavbarContent();
-            addToNavbar(navBarContent);
-        }
-    }
-
-    @Override
-    public void removeRouterLayoutContent(HasElement oldContent) {
-        if (navBarContent != null) {
-            navBarContent.removeFromParent();
-            navBarContent = null;
-        }
-        super.removeRouterLayoutContent(oldContent);
+        addToDrawer(createApplicationHeader(), new Scroller(createSideNav()), createApplicationFooter());
     }
 
     private Component createApplicationHeader() {
         // TODO Replace with real application logo and name
-        var appLogo = VaadinIcon.CUBES.create();
-        appLogo.setSize("48px");
-        appLogo.setColor("green");
+        var appLogo = new Image("images/logo.svg", "Application Logo");
+        appLogo.addClassName("app-logo");
 
         var appName = new Span("My Application");
-        appName.getStyle().setFontWeight(Style.FontWeight.BOLD);
+        appName.addClassName("app-name");
 
-        var header = new VerticalLayout(appLogo, appName);
-        header.setAlignItems(FlexComponent.Alignment.CENTER);
+        var header = new Header(appLogo, appName);
+        header.addClassName("app-header");
         return header;
+    }
+
+    private Component createApplicationFooter() {
+        var footer = new Footer(new Span("Made with ❤️ with Vaadin"));
+        footer.addClassName("app-footer");
+        return footer;
     }
 
     private SideNav createSideNav() {
         var nav = new SideNav();
+        nav.setMinWidth(200, Unit.PIXELS);
         MenuConfiguration.getMenuEntries().forEach(entry -> nav.addItem(createSideNavItem(entry)));
         return nav;
     }
