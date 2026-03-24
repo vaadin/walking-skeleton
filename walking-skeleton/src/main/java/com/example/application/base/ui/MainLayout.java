@@ -3,12 +3,13 @@ package com.example.application.base.ui;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.html.Footer;
-import com.vaadin.flow.component.html.Header;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
@@ -31,14 +32,15 @@ public final class MainLayout extends AppLayout {
         var appName = new Span("My Application");
         appName.addClassName("app-name");
 
-        var header = new Header(appLogo, appName);
-        header.addClassName("app-header");
+        var header = new HorizontalLayout(appLogo, appName);
+        header.setAlignItems(FlexComponent.Alignment.CENTER);
+        header.setPadding(true);
         return header;
     }
 
     private Component createApplicationFooter() {
-        var footer = new Footer(new Span("Made with ❤️ with Vaadin"));
-        footer.addClassName("app-footer");
+        var footer = new VerticalLayout(new Span("Made with ❤️ with Vaadin"));
+        footer.setAlignItems(FlexComponent.Alignment.CENTER);
         return footer;
     }
 

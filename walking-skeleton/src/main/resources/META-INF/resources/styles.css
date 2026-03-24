@@ -1,12 +1,5 @@
 /* Add your styles here */
 
-.app-header {
-    display: flex;
-    align-items: center;
-    padding: 0 var(--vaadin-padding-m);
-    gap: var(--vaadin-gap-m);
-}
-
 .app-logo {
     width: 20px;
     padding: var(--vaadin-padding-m);
@@ -17,14 +10,6 @@
 .app-name {
     font-weight: var(--aura-font-weight-semibold);
     font-size: var(--aura-font-size-l);
-}
-
-.app-footer {
-    display: flex;
-    padding: 0 var(--vaadin-padding-m);
-    justify-content: center;
-    color: var(--vaadin-text-color-secondary);
-    font-size: var(--aura-font-size-s);
 }
 
 .view-toolbar h1 {
