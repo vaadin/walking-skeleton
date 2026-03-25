@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.ColorScheme;
 
 @SpringBootApplication
 @StyleSheet(Aura.STYLESHEET)
+@ColorScheme(ColorScheme.Value.DARK)
 @StyleSheet("styles.css") // Your custom styles
 public class Application implements AppShellConfigurator {
 

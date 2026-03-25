@@ -6,11 +6,15 @@ import com.example.application.examplefeature.TaskService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.popover.Popover;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
@@ -25,7 +29,8 @@ import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRe
 
 @Route(value = "")
 @PageTitle("Task List")
-@Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
+@Menu(order = 0, icon = "icons/clipboard-check.svg", title = "Task List")
+@StyleSheet("task-list-view.css")
 class TaskListView extends VerticalLayout {
 
     private final TaskService taskService;
@@ -38,24 +43,47 @@ class TaskListView extends VerticalLayout {
     TaskListView(TaskService taskService) {
         this.taskService = taskService;
 
-        description = new TextField();
+        setPadding(false);
+        setSpacing(false);
+        addClassName("task-list-view");
+
+        var title = new ViewTitle("Task List");
+
+        description = new TextField("Task Description");
         description.setPlaceholder("What do you want to do?");
-        description.setAriaLabel("Task description");
         description.setMaxLength(Task.DESCRIPTION_MAX_LENGTH);
         description.setMinWidth("15em");
 
-        dueDate = new DatePicker();
-        dueDate.setPlaceholder("Due date");
-        dueDate.setAriaLabel("Due date");
+        dueDate = new DatePicker("Due Date");
+        dueDate.setPlaceholder("Never");
 
         createBtn = new Button("Create", event -> createTask());
         createBtn.addThemeVariants(ButtonVariant.PRIMARY);
 
+        var addBtn = new Button();
+        addBtn.setIcon(new Icon("vaadin:plus"));
+        addBtn.setAriaLabel("Create new task");
+        addBtn.setTooltipText("Create new task");
+        addBtn.addThemeVariants(ButtonVariant.PRIMARY);
+        addBtn.addClickListener((event) -> {
+
+        });
+
+        var popover = new Popover();
+        popover.addClassName("new-task");
+        popover.setTarget(addBtn);
+        var form = new VerticalLayout(description, dueDate, createBtn);
+        form.setAlignItems(Alignment.STRETCH);
+        popover.add(form);
+        // This is not mandatory, but this will allow the popover to inherit the same color scheme as the main content */
+        add(popover);
+
         var toolbar = new HorizontalLayout();
-        toolbar.add(new ViewTitle("Task List"), description, dueDate, createBtn);
-        toolbar.setFlexGrow(1, description, dueDate);
+        toolbar.add(title);
+        toolbar.addToEnd(addBtn);
         toolbar.setWrap(true);
         toolbar.setWidthFull();
+        toolbar.setPadding(true);
 
         var dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(getLocale())
                 .withZone(ZoneId.systemDefault());
@@ -69,6 +97,7 @@ class TaskListView extends VerticalLayout {
         taskGrid.addColumn(task -> dateTimeFormatter.format(task.getCreationDate())).setHeader("Creation Date");
         taskGrid.setEmptyStateText("You have no tasks to complete");
         taskGrid.setSizeFull();
+        taskGrid.addThemeVariants(GridVariant.NO_BORDER);
 
         setSizeFull();
         add(toolbar, taskGrid);

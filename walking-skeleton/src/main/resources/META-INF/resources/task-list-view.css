@@ -1,0 +1,16 @@
+.new-task {
+    --vaadin-vertical-layout-gap: var(--vaadin-gap-l);
+}
+
+.task-list-view vaadin-grid {
+  border-top: 1px solid var(--vaadin-border-color-secondary);
+}
+
+/* TODO this could potentially be a variant in Aura ("inset" or something like that) */
+.task-list-view vaadin-grid::part(first-column-cell) {
+  padding-inline-start: var(--vaadin-padding-m);
+}
+
+.task-list-view vaadin-grid::part(last-column-cell) {
+  padding-inline-end: var(--vaadin-padding-m);
+}

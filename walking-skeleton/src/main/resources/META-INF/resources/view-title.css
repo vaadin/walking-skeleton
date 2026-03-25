@@ -1,4 +1,19 @@
 .view-title h1 {
     font-size: var(--aura-font-size-l);
-    font-weight: var(--aura-font-weight-semibold);
+    padding-inline-end: var(--vaadin-gap-s);
+}
+
+/* When the drawer is open/visible, but not in overlay mode... */
+vaadin-app-layout:not([overlay])[drawer-opened] .view-title {
+
+    /* ...hide the drawer-toggle in the view title... */
+    vaadin-drawer-toggle {
+        display: none;
+    }
+
+    /* ...and add extra white space before the title text */
+    h1 {
+        padding-inline-start: var(--vaadin-gap-s);
+    }
+
 }
