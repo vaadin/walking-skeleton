@@ -12,8 +12,8 @@ src
 │   └── [application package]
 │       ├── base
 │       │   └── ui
-│       │       ├── ViewToolbar.java
-│       │       └── MainLayout.java
+│       │       ├── MainLayout.java
+│       │       └── ViewTitle.java
 │       ├── examplefeature
 │       │   ├── ui
 │       │   │   └── TaskListView.java
@@ -24,12 +24,17 @@ src
 ├── main/resources
 │   ├── META-INF
 │   │   └── resources
-│   │       └── styles.css
+│   │       ├── icons
+│   │       │   └── clipboard-check.svg
+│   │       ├── styles.css
+│   │       └── view-title.css
 │   └── application.properties 
 └── test/java
     └── [application package]
         └── examplefeature
-           └── TaskServiceTest.java                 
+            ├── ui
+            │   └── TaskListViewTest.java
+            └── TaskServiceTest.java                 
 ```
 
 The main entry point into the application is `Application.java`. This class contains the `main()` method that starts up 
