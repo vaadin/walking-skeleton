@@ -1,33 +1,31 @@
 package com.example.application.examplefeature.ui;
 
+import com.example.application.base.ui.ViewTitle;
+import com.example.application.examplefeature.Task;
+import com.example.application.examplefeature.TaskService;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.Menu;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Optional;
 
-import com.example.application.base.ui.ViewToolbar;
-import com.example.application.examplefeature.Task;
-import com.example.application.examplefeature.TaskService;
-
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.GridVariant;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.dom.Style;
-import com.vaadin.flow.router.Menu;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-
 import static com.vaadin.flow.spring.data.VaadinSpringDataHelpers.toSpringPageRequest;
 
-@Route("")
+@Route(value = "")
 @PageTitle("Task List")
-@Menu(order = 0, icon = "vaadin:clipboard-check", title = "Task List")
+@Menu(order = 0, icon = "icons/clipboard-check.svg", title = "Task List")
 class TaskListView extends VerticalLayout {
 
     private final TaskService taskService;
@@ -44,16 +42,20 @@ class TaskListView extends VerticalLayout {
         description.setPlaceholder("What do you want to do?");
         description.setAriaLabel("Task description");
         description.setMaxLength(Task.DESCRIPTION_MAX_LENGTH);
-        description.setMinWidth("20em");
-        description.getStyle().setFlexGrow("1");
+        description.setMinWidth("15em");
 
         dueDate = new DatePicker();
         dueDate.setPlaceholder("Due date");
         dueDate.setAriaLabel("Due date");
-        dueDate.getStyle().setFlexGrow("1");
 
         createBtn = new Button("Create", event -> createTask());
         createBtn.addThemeVariants(ButtonVariant.PRIMARY);
+
+        var toolbar = new HorizontalLayout();
+        toolbar.add(new ViewTitle("Task List"), description, dueDate, createBtn);
+        toolbar.setFlexGrow(1, description, dueDate);
+        toolbar.setWrap(true);
+        toolbar.setWidthFull();
 
         var dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(getLocale())
                 .withZone(ZoneId.systemDefault());
@@ -67,15 +69,9 @@ class TaskListView extends VerticalLayout {
         taskGrid.addColumn(task -> dateTimeFormatter.format(task.getCreationDate())).setHeader("Creation Date");
         taskGrid.setEmptyStateText("You have no tasks to complete");
         taskGrid.setSizeFull();
-        taskGrid.addThemeVariants(GridVariant.NO_BORDER);
 
         setSizeFull();
-        setPadding(false);
-        setSpacing(false);
-        getStyle().setOverflow(Style.Overflow.HIDDEN);
-
-        add(new ViewToolbar("Task List Flow", ViewToolbar.group(description, dueDate, createBtn)));
-        add(taskGrid);
+        add(toolbar, taskGrid);
     }
 
     private void createTask() {
@@ -91,5 +87,4 @@ class TaskListView extends VerticalLayout {
         Notification.show("Task added", 3000, Notification.Position.BOTTOM_END)
                 .addThemeVariants(NotificationVariant.SUCCESS);
     }
-
 }
