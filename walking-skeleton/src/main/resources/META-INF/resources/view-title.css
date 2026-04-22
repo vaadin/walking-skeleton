@@ -1,7 +1,7 @@
 .view-title h1 {
     /* Works both with Aura and Lumo */
-    font-size: var(--aura-font-size-l, var(--lumo-font-size-l));
-    font-weight: var(--aura-font-weight-semibold, 600);
+    font-size: var(--aura-font-size-l);
+    font-weight: var(--aura-font-weight-semibold);
 }
 
 .view-title vaadin-drawer-toggle {
