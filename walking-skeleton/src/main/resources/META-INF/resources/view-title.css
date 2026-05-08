@@ -2,3 +2,7 @@
     font-size: var(--aura-font-size-l);
     font-weight: var(--aura-font-weight-semibold);
 }
+
+.view-title vaadin-drawer-toggle {
+    margin: 0;
+}
