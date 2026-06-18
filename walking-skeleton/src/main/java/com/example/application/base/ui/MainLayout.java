@@ -66,9 +66,9 @@ public final class MainLayout extends AppLayout {
             } else {
                 icon = new Icon(menuEntry.icon());
             }
-            return new SideNavItem(menuEntry.title(), menuEntry.path(), icon);
+            return new SideNavItem(menuEntry.title(), menuEntry.menuClass(), icon);
         } else {
-            return new SideNavItem(menuEntry.title(), menuEntry.path());
+            return new SideNavItem(menuEntry.title(), menuEntry.menuClass());
         }
     }
 }
