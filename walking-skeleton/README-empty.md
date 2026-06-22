@@ -14,7 +14,7 @@ From the project folder:
 ./mvnw spring-boot:run        # Windows: mvnw.cmd spring-boot:run
 ```
 
-No system Maven required — the wrapper is included. Then open **http://localhost:8080**.
+Then open **http://localhost:8080**.
 
 The first start takes ~30 seconds while Maven downloads dependencies.
 
