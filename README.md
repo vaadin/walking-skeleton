@@ -1,61 +1,34 @@
-# My Application
+# My Application README
 
-A Spring Boot + Vaadin project. Build your UI in pure Java — no HTML, no JavaScript.
+- [ ] TODO Replace or update this README with instructions relevant to your application
 
-> **New to Vaadin?** The 5-minute [Quickstart](https://vaadin.com/quickstart) walks you from here to your first running app, a live code change, and an AI-assisted edit with Copilot.
-
----
-
-## Fastest start — no plugin needed
-
-From the project folder:
+To start the application in development mode, import it into your IDE and run the `Application` class. 
+You can also start the application from the command line by running: 
 
 ```bash
-./mvnw spring-boot:run        # Windows: mvnw.cmd spring-boot:run
+./mvnw
 ```
 
-Then open **http://localhost:8080**.
-
-The first start takes ~30 seconds while Maven downloads dependencies.
-
-> **Port 8080 already in use?** Stop the other process, or set `server.port=8081` in `src/main/resources/application.properties` and open that port instead.
->
-> **To stop the app:** press `Ctrl+C` in the terminal (or the red Stop button if you launched from your IDE).
-
-## Optional upgrade — instant hotswap
-
-Running with `spring-boot:run` works, but Java code changes need a server restart. For **live reload** — edit Java, see it in the browser without restarting — install the **Vaadin plugin** and start the app through it:
-
-- **IntelliJ IDEA:** install *Vaadin* from the JetBrains Marketplace → **Debug using Hotswap Agent** (dropdown next to Run). *Just installed it? Let IntelliJ finish indexing, or restart it, if the menu item isn't there yet.*
-- **VS Code:** install the *Vaadin* extension → **Vaadin: Debug using Hotswap Agent** from the command palette.
-- **Eclipse:** install the *Vaadin* plugin → right-click the project → **Run As → Vaadin Application**.
-
-This is what makes the edit-and-see-it loop feel instant — and it's required for the AI edits in [Vaadin Copilot](https://vaadin.com/docs/latest/tools/copilot).
-
----
-
-## Ask your AI assistant about Vaadin (optional)
-
-If you use Claude Code, Cursor, or another AI coding assistant, connect it to the **Vaadin MCP server** so it answers against real Vaadin docs and the exact API of your installed version — instead of guessing from outdated training data.
-
-```bash
-# One-time setup — see https://vaadin.com/docs/latest/building-apps/mcp
-```
-
-A `.mcp.json` is included (commented out by default). Uncomment it, or run the setup command above, to activate.
-
----
-
-## Build for production
+To build the application in production mode, run:
 
 ```bash
 ./mvnw package
-java -jar target/*.jar
 ```
 
-## Learn more
+To build a Docker image, run:
 
-- [Vaadin Quickstart](https://vaadin.com/quickstart) — the 5-minute getting-started path
-- [Components](https://vaadin.com/docs/latest/components) — 50+ UI components, all callable from Java
-- [Vaadin Copilot](https://vaadin.com/docs/latest/tools/copilot) — visual + AI editing in the browser
-- [Full documentation](https://vaadin.com/docs)
+```bash
+docker build -t my-application:latest .
+```
+
+If you use commercial components, pass the license key as a build secret:
+
+```bash
+docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
+```
+
+## Getting Started
+
+The [Quick Start](https://vaadin.com/docs/v25/getting-started/quick-start) tutorial helps you get started with Vaadin in 
+around 10 minutes. This tutorial walks you through building a simple application, introducing the core concepts along 
+the way.
