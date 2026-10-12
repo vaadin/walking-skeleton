@@ -25,6 +25,18 @@ RUN --mount=type=cache,target=/root/.m2 \
     OFFLINE_KEY=$(cat /run/secrets/offlineKey 2>/dev/null || echo "") && \
     ./mvnw clean package -DskipTests -Dvaadin.proKey=${PRO_KEY} -Dvaadin.offlineKey=${OFFLINE_KEY}'
 
+# Split the JAR into layers, so that the dependencies get their own image layer
+RUN cp target/*.jar application.jar && \
+    java -Djarmode=tools -jar application.jar extract --layers --destination extracted
+
 FROM eclipse-temurin:21-jre-alpine
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar", "--spring.profiles.active=prod"]
+RUN addgroup -S app && adduser -S app -G app
+USER app
+WORKDIR /application
+COPY --from=build /app/extracted/dependencies/ ./
+COPY --from=build /app/extracted/spring-boot-loader/ ./
+COPY --from=build /app/extracted/snapshot-dependencies/ ./
+COPY --from=build /app/extracted/application/ ./
+EXPOSE 8080
+# Let the heap use 75% of the container's memory limit, instead of the default 25%
+ENTRYPOINT ["java", "-XX:MaxRAMPercentage=75", "-jar", "application.jar", "--spring.profiles.active=prod"]
