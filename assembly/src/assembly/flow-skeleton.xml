@@ -18,6 +18,7 @@
                 <include>.gitignore</include>
                 <include>LICENSE.md</include>
                 <include>Dockerfile</include>
+                <include>.dockerignore</include>
             </includes>
             <excludes>
                 <exclude>src/main/bundles/**</exclude>
