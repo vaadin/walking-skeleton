@@ -24,8 +24,18 @@ docker build -t my-application:latest .
 If you use commercial components, pass the license key as a build secret:
 
 ```bash
-docker build --secret id=proKey,src=$HOME/.vaadin/proKey .
+docker build --secret id=proKey,src=$HOME/.vaadin/proKey -t my-application:latest .
 ```
+
+To run the image, run:
+
+```bash
+docker run -p 8080:8080 -m 2g my-application:latest
+```
+
+The application is then available at http://localhost:8080. The `-m` option sets the memory limit of the container. The
+application uses up to 75% of it for the Java heap, which holds the UI state of all users, so adjust the limit to fit
+your application.
 
 ## Getting Started
 
