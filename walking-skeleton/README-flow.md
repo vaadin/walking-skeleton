@@ -61,6 +61,25 @@ You can also start the application from the command line by running:
 ./mvnw
 ```
 
+## Agentic Development
+
+If you develop with an AI coding agent, such as Claude Code or Codex, enable the Vaadin Dev Loop. It lets the agent make
+its changes live in the running application with a single command, and tells it whether they took effect, without
+restarting the application or checking screenshots. To enable it, run:
+
+```bash
+./mvnw vaadin:install-dev-cli
+```
+
+This installs the Dev Loop CLI into `.vaadin/`, and skills that teach your agent how to use it into `.agents/skills/` and
+`.claude/skills/`. Commit these files with the rest of the project, and run the command again after upgrading Vaadin.
+
+The Dev Loop needs to own the application process, so start the application with `.vaadin/vaadin-dev start` instead of
+`./mvnw` or your IDE.
+
+The Dev Loop is a preview feature. To learn more, including how to give your agent access to the Vaadin documentation,
+see the [Dev Loop tutorial](https://vaadin.com/docs/v25/building-apps/agentic-development/dev-loop-tutorial).
+
 ## Building for Production
 
 To build the application in production mode, run:
