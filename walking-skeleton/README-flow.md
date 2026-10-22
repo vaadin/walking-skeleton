@@ -20,7 +20,8 @@ src
 │       │   ├── Task.java
 │       │   ├── TaskRepository.java
 │       │   └── TaskService.java                
-│       └── Application.java     
+│       ├── Application.java
+│       └── AppShell.java
 ├── main/resources
 │   ├── META-INF
 │   │   └── resources
@@ -38,7 +39,8 @@ src
 ```
 
 The main entry point into the application is `Application.java`. This class contains the `main()` method that starts up 
-the Spring Boot application.
+the Spring Boot application. The Vaadin-specific configuration, such as stylesheets and server push, is in 
+`AppShell.java`.
 
 The project follows a *feature-based package structure*, organizing code by *functional units* rather than traditional 
 architectural layers. It includes two feature packages: `base` and `examplefeature`.
