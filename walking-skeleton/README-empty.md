@@ -38,11 +38,7 @@ This is what makes the edit-and-see-it loop feel instant — and it's required f
 
 If you use Claude Code, Cursor, or another AI coding assistant, connect it to the **Vaadin MCP server** so it answers against real Vaadin docs and the exact API of your installed version — instead of guessing from outdated training data.
 
-```bash
-# One-time setup — see https://vaadin.com/docs/latest/building-apps/mcp
-```
-
-A `.mcp.json` is included (commented out by default). Uncomment it, or run the setup command above, to activate.
+The one-time setup is described in [Vaadin MCP server](https://vaadin.com/docs/latest/building-apps/mcp).
 
 ---
 
