@@ -16,7 +16,7 @@ From the project folder:
 
 Then open **http://localhost:8080**.
 
-The first start takes ~30 seconds while Maven downloads dependencies.
+The first start takes ~30 seconds while Maven downloads dependencies. This project has no views yet, so the browser shows a *Could not navigate to ''* (route not found) page. That means the app is running: add your first view, a class annotated with `@Route("")`, to replace it.
 
 > **Port 8080 already in use?** Stop the other process, or set `server.port=8081` in `src/main/resources/application.properties` and open that port instead.
 >
@@ -31,6 +31,8 @@ Running with `spring-boot:run` works, but Java code changes need a server restar
 - **Eclipse:** install the *Vaadin* plugin → right-click the project → **Run As → Vaadin Application**.
 
 This is what makes the edit-and-see-it loop feel instant — and it's required for the AI edits in [Vaadin Copilot](https://vaadin.com/docs/latest/tools/copilot).
+
+> **Run the app one way at a time.** `./mvnw spring-boot:run`, your IDE, and the Dev Loop all serve on port 8080, so stop one before starting another. If an AI coding agent edits the code for you, use the Dev Loop instead of the IDE — see [Agentic Development](#agentic-development).
 
 ---
 
@@ -55,8 +57,16 @@ restarting the application or checking screenshots. To enable it, run:
 This installs the Dev Loop CLI into `.vaadin/`, and skills that teach your agent how to use it into `.agents/skills/` and
 `.claude/skills/`. Commit these files with the rest of the project, and run the command again after upgrading Vaadin.
 
-The Dev Loop needs to own the application process, so start the application with `.vaadin/vaadin-dev start` instead of
-`./mvnw` or your IDE.
+Once it is enabled, start the application through the Dev Loop, and leave the page open in the browser:
+
+```bash
+.vaadin/vaadin-dev start      # Windows: .vaadin\vaadin-dev.cmd start
+```
+
+The Dev Loop owns the application process and brings its own Hotswap Agent, so do not also start the application with
+`./mvnw spring-boot:run` or an IDE run or debug configuration: the second launcher fights the Dev Loop for port 8080. Use
+`.vaadin/vaadin-dev status` to see whether the application is running, and `.vaadin/vaadin-dev restart` instead of
+restarting it from the IDE.
 
 The Dev Loop is a preview feature. To learn more, including how to give your agent access to the Vaadin documentation,
 see the [Dev Loop tutorial](https://vaadin.com/docs/v25/building-apps/agentic-development/dev-loop-tutorial).

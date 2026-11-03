@@ -32,6 +32,8 @@ Running with `spring-boot:run` works, but Java code changes need a restart. For 
 
 This is what makes the edit-and-see-it loop feel instant — and it's required for the AI edits in [Vaadin Copilot](https://vaadin.com/docs/latest/tools/copilot).
 
+> **Run the app one way at a time.** `./mvnw spring-boot:run`, your IDE, and the Dev Loop all serve on port 8080, so stop one before starting another. If an AI coding agent edits the code for you, use the Dev Loop instead of the IDE — see [Agentic Development](#agentic-development).
+
 ---
 
 ## Day 2: make your task list interactive (~10 min)
@@ -49,7 +51,7 @@ taskGrid.addItemClickListener(event ->
 
 Add the import: `import java.time.LocalDate;`
 
-Save and click a task — a notification shows its due date. That's a server-side event handler, in pure Java.
+Save, restart the app unless you started it with Hotswap Agent or the Dev Loop, and click a task — a notification shows its due date. That's a server-side event handler, in pure Java.
 
 **2. Let Copilot finish it.** Open Copilot (bottom-right toolbar → **Edit mode**), click the AI assistant, and try:
 
@@ -80,8 +82,16 @@ restarting the application or checking screenshots. To enable it, run:
 This installs the Dev Loop CLI into `.vaadin/`, and skills that teach your agent how to use it into `.agents/skills/` and
 `.claude/skills/`. Commit these files with the rest of the project, and run the command again after upgrading Vaadin.
 
-The Dev Loop needs to own the application process, so start the application with `.vaadin/vaadin-dev start` instead of
-`./mvnw` or your IDE.
+Once it is enabled, start the application through the Dev Loop, and leave the page open in the browser:
+
+```bash
+.vaadin/vaadin-dev start      # Windows: .vaadin\vaadin-dev.cmd start
+```
+
+The Dev Loop owns the application process and brings its own Hotswap Agent, so do not also start the application with
+`./mvnw spring-boot:run` or an IDE run or debug configuration: the second launcher fights the Dev Loop for port 8080. Use
+`.vaadin/vaadin-dev status` to see whether the application is running, and `.vaadin/vaadin-dev restart` instead of
+restarting it from the IDE.
 
 The Dev Loop is a preview feature. To learn more, including how to give your agent access to the Vaadin documentation,
 see the [Dev Loop tutorial](https://vaadin.com/docs/v25/building-apps/agentic-development/dev-loop-tutorial).
