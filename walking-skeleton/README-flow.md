@@ -38,7 +38,7 @@ This is what makes the edit-and-see-it loop feel instant — and it's required f
 
 Your app lists tasks. Let's make a row do something when you click it.
 
-**1. Add a click listener (by hand).** In `src/main/java/com/example/examplefeature/ui/TaskListView.java`, add this after the `taskGrid.addColumn(...)` block:
+**1. Add a click listener (by hand).** In `src/main/java/com/example/application/examplefeature/ui/TaskListView.java`, add this after the `taskGrid.addColumn(...)` block:
 
 ```java
 taskGrid.addItemClickListener(event ->
@@ -47,7 +47,7 @@ taskGrid.addItemClickListener(event ->
         .orElse("no due date")));
 ```
 
-Add the import: `import com.vaadin.flow.component.notification.Notification;`
+Add the import: `import java.time.LocalDate;`
 
 Save and click a task — a notification shows its due date. That's a server-side event handler, in pure Java.
 
@@ -63,11 +63,7 @@ Copilot writes the dialog into `TaskListView.java` for you. Open the file — yo
 
 If you use Claude Code, Cursor, or another AI coding assistant, connect it to the **Vaadin MCP server** so it answers against real Vaadin docs and the exact API of your installed version — instead of guessing from outdated training data.
 
-```bash
-# One-time setup — see https://vaadin.com/docs/latest/building-apps/mcp
-```
-
-A `.mcp.json` is included (commented out by default). Uncomment it, or run the setup command above, to activate.
+The one-time setup is described in [Vaadin MCP server](https://vaadin.com/docs/latest/building-apps/mcp).
 
 ---
 
