@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@StyleSheet(Aura.STYLESHEET)
+@StyleSheet(value = Aura.STYLESHEET, layer = "aura")
 @StyleSheet("styles.css") // Your custom styles
 @Push
 public class Application implements AppShellConfigurator {
