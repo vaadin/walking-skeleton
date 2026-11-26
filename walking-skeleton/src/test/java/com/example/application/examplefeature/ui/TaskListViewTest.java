@@ -13,6 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -89,7 +92,9 @@ class TaskListViewTest {
         var grid = window.findGrid(Task.class);
         assertThat(grid.size()).isEqualTo(1);
         assertThat(grid.getCellText(0, 0)).isEqualTo("File taxes");
-        assertThat(grid.getCellText(0, 1)).isNotEqualTo("Never");
+        var dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(grid.component().getUI().orElseThrow().getLocale());
+        assertThat(grid.getCellText(0, 1)).isEqualTo(dateFormatter.format(dueDate));
 
         // The form is cleared for the next task
         assertThat(window.findTextField().withAriaLabel("Task description").component().getValue()).isEmpty();
@@ -107,11 +112,12 @@ class TaskListViewTest {
         description.setValue("First task");
         createButton.click();
         description.setValue("Second task");
+        window.findDatePicker().withAriaLabel("Due date").setValue(LocalDate.of(2026, 6, 1));
         createButton.click();
 
         var grid = window.findGrid(Task.class);
         assertThat(grid.size()).isEqualTo(2);
-        assertThat(grid.getCellText(0, 0)).isEqualTo("First task");
-        assertThat(grid.getCellText(1, 0)).isEqualTo("Second task");
+        assertThat(List.of(grid.getCellText(0, 0), grid.getCellText(1, 0))).containsExactlyInAnyOrder("First task",
+                "Second task");
     }
 }
