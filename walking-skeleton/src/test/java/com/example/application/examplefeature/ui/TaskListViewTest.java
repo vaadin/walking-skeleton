@@ -1,81 +1,123 @@
 package com.example.application.examplefeature.ui;
 
-import com.vaadin.browserless.SpringBrowserlessTest;
-import com.vaadin.flow.component.notification.Notification;
+import com.example.application.examplefeature.Task;
+import com.example.application.examplefeature.TaskService;
+import com.vaadin.browserless.BrowserlessApplicationContext;
+import com.vaadin.browserless.BrowserlessUIContext;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @Transactional
-class TaskListViewTest extends SpringBrowserlessTest {
+class TaskListViewTest {
 
-    @Test
-    void empty_grid_shows_no_tasks() {
-        var view = navigate(TaskListView.class);
-        assertThat(test(view.taskGrid).size()).isZero();
-        assertThat(view.taskGrid.getEmptyStateText()).isEqualTo("You have no tasks to complete");
+    @Autowired
+    BrowserlessApplicationContext app;
+
+    @Autowired
+    TaskService taskService;
+
+    BrowserlessUIContext window;
+
+    @BeforeEach
+    void openWindow() {
+        window = app.newUser().newWindow();
+        window.navigate(TaskListView.class);
+    }
+
+    @AfterEach
+    void closeUser() {
+        window.getUser().close();
     }
 
     @Test
-    void create_task_with_empty_description_does_nothing() {
-        var view = navigate(TaskListView.class);
+    void empty_grid_shows_no_tasks() {
+        var grid = window.findGrid(Task.class);
 
-        test(view.createBtn).click();
+        assertThat(grid.size()).isZero();
+        assertThat(grid.component().getEmptyStateText()).isEqualTo("You have no tasks to complete");
+    }
 
-        assertThat(test(view.taskGrid).size()).isZero();
-        assertThat(view.description.isInvalid()).isTrue();
-        assertThat($(Notification.class).exists()).isFalse();
+    @Test
+    void create_task_with_empty_description_shows_error() {
+        window.findButton().withText("Create").click();
+
+        var description = window.findTextField().withAriaLabel("Task description").component();
+        assertThat(description.isInvalid()).isTrue();
+        assertThat(description.getErrorMessage()).isEqualTo("Description is required");
+        assertThat(window.findNotification().exists()).isFalse();
+        assertThat(window.findGrid(Task.class).size()).isZero();
+        assertThat(taskService.list(Pageable.unpaged())).isEmpty();
     }
 
     @Test
     void create_task_without_due_date() {
-        var view = navigate(TaskListView.class);
+        window.findTextField().withAriaLabel("Task description").setValue("Buy groceries");
+        window.findButton().withText("Create").click();
 
-        test(view.description).setValue("Buy groceries");
-        test(view.createBtn).click();
+        assertThat(window.findNotification().getText()).isEqualTo("Task added");
 
-        assertThat(test(view.taskGrid).size()).isEqualTo(1);
-        assertThat(test(view.taskGrid).getCellText(0, 0)).isEqualTo("Buy groceries");
-        assertThat(test(view.taskGrid).getCellText(0, 1)).isEqualTo("Never");
+        var grid = window.findGrid(Task.class);
+        assertThat(grid.size()).isEqualTo(1);
+        assertThat(grid.getCellText(0, 0)).isEqualTo("Buy groceries");
+        assertThat(grid.getCellText(0, 1)).isEqualTo("Never");
+        assertThat(grid.getCellText(0, 2)).isNotEmpty();
 
-        assertThat(test(view.taskGrid).getCellText(0, 2)).isNotEmpty();
-
-        assertThat(view.description.getValue()).isEmpty();
-        assertThat(view.dueDate.getValue()).isNull();
-
-        var notification = $(Notification.class).single();
-        assertThat(test(notification).getText()).contains("Task added");
+        assertThat(taskService.list(Pageable.unpaged())).singleElement().satisfies(task -> {
+            assertThat(task.getDescription()).isEqualTo("Buy groceries");
+            assertThat(task.getDueDate()).isNull();
+        });
     }
 
     @Test
     void create_task_with_due_date() {
-        var view = navigate(TaskListView.class);
+        var dueDate = LocalDate.of(2026, 3, 15);
 
-        test(view.description).setValue("File taxes");
-        test(view.dueDate).setValue(LocalDate.of(2026, 3, 15));
-        test(view.createBtn).click();
+        window.findTextField().withAriaLabel("Task description").setValue("File taxes");
+        window.findDatePicker().withAriaLabel("Due date").setValue(dueDate);
+        window.findButton().withText("Create").click();
 
-        assertThat(test(view.taskGrid).size()).isEqualTo(1);
-        assertThat(test(view.taskGrid).getCellText(0, 0)).isEqualTo("File taxes");
-        assertThat(test(view.taskGrid).getCellText(0, 1)).isNotEqualTo("Never");
+        var grid = window.findGrid(Task.class);
+        assertThat(grid.size()).isEqualTo(1);
+        assertThat(grid.getCellText(0, 0)).isEqualTo("File taxes");
+        var dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+                .withLocale(grid.component().getUI().orElseThrow().getLocale());
+        assertThat(grid.getCellText(0, 1)).isEqualTo(dateFormatter.format(dueDate));
+
+        // The form is cleared for the next task
+        assertThat(window.findTextField().withAriaLabel("Task description").component().getValue()).isEmpty();
+        assertThat(window.findDatePicker().withAriaLabel("Due date").component().getValue()).isNull();
+
+        assertThat(taskService.list(Pageable.unpaged())).singleElement()
+                .satisfies(task -> assertThat(task.getDueDate()).isEqualTo(dueDate));
     }
 
     @Test
     void create_multiple_tasks() {
-        var view = navigate(TaskListView.class);
+        var description = window.findTextField().withAriaLabel("Task description");
+        var createButton = window.findButton().withText("Create");
 
-        test(view.description).setValue("First task");
-        test(view.createBtn).click();
+        description.setValue("First task");
+        createButton.click();
+        description.setValue("Second task");
+        window.findDatePicker().withAriaLabel("Due date").setValue(LocalDate.of(2026, 6, 1));
+        createButton.click();
 
-        test(view.description).setValue("Second task");
-        test(view.dueDate).setValue(LocalDate.of(2026, 6, 1));
-        test(view.createBtn).click();
-
-        assertThat(test(view.taskGrid).size()).isEqualTo(2);
+        var grid = window.findGrid(Task.class);
+        assertThat(grid.size()).isEqualTo(2);
+        assertThat(List.of(grid.getCellText(0, 0), grid.getCellText(1, 0))).containsExactlyInAnyOrder("First task",
+                "Second task");
     }
 }
